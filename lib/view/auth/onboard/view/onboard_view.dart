@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/text_theme_manager.dart';
 import 'package:zero_hunger/view/auth/onboard/model/onboard_model.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 
@@ -22,7 +25,13 @@ class _OnBoardViewState extends State<OnBoardView> {
         actions: [
           TextButton(
             onPressed: () {},
-            child: const Text("Skip"),
+            child: Text(
+              ProjectTextUtility.textOnboardSkip,
+              style: TextThemeOnBoardUtility().textThemeOnboard(
+                context: context,
+                fontSize: OnBoardFontSizeUtility.skipButtonTextFontSize,
+              ),
+            ),
           ),
         ],
       ),
@@ -33,10 +42,12 @@ class _OnBoardViewState extends State<OnBoardView> {
           itemCount: screens.length,
           itemBuilder: (context, index) {
             return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(screens[index].img),
                 SizedBox(
-                  height: _CustomSizeUtility.smallHeight,
+                  height: ProjectFontSizeUtility.smallHeight,
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -47,8 +58,8 @@ class _OnBoardViewState extends State<OnBoardView> {
                         children: [
                           Container(
                             margin: _CustomPaddingUtility().smallHorizontalPadding,
-                            width: _CustomSizeUtility.smallHeight,
-                            height: _CustomSizeUtility.smallHeight,
+                            width: ProjectFontSizeUtility.smallHeight,
+                            height: ProjectFontSizeUtility.smallHeight,
                             decoration: BoxDecoration(
                               color: ProjectColorsUtility.eveningStar,
                               borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
@@ -59,6 +70,52 @@ class _OnBoardViewState extends State<OnBoardView> {
                     },
                   ),
                 ),
+                Text(
+                  screens[index].text,
+                  textAlign: TextAlign.center,
+                  style: TextThemeOnBoardUtility().textThemeOnboard(
+                    context: context,
+                    fontSize: OnBoardFontSizeUtility.textFontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  screens[index].desc,
+                  textAlign: TextAlign.center,
+                  style: TextThemeOnBoardUtility().textThemeOnboard(
+                    context: context,
+                    fontSize: OnBoardFontSizeUtility.descFontSize,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    padding: ProjectOnBoardPaddingUtility().nextButtonPadding,
+                    decoration: BoxDecoration(
+                      color: ProjectColorsUtility.eveningStar,
+                      borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          ProjectTextUtility.textOnboardNext,
+                          style: TextThemeOnBoardUtility().textThemeOnboard(
+                            context: context,
+                            fontSize: OnBoardFontSizeUtility.nextButtonTextFontSize,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: ProjectFontSizeUtility.smallWidth,
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_outlined,
+                          color: ProjectColorsUtility.onboardBlack,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -66,16 +123,6 @@ class _OnBoardViewState extends State<OnBoardView> {
       ),
     );
   }
-}
-
-class _CustomSizeUtility {
-  static const double smallHeight = 10.0;
-  static const double normalHeight = 20.0;
-  static const double bigHeight = 30.0;
-
-  static const double smallWidth = 10.0;
-  static const double normalWidth = 20.0;
-  static const double bigWidtth = 30.0;
 }
 
 class _CustomPaddingUtility {
