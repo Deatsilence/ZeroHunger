@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/view/auth/onboard/view/onboard_view.dart';
 
 void main() {
@@ -14,11 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       // theme: ThemeData.dark().copyWith(),
-      home: OnBoardView(),
+      home: const OnBoardView(),
+      routes: NavigatorRoutes().items,
+      navigatorKey: NavigatorManager.instance.navigatorGlobalKey,
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
@@ -6,6 +8,8 @@ import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/text_theme_manager.dart';
 import 'package:zero_hunger/view/auth/onboard/model/onboard_model.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
+
+part 'part_of_onboard_widgets.dart';
 
 class OnBoardView extends StatefulWidget {
   const OnBoardView({super.key});
@@ -15,6 +19,21 @@ class OnBoardView extends StatefulWidget {
 }
 
 class _OnBoardViewState extends State<OnBoardView> {
+  int currentIndex = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +49,7 @@ class _OnBoardViewState extends State<OnBoardView> {
               style: TextThemeOnBoardUtility().textThemeOnboard(
                 context: context,
                 fontSize: OnBoardFontSizeUtility.skipButtonTextFontSize,
+                color: ProjectColorsUtility.projectBackgroundWhite,
               ),
             ),
           ),
@@ -38,7 +58,11 @@ class _OnBoardViewState extends State<OnBoardView> {
       body: Padding(
         padding: ProjectPaddingUtility().normalHorizontalPadding,
         child: PageView.builder(
+          controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: (int index) => setState(() {
+            currentIndex = index;
+          }),
           itemCount: screens.length,
           itemBuilder: (context, index) {
             return Column(
@@ -58,10 +82,14 @@ class _OnBoardViewState extends State<OnBoardView> {
                         children: [
                           Container(
                             margin: _CustomPaddingUtility().smallHorizontalPadding,
-                            width: ProjectFontSizeUtility.smallHeight,
+                            width: currentIndex == index
+                                ? OnBoardFontSizeUtility.currentIndexFontSize
+                                : ProjectFontSizeUtility.smallWidth,
                             height: ProjectFontSizeUtility.smallHeight,
                             decoration: BoxDecoration(
-                              color: ProjectColorsUtility.eveningStar,
+                              color: currentIndex == index
+                                  ? ProjectColorsUtility.peterPan
+                                  : ProjectColorsUtility.eveningStar,
                               borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
                             ),
                           ),
@@ -85,10 +113,21 @@ class _OnBoardViewState extends State<OnBoardView> {
                   style: TextThemeOnBoardUtility().textThemeOnboard(
                     context: context,
                     fontSize: OnBoardFontSizeUtility.descFontSize,
+                    color: ProjectColorsUtility.onboardBlack,
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    if (index == screens.length - 1) {
+                      await NavigatorManager.instance.pushToPageFromOnboard(
+                        route: NavigateRoutes.home.withParaph,
+                      );
+                    }
+                    await _pageController.nextPage(
+                      duration: const Duration(microseconds: 300),
+                      curve: Curves.decelerate,
+                    );
+                  },
                   child: Container(
                     padding: ProjectOnBoardPaddingUtility().nextButtonPadding,
                     decoration: BoxDecoration(
@@ -103,6 +142,7 @@ class _OnBoardViewState extends State<OnBoardView> {
                           style: TextThemeOnBoardUtility().textThemeOnboard(
                             context: context,
                             fontSize: OnBoardFontSizeUtility.nextButtonTextFontSize,
+                            color: ProjectColorsUtility.onboardBlack,
                           ),
                         ),
                         const SizedBox(
