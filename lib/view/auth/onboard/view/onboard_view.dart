@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
@@ -10,6 +11,8 @@ import 'package:zero_hunger/view/auth/onboard/model/onboard_model.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 
 part 'part_of_onboard_widgets.dart';
+
+late final SharedManager _manager;
 
 class OnBoardView extends StatefulWidget {
   const OnBoardView({super.key});
@@ -25,6 +28,8 @@ class _OnBoardViewState extends State<OnBoardView> {
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
+    _manager = SharedManager();
+    _initialize();
     super.initState();
   }
 
@@ -34,6 +39,10 @@ class _OnBoardViewState extends State<OnBoardView> {
     super.dispose();
   }
 
+  Future<void> _initialize() async {
+    await _manager.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,18 +50,8 @@ class _OnBoardViewState extends State<OnBoardView> {
       appBar: AppBar(
         backgroundColor: ProjectColorsUtility.projectBackgroundWhite,
         elevation: 0,
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              ProjectTextUtility.textOnboardSkip,
-              style: TextThemeOnBoardUtility().textThemeOnboard(
-                context: context,
-                fontSize: OnBoardFontSizeUtility.skipButtonTextFontSize,
-                color: ProjectColorsUtility.projectBackgroundWhite,
-              ),
-            ),
-          ),
+        actions: const [
+          _OnboardSkipTextButton(),
         ],
       ),
       body: Padding(
@@ -72,89 +71,13 @@ class _OnBoardViewState extends State<OnBoardView> {
                 Image.asset(screens[index].img),
                 SizedBox(
                   height: ProjectFontSizeUtility.smallHeight,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: screens.length,
-                    itemBuilder: (_, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: _CustomPaddingUtility().smallHorizontalPadding,
-                            width: currentIndex == index
-                                ? OnBoardFontSizeUtility.currentIndexFontSize
-                                : ProjectFontSizeUtility.smallWidth,
-                            height: ProjectFontSizeUtility.smallHeight,
-                            decoration: BoxDecoration(
-                              color: currentIndex == index
-                                  ? ProjectColorsUtility.peterPan
-                                  : ProjectColorsUtility.eveningStar,
-                              borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                  child: _OnboardPageListViewBuilder(currentIndex: currentIndex),
                 ),
-                Text(
-                  screens[index].text,
-                  textAlign: TextAlign.center,
-                  style: TextThemeOnBoardUtility().textThemeOnboard(
-                    context: context,
-                    fontSize: OnBoardFontSizeUtility.textFontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  screens[index].desc,
-                  textAlign: TextAlign.center,
-                  style: TextThemeOnBoardUtility().textThemeOnboard(
-                    context: context,
-                    fontSize: OnBoardFontSizeUtility.descFontSize,
-                    color: ProjectColorsUtility.onboardBlack,
-                  ),
-                ),
-                InkWell(
-                  onTap: () async {
-                    if (index == screens.length - 1) {
-                      await NavigatorManager.instance.pushToPageFromOnboard(
-                        route: NavigateRoutes.home.withParaph,
-                      );
-                    }
-                    await _pageController.nextPage(
-                      duration: const Duration(microseconds: 300),
-                      curve: Curves.decelerate,
-                    );
-                  },
-                  child: Container(
-                    padding: ProjectOnBoardPaddingUtility().nextButtonPadding,
-                    decoration: BoxDecoration(
-                      color: ProjectColorsUtility.eveningStar,
-                      borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          ProjectTextUtility.textOnboardNext,
-                          style: TextThemeOnBoardUtility().textThemeOnboard(
-                            context: context,
-                            fontSize: OnBoardFontSizeUtility.nextButtonTextFontSize,
-                            color: ProjectColorsUtility.onboardBlack,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: ProjectFontSizeUtility.smallWidth,
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_outlined,
-                          color: ProjectColorsUtility.onboardBlack,
-                        ),
-                      ],
-                    ),
-                  ),
+                _onboardTitleText(index, context),
+                _onboardDescriptionText(index, context),
+                _OnboardNextButton(
+                  pageController: _pageController,
+                  index: index,
                 ),
               ],
             );
@@ -163,8 +86,4 @@ class _OnBoardViewState extends State<OnBoardView> {
       ),
     );
   }
-}
-
-class _CustomPaddingUtility {
-  final EdgeInsets smallHorizontalPadding = const EdgeInsets.symmetric(horizontal: 3);
 }
