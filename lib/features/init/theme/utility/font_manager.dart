@@ -7,11 +7,9 @@ class OnBoardFontSizeUtility {
 }
 
 class ProjectFontSizeUtility {
-  static const double smallHeight = 10.0;
-  static const double normalHeight = 20.0;
-  static const double bigHeight = 30.0;
-
-  static const double smallWidth = 10.0;
-  static const double normalWidth = 20.0;
-  static const double bigWidtth = 30.0;
+  static const double verySmall = 10.0;
+  static const double small = 15.0;
+  static const double normal = 20.0;
+  static const double big = 25.0;
+  static const double veryBig = 30.0;
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_hunger/view/auth/onboard/paths/path_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 
 class OnBoardModel {
   String img;
@@ -19,21 +19,21 @@ class OnBoardModel {
 
 List<OnBoardModel> screens = <OnBoardModel>[
   OnBoardModel(
-    img: OnBoardImagesPaths.onboard1.path(),
+    img: OnBoardImagesPaths.onboard1.path,
     text: "text",
     desc: "desc",
     bg: Colors.white,
     button: Colors.blue,
   ),
   OnBoardModel(
-    img: OnBoardImagesPaths.onboard2.path(),
+    img: OnBoardImagesPaths.onboard2.path,
     text: "text",
     desc: "desc",
     bg: Colors.white,
     button: Colors.blue,
   ),
   OnBoardModel(
-    img: OnBoardImagesPaths.onboard3.path(),
+    img: OnBoardImagesPaths.onboard3.path,
     text: "text",
     desc: "desc",
     bg: Colors.white,

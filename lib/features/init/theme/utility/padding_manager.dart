@@ -8,3 +8,7 @@ class ProjectPaddingUtility {
 class ProjectOnBoardPaddingUtility {
   final EdgeInsets nextButtonPadding = const EdgeInsets.symmetric(horizontal: 30, vertical: 10);
 }
+
+class ProjectAuthenticationPaddingUtility {
+  final EdgeInsets normalHorizontalAndVerticalPadding = const EdgeInsets.symmetric(horizontal: 20, vertical: 20);
+}

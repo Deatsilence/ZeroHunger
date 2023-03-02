@@ -12,4 +12,8 @@ class NavigatorManager {
   Future<void> pushToPageFromOnboard({required String route, Object? arguments}) async {
     await _navigatorGlobalKey.currentState?.pushReplacementNamed(route, arguments: arguments);
   }
+
+  Future<void> pushToSignUp({required String route, Object? arguments}) async {
+    await _navigatorGlobalKey.currentState?.pushNamed(route, arguments: arguments);
+  }
 }

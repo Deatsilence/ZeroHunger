@@ -6,7 +6,7 @@ import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
-import 'package:zero_hunger/features/init/theme/utility/text_theme_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/view/auth/onboard/model/onboard_model.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 
@@ -70,7 +70,7 @@ class _OnBoardViewState extends State<OnBoardView> {
               children: [
                 Image.asset(screens[index].img),
                 SizedBox(
-                  height: ProjectFontSizeUtility.smallHeight,
+                  height: ProjectFontSizeUtility.verySmall,
                   child: _OnboardPageListViewBuilder(currentIndex: currentIndex),
                 ),
                 _onboardTitleText(index, context),

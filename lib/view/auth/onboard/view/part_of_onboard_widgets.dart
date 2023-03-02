@@ -12,7 +12,7 @@ class _OnboardSkipTextButton extends StatelessWidget {
       },
       child: Text(
         ProjectTextUtility.textOnboardSkip,
-        style: TextThemeOnBoardUtility().textThemeOnboard(
+        style: TextThemeUtility().textThemeOnboard(
           context: context,
           fontSize: OnBoardFontSizeUtility.skipButtonTextFontSize,
           color: ProjectColorsUtility.projectBackgroundWhite,
@@ -41,10 +41,8 @@ class _OnboardPageListViewBuilder extends StatelessWidget {
           children: [
             Container(
               margin: _CustomPaddingUtility().smallHorizontalPadding,
-              width: currentIndex == index
-                  ? OnBoardFontSizeUtility.currentIndexFontSize
-                  : ProjectFontSizeUtility.smallWidth,
-              height: ProjectFontSizeUtility.smallHeight,
+              width: currentIndex == index ? OnBoardFontSizeUtility.currentIndexFontSize : ProjectFontSizeUtility.small,
+              height: ProjectFontSizeUtility.verySmall,
               decoration: BoxDecoration(
                 color: currentIndex == index ? ProjectColorsUtility.peterPan : ProjectColorsUtility.eveningStar,
                 borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
@@ -61,7 +59,7 @@ Text _onboardDescriptionText(int index, BuildContext context) {
   return Text(
     screens[index].desc,
     textAlign: TextAlign.center,
-    style: TextThemeOnBoardUtility().textThemeOnboard(
+    style: TextThemeUtility().textThemeOnboard(
       context: context,
       fontSize: OnBoardFontSizeUtility.descFontSize,
       color: ProjectColorsUtility.onboardBlack,
@@ -73,7 +71,7 @@ Text _onboardTitleText(int index, BuildContext context) {
   return Text(
     screens[index].text,
     textAlign: TextAlign.center,
-    style: TextThemeOnBoardUtility().textThemeOnboard(
+    style: TextThemeUtility().textThemeOnboard(
       context: context,
       fontSize: OnBoardFontSizeUtility.textFontSize,
       fontWeight: FontWeight.bold,
@@ -117,7 +115,7 @@ class _OnboardNextButton extends StatelessWidget {
           children: [
             Text(
               _index == 2 ? ProjectTextUtility.textOnboardGetStarted : ProjectTextUtility.textOnboardNext,
-              style: TextThemeOnBoardUtility().textThemeOnboard(
+              style: TextThemeUtility().textThemeOnboard(
                 context: context,
                 fontSize: OnBoardFontSizeUtility.nextButtonTextFontSize,
                 color: ProjectColorsUtility.onboardBlack,
