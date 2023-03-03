@@ -29,8 +29,8 @@ TextFormField customTextFormField({
       focusedBorder: CustomOutlineInputBorder().outlineInputBorder,
       enabledBorder: CustomOutlineInputBorder().outlineInputBorder,
       disabledBorder: CustomOutlineInputBorder().outlineInputBorder,
-      prefixIcon: const Icon(
-        Icons.mail_outlined,
+      prefixIcon: Icon(
+        icon,
         color: ProjectColorsUtility.eveningStar,
       ),
     ),

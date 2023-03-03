@@ -27,10 +27,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Shation',
       // theme: ThemeData.dark().copyWith(),
 
       home: isViewed != 0 ? const OnBoardView() : const LoginView(),
+      initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.login.withParaph,
       routes: NavigatorRoutes().items,
       navigatorKey: NavigatorManager.instance.navigatorGlobalKey,
     );
