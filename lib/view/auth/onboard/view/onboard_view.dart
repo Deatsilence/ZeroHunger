@@ -46,9 +46,9 @@ class _OnBoardViewState extends State<OnBoardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ProjectColorsUtility.projectBackgroundWhite,
+      backgroundColor: ProjectColorsUtility.onboardWhite,
       appBar: AppBar(
-        backgroundColor: ProjectColorsUtility.projectBackgroundWhite,
+        backgroundColor: ProjectColorsUtility.onboardWhite,
         elevation: 0,
         actions: const [
           _OnboardSkipTextButton(),

@@ -49,6 +49,7 @@ List<Widget> loginPageFields(
     ),
     customElevatedButton(
       context: context,
+      text: ProjectTextUtility.textSignIn,
       onPressed: () {},
     )
   ];

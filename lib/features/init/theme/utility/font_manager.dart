@@ -13,3 +13,7 @@ class ProjectFontSizeUtility {
   static const double big = 25.0;
   static const double veryBig = 30.0;
 }
+
+class ProjectButtonFontSizeUtility {
+  // static const double
+}

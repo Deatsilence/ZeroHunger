@@ -50,23 +50,19 @@ class AuthScaffold extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  flex: isLogin ? 4 : 3,
+                  flex: isLogin ? 4 : 4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(LoginImagesPaths.shation.path),
-                      Text(
-                        isLogin ? ProjectTextUtility.textSignIn : ProjectTextUtility.textSignUp,
-                        style: TextThemeUtility().textThemeLogin(
-                            context: context,
-                            fontSize: ProjectFontSizeUtility.normal,
-                            color: ProjectColorsUtility.projectBackgroundWhite),
+                      Image.asset(
+                        LoginImagesPaths.shation.path,
+                        fit: BoxFit.fill,
                       ),
                     ],
                   ),
                 ),
                 Expanded(
-                  flex: isLogin ? 3 : 6,
+                  flex: isLogin ? 3 : 5,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     mainAxisSize: MainAxisSize.min,

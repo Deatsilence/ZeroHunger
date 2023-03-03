@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Shation',
-      // theme: ThemeData.dark().copyWith(),
-
+      theme: ThemeData.light(),
       home: isViewed != 0 ? const OnBoardView() : const LoginView(),
       initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.login.withParaph,
       routes: NavigatorRoutes().items,

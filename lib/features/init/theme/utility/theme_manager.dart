@@ -21,6 +21,11 @@ class TextThemeUtility {
     FontWeight fontWeight = FontWeight.w400,
     Color color = ProjectColorsUtility.onboardBlack,
   }) {
-    return textThemeOnboard(context: context, fontSize: fontSize, fontWeight: fontWeight, color: color);
+    return textThemeOnboard(
+      context: context,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
   }
 }

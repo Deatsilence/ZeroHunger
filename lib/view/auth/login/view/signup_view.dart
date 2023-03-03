@@ -76,6 +76,7 @@ List<Widget> signUpPageFields(
     ),
     customElevatedButton(
       context: context,
+      text: ProjectTextUtility.textSignUp,
       onPressed: () {},
     ),
   ];

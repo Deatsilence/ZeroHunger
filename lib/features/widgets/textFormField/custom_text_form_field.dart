@@ -16,6 +16,8 @@ TextFormField customTextFormField({
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: ProjectColorsUtility.eveningStar,
+    cursorWidth: 2,
+    cursorHeight: 20,
     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ProjectColorsUtility.eveningStar),
     keyboardType: isPasswordType ? TextInputType.visiblePassword : TextInputType.emailAddress,
     textInputAction: TextInputAction.next,
