@@ -54,34 +54,36 @@ class _OnBoardViewState extends State<OnBoardView> {
           _OnboardSkipTextButton(),
         ],
       ),
-      body: Padding(
-        padding: ProjectPaddingUtility().normalHorizontalPadding,
-        child: PageView.builder(
-          controller: _pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          onPageChanged: (int index) => setState(() {
-            currentIndex = index;
-          }),
-          itemCount: screens.length,
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(screens[index].img),
-                SizedBox(
-                  height: ProjectFontSizeUtility.verySmall,
-                  child: _OnboardPageListViewBuilder(currentIndex: currentIndex),
-                ),
-                _onboardTitleText(index, context),
-                _onboardDescriptionText(index, context),
-                _OnboardNextButton(
-                  pageController: _pageController,
-                  index: index,
-                ),
-              ],
-            );
-          },
+      body: SafeArea(
+        child: Padding(
+          padding: ProjectPaddingUtility().normalHorizontalPadding,
+          child: PageView.builder(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (int index) => setState(() {
+              currentIndex = index;
+            }),
+            itemCount: screens.length,
+            itemBuilder: (context, index) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(screens[index].img),
+                  SizedBox(
+                    height: ProjectFontSizeUtility.verySmall,
+                    child: _OnboardPageListViewBuilder(currentIndex: currentIndex),
+                  ),
+                  _onboardTitleText(index, context),
+                  _onboardDescriptionText(index, context),
+                  _OnboardNextButton(
+                    pageController: _pageController,
+                    index: index,
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

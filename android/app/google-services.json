@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628765655826",
+    "project_id": "zerohungerfire",
+    "storage_bucket": "zerohungerfire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628765655826:android:2bcd64bd06bd2dc927e9cb",
+        "android_client_info": {
+          "package_name": "com.example.zero_hunger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628765655826-03ckf7fkoo9aip4h3vme5fkif2e08s2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYehKOsW6byTP7oh7TuuQckTC3a7hLml0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628765655826-03ckf7fkoo9aip4h3vme5fkif2e08s2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

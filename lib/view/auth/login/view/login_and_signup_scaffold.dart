@@ -41,77 +41,79 @@ class AuthScaffold extends StatelessWidget {
               title: const Text(ProjectTextUtility.textSignUp),
             ),
       backgroundColor: ProjectColorsUtility.eveningStar,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: ProjectAuthenticationPaddingUtility().normalHorizontalAndVerticalPadding,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: isLogin ? 4 : 4,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        LoginImagesPaths.shation.path,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: ProjectAuthenticationPaddingUtility().normalHorizontalAndVerticalPadding,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: isLogin ? 4 : 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          LoginImagesPaths.shation.path,
+                          fit: BoxFit.fill,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: isLogin ? 3 : 5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    mainAxisSize: MainAxisSize.min,
-                    children: isLogin
-                        ? loginPageFields(
-                            context,
-                            emailController: _emailTextController,
-                            passwordController: _passwordTextController,
-                          )
-                        : signUpPageFields(
-                            context,
-                            usernameController: _usernameTextController ?? TextEditingController(),
-                            emailController: _emailTextController,
-                            passwordController: _passwordTextController,
-                            confirmPasswordController: _confirmTextController ?? TextEditingController(),
-                          ),
-                  ),
-                ),
-                isLogin
-                    ? Expanded(
-                        flex: 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              ProjectTextUtility.textDontHaveAccount,
-                              style: TextThemeUtility().textThemeLogin(
-                                context: context,
-                                fontSize: ProjectFontSizeUtility.small,
-                              ),
+                  Expanded(
+                    flex: isLogin ? 3 : 5,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.min,
+                      children: isLogin
+                          ? loginPageFields(
+                              context,
+                              emailController: _emailTextController,
+                              passwordController: _passwordTextController,
+                            )
+                          : signUpPageFields(
+                              context,
+                              usernameController: _usernameTextController ?? TextEditingController(),
+                              emailController: _emailTextController,
+                              passwordController: _passwordTextController,
+                              confirmPasswordController: _confirmTextController ?? TextEditingController(),
                             ),
-                            GestureDetector(
-                              onTap: () =>
-                                  NavigatorManager.instance.pushToPage(context: context, view: const SignUpView()),
-                              child: Text(
-                                ProjectTextUtility.textSignUp,
+                    ),
+                  ),
+                  isLogin
+                      ? Expanded(
+                          flex: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                ProjectTextUtility.textDontHaveAccount,
                                 style: TextThemeUtility().textThemeLogin(
                                   context: context,
                                   fontSize: ProjectFontSizeUtility.small,
-                                  fontWeight: FontWeight.bold,
-                                  color: ProjectColorsUtility.projectBackgroundWhite,
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    : const Spacer(flex: 1),
-              ],
+                              GestureDetector(
+                                onTap: () =>
+                                    NavigatorManager.instance.pushToPage(context: context, view: const SignUpView()),
+                                child: Text(
+                                  ProjectTextUtility.textSignUp,
+                                  style: TextThemeUtility().textThemeLogin(
+                                    context: context,
+                                    fontSize: ProjectFontSizeUtility.small,
+                                    fontWeight: FontWeight.bold,
+                                    color: ProjectColorsUtility.projectBackgroundWhite,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : const Spacer(flex: 2),
+                ],
+              ),
             ),
           ),
         ),

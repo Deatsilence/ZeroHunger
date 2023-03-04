@@ -42,6 +42,7 @@ List<Widget> loginPageFields(
     customTextFormField(
       text: ProjectTextUtility.textPassword,
       textInputAction: TextInputAction.done,
+      isActiveSuffixIcon: true,
       isPasswordType: true,
       icon: Icons.lock_outlined,
       controller: passwordController,

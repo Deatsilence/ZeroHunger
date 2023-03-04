@@ -31,15 +31,25 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # State
+  flutter_mobx: ^2.0.6+5
+
   # Local Storage
   shared_preferences: ^2.0.18
 
   # Icon
   cupertino_icons: ^1.0.2
 
+  # Firebase Auth
+  firebase_auth: ^4.2.9
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  # State
+  mobx_codegen: ^2.1.1
+  build_runner: ^2.3.3
 
   
   flutter_lints: ^2.0.0

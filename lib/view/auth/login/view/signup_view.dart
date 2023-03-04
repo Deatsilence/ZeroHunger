@@ -61,6 +61,7 @@ List<Widget> signUpPageFields(
     customTextFormField(
       text: ProjectTextUtility.textPassword,
       textInputAction: TextInputAction.next,
+      isActiveSuffixIcon: true,
       isPasswordType: true,
       icon: Icons.lock_outlined,
       controller: passwordController,
@@ -69,6 +70,7 @@ List<Widget> signUpPageFields(
     customTextFormField(
       text: ProjectTextUtility.textConfirmPassword,
       textInputAction: TextInputAction.done,
+      isActiveSuffixIcon: true,
       isPasswordType: true,
       icon: Icons.lock_outlined,
       controller: confirmPasswordController,

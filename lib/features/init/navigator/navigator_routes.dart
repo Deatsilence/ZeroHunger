@@ -1,6 +1,6 @@
 import 'package:zero_hunger/features/screens/home.dart';
-import 'package:zero_hunger/view/auth/login/model/signup_model.dart';
 import 'package:zero_hunger/view/auth/login/view/login_view.dart';
+import 'package:zero_hunger/view/auth/login/view/signup_view.dart';
 import 'package:zero_hunger/view/auth/onboard/view/onboard_view.dart';
 
 class NavigatorRoutes {
