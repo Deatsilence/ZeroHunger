@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
+import 'package:zero_hunger/features/services/firebase_options.dart';
 import 'package:zero_hunger/view/auth/login/view/login_view.dart';
 import 'package:zero_hunger/view/auth/onboard/view/onboard_view.dart';
 
@@ -16,6 +18,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isViewed = prefs.getInt(SharedKeys.onboard.name);
+
+  Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }

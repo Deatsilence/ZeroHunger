@@ -98,6 +98,9 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin {
                                     }
                                   }
                                 },
+                                onSaved: (p0) {
+                                  return null;
+                                },
                               )
                             : signUpPageFields(
                                 context,

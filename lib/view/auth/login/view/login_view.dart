@@ -37,6 +37,7 @@ List<Widget> loginPageFields(
   String? Function(String?)? emailValidator,
   String? Function(String?)? passwordValidator,
   VoidCallback? onpressed,
+  VoidCallback? Function(String?)? onSaved,
 }) {
   return [
     CustomTextFormField(
@@ -45,6 +46,7 @@ List<Widget> loginPageFields(
       controller: emailController,
       context: context,
       validator: emailValidator,
+      onSaved: onSaved,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
@@ -53,6 +55,7 @@ List<Widget> loginPageFields(
       textInputAction: TextInputAction.done,
       context: context,
       validator: passwordValidator,
+      onSaved: onSaved,
       isActiveSuffixIcon: true,
       isPasswordType: true,
     ),

@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Google
+
   # State
   flutter_mobx: ^2.0.6+5
 
@@ -40,8 +42,9 @@ dependencies:
   # Icon
   cupertino_icons: ^1.0.2
 
-  # Firebase Auth
+  # Firebase
   firebase_auth: ^4.2.9
+  firebase_core: ^2.7.0
 
 dev_dependencies:
   flutter_test:

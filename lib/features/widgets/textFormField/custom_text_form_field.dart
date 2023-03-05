@@ -17,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
     this.isPasswordType = false,
     this.textInputAction = TextInputAction.next,
     this.validator,
+    this.onSaved,
   }) : super(key: key);
 
   final BuildContext context;
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool isPasswordType;
   final TextInputAction textInputAction;
   final String? Function(String?)? validator;
+  final VoidCallback? Function(String?)? onSaved;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -62,6 +64,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Observer(
       builder: (_) {
         return TextFormField(
+          onSaved: widget.onSaved,
           validator: widget.validator,
           controller: widget.controller,
           obscureText: widget.isPasswordType ? lsvm.isSecure : false,

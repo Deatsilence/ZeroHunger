@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "628765655826",
-    "project_id": "zerohungerfire",
-    "storage_bucket": "zerohungerfire.appspot.com"
+    "project_number": "1086600785764",
+    "project_id": "shationzero",
+    "storage_bucket": "shationzero.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:628765655826:android:2bcd64bd06bd2dc927e9cb",
+        "mobilesdk_app_id": "1:1086600785764:android:68eb3257b383e898be9471",
         "android_client_info": {
           "package_name": "com.example.zero_hunger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "628765655826-03ckf7fkoo9aip4h3vme5fkif2e08s2f.apps.googleusercontent.com",
+          "client_id": "1086600785764-82v6vbnr8tgubjbkc377o5g1vpn1t05q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYehKOsW6byTP7oh7TuuQckTC3a7hLml0"
+          "current_key": "AIzaSyC1vnkqJpt_4HPUj1QeGjJoulL7RmfuokU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "628765655826-03ckf7fkoo9aip4h3vme5fkif2e08s2f.apps.googleusercontent.com",
+              "client_id": "1086600785764-82v6vbnr8tgubjbkc377o5g1vpn1t05q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
