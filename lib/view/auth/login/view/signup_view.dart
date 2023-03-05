@@ -44,21 +44,21 @@ List<Widget> signUpPageFields(
   required TextEditingController confirmPasswordController,
 }) {
   return [
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textUsername,
       textInputAction: TextInputAction.next,
       icon: Icons.person_outline_outlined,
       controller: usernameController,
       context: context,
     ),
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textEmail,
       textInputAction: TextInputAction.next,
       icon: Icons.mail_outlined,
       controller: emailController,
       context: context,
     ),
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textPassword,
       textInputAction: TextInputAction.next,
       isActiveSuffixIcon: true,
@@ -67,7 +67,7 @@ List<Widget> signUpPageFields(
       controller: passwordController,
       context: context,
     ),
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textConfirmPassword,
       textInputAction: TextInputAction.done,
       isActiveSuffixIcon: true,

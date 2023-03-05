@@ -21,8 +21,11 @@ class _LoginViewState extends State<LoginView> {
       isLogin: true,
       emailTextController: _emailTextController,
       passwordTextController: _passwordTextController,
-      pageFields:
-          loginPageFields(context, emailController: _emailTextController, passwordController: _passwordTextController),
+      pageFields: loginPageFields(
+        context,
+        emailController: _emailTextController,
+        passwordController: _passwordTextController,
+      ),
     );
   }
 }
@@ -31,27 +34,32 @@ List<Widget> loginPageFields(
   BuildContext context, {
   required TextEditingController emailController,
   required TextEditingController passwordController,
+  String? Function(String?)? emailValidator,
+  String? Function(String?)? passwordValidator,
+  VoidCallback? onpressed,
 }) {
   return [
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textEmail,
       icon: Icons.mail_outlined,
       controller: emailController,
       context: context,
+      validator: emailValidator,
     ),
-    customTextFormField(
+    CustomTextFormField(
       text: ProjectTextUtility.textPassword,
-      textInputAction: TextInputAction.done,
-      isActiveSuffixIcon: true,
-      isPasswordType: true,
       icon: Icons.lock_outlined,
       controller: passwordController,
+      textInputAction: TextInputAction.done,
       context: context,
+      validator: passwordValidator,
+      isActiveSuffixIcon: true,
+      isPasswordType: true,
     ),
     customElevatedButton(
       context: context,
       text: ProjectTextUtility.textSignIn,
-      onPressed: () {},
+      onPressed: onpressed,
     )
   ];
 }
