@@ -14,8 +14,14 @@ class NavigatorManager {
   }
 
   Future<void> pushToPage({required BuildContext context, required StatefulWidget view}) async {
-    await _navigatorGlobalKey.currentState?.push(MaterialPageRoute(
-      builder: (context) => view,
-    ));
+    await _navigatorGlobalKey.currentState?.push(
+      MaterialPageRoute(
+        builder: (context) => view,
+      ),
+    );
+  }
+
+  Future<void> pushNamedToPage({required String route, Object? arguments}) async {
+    await _navigatorGlobalKey.currentState?.pushNamed(route);
   }
 }

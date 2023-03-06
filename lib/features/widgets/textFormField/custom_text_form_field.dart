@@ -28,7 +28,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool isPasswordType;
   final TextInputAction textInputAction;
   final String? Function(String?)? validator;
-  final VoidCallback? Function(String?)? onSaved;
+  final void Function(String?)? onSaved;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();

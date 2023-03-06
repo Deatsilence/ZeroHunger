@@ -9,4 +9,6 @@ class ProjectTextUtility {
   static const String textDontHaveAccount = "Don't have account? ";
   static const String textSignUp = "Sign Up";
   static const String textSignIn = " Sign In";
+  static const String textEmailValidate = "Enter a valid email address";
+  static const String textPasswordValidate = "Length of password should taller than or equal 6";
 }

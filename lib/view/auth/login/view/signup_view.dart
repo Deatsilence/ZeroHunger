@@ -25,13 +25,6 @@ class _SignUpViewState extends State<SignUpView> {
       emailTextController: _emailTextController,
       passwordTextController: _passwordTextController,
       confirmTextController: _confirmPasswordTextController,
-      pageFields: signUpPageFields(
-        context,
-        usernameController: _usernameTextController,
-        emailController: _emailTextController,
-        passwordController: _passwordTextController,
-        confirmPasswordController: _confirmPasswordTextController,
-      ),
     );
   }
 }
@@ -42,6 +35,15 @@ List<Widget> signUpPageFields(
   required TextEditingController emailController,
   required TextEditingController passwordController,
   required TextEditingController confirmPasswordController,
+  String? Function(String?)? usernameValidator,
+  String? Function(String?)? emailValidator,
+  String? Function(String?)? passwordValidator,
+  String? Function(String?)? confirmPasswordValidator,
+  VoidCallback? onpressed,
+  void Function(String?)? onSavedUsername,
+  void Function(String?)? onSavedEmail,
+  void Function(String?)? onSavedPassword,
+  void Function(String?)? onSavedConfirmPassword,
 }) {
   return [
     CustomTextFormField(
@@ -50,6 +52,8 @@ List<Widget> signUpPageFields(
       icon: Icons.person_outline_outlined,
       controller: usernameController,
       context: context,
+      validator: usernameValidator,
+      onSaved: onSavedUsername,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textEmail,
@@ -57,6 +61,8 @@ List<Widget> signUpPageFields(
       icon: Icons.mail_outlined,
       controller: emailController,
       context: context,
+      validator: emailValidator,
+      onSaved: onSavedEmail,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
@@ -66,6 +72,8 @@ List<Widget> signUpPageFields(
       icon: Icons.lock_outlined,
       controller: passwordController,
       context: context,
+      validator: passwordValidator,
+      onSaved: onSavedPassword,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textConfirmPassword,
@@ -75,11 +83,13 @@ List<Widget> signUpPageFields(
       icon: Icons.lock_outlined,
       controller: confirmPasswordController,
       context: context,
+      validator: confirmPasswordValidator,
+      onSaved: onSavedConfirmPassword,
     ),
     customElevatedButton(
       context: context,
       text: ProjectTextUtility.textSignUp,
-      onPressed: () {},
+      onPressed: onpressed,
     ),
   ];
 }

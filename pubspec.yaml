@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
 
   # Google
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
 
   # State
   flutter_mobx: ^2.0.6+5

@@ -25,6 +25,22 @@ mixin _$LoginAndSignUpViewModel on _LoginAndSignUpViewModelBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: '_LoginAndSignUpViewModelBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$_LoginAndSignUpViewModelBaseActionController =
       ActionController(name: '_LoginAndSignUpViewModelBase', context: context);
 
@@ -40,9 +56,21 @@ mixin _$LoginAndSignUpViewModel on _LoginAndSignUpViewModelBase, Store {
   }
 
   @override
+  void changeLoading() {
+    final _$actionInfo = _$_LoginAndSignUpViewModelBaseActionController
+        .startAction(name: '_LoginAndSignUpViewModelBase.changeLoading');
+    try {
+      return super.changeLoading();
+    } finally {
+      _$_LoginAndSignUpViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isSecure: ${isSecure}
+isSecure: ${isSecure},
+isLoading: ${isLoading}
     ''';
   }
 }

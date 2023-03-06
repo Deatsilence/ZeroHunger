@@ -29,6 +29,13 @@
             {
               "client_id": "1086600785764-82v6vbnr8tgubjbkc377o5g1vpn1t05q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1086600785764-s5o988d0l6flu7shuspi8h8o3oc5p7o3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.zeroHunger"
+              }
             }
           ]
         }

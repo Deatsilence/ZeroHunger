@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/mixin/validator_mixin.dart';
+import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 import 'package:zero_hunger/view/auth/login/view/signup_view.dart';
 import 'package:zero_hunger/view/auth/login/view/login_view.dart';
+import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
-class AuthScaffold extends StatelessWidget with ValidatorMixin {
+class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthManager {
   AuthScaffold({
     super.key,
     required this.isLogin,
@@ -18,7 +21,6 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin {
     required TextEditingController passwordTextController,
     TextEditingController? usernameTextController,
     TextEditingController? confirmTextController,
-    required List<Widget> pageFields,
   })  : _emailTextController = emailTextController,
         _passwordTextController = passwordTextController,
         _usernameTextController = usernameTextController,
@@ -31,6 +33,59 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin {
   final TextEditingController? _confirmTextController;
 
   final formGlobalKey = GlobalKey<FormState>();
+
+  late LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+
+  late String? username;
+  late String? email;
+  late String? password;
+  late String? confirmPassword;
+
+  String? _passwordValidator(password) {
+    if (isValidPasswordLength(password ?? "")) {
+      return null;
+    } else {
+      return ProjectTextUtility.textPasswordValidate;
+    }
+  }
+
+  String? _emailValidator(email) {
+    if (isValidEmail(email ?? "")) {
+      return null;
+    } else {
+      return ProjectTextUtility.textEmailValidate;
+    }
+  }
+
+  Future<void> _signUp() async {
+    if (formGlobalKey.currentState != null) {
+      if (formGlobalKey.currentState!.validate()) {
+        formGlobalKey.currentState!.save();
+
+        var userResult = await signUp(email: email!, password: password!);
+
+        if (userResult.user?.uid != null) {
+          formGlobalKey.currentState!.reset();
+          await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.login.withParaph);
+        }
+      }
+    }
+  }
+
+  Future<void> _signIn() async {
+    if (formGlobalKey.currentState != null) {
+      if (formGlobalKey.currentState!.validate()) {
+        formGlobalKey.currentState!.save();
+
+        var userResult = await signIn(email: email!, password: password!);
+
+        if (userResult.user?.uid != null) {
+          formGlobalKey.currentState!.reset();
+          await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.home.withParaph);
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,29 +132,14 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin {
                                 context,
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
-                                emailValidator: (email) {
-                                  if (isValidEmail(email ?? "")) {
-                                    return null;
-                                  } else {
-                                    return "Enter a valid email address";
-                                  }
+                                emailValidator: _emailValidator,
+                                passwordValidator: _passwordValidator,
+                                onpressed: _signIn,
+                                onSavedEmail: (value) {
+                                  email = value;
                                 },
-                                passwordValidator: (password) {
-                                  if (isValidPasswordLength(password ?? "")) {
-                                    return null;
-                                  } else {
-                                    return "Length of password should taller than or equal 6";
-                                  }
-                                },
-                                onpressed: () {
-                                  if (formGlobalKey.currentState != null) {
-                                    if (formGlobalKey.currentState!.validate()) {
-                                      formGlobalKey.currentState!.save();
-                                    }
-                                  }
-                                },
-                                onSaved: (p0) {
-                                  return null;
+                                onSavedPassword: (value) {
+                                  password = value;
                                 },
                               )
                             : signUpPageFields(
@@ -108,6 +148,15 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin {
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
                                 confirmPasswordController: _confirmTextController ?? TextEditingController(),
+                                emailValidator: _emailValidator,
+                                passwordValidator: _passwordValidator,
+                                onpressed: _signUp,
+                                onSavedEmail: (value) {
+                                  email = value;
+                                },
+                                onSavedPassword: (value) {
+                                  password = value;
+                                },
                               ),
                       ),
                     ),

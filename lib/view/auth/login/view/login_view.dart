@@ -21,11 +21,6 @@ class _LoginViewState extends State<LoginView> {
       isLogin: true,
       emailTextController: _emailTextController,
       passwordTextController: _passwordTextController,
-      pageFields: loginPageFields(
-        context,
-        emailController: _emailTextController,
-        passwordController: _passwordTextController,
-      ),
     );
   }
 }
@@ -37,7 +32,8 @@ List<Widget> loginPageFields(
   String? Function(String?)? emailValidator,
   String? Function(String?)? passwordValidator,
   VoidCallback? onpressed,
-  VoidCallback? Function(String?)? onSaved,
+  void Function(String?)? onSavedEmail,
+  void Function(String?)? onSavedPassword,
 }) {
   return [
     CustomTextFormField(
@@ -46,7 +42,7 @@ List<Widget> loginPageFields(
       controller: emailController,
       context: context,
       validator: emailValidator,
-      onSaved: onSaved,
+      onSaved: onSavedEmail,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
@@ -55,7 +51,7 @@ List<Widget> loginPageFields(
       textInputAction: TextInputAction.done,
       context: context,
       validator: passwordValidator,
-      onSaved: onSaved,
+      onSaved: onSavedPassword,
       isActiveSuffixIcon: true,
       isPasswordType: true,
     ),
