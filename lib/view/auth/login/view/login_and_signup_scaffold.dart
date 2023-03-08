@@ -9,11 +9,12 @@ import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/mixin/validator_mixin.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
+import 'package:zero_hunger/view/auth/login/service/auth_service_exceptions.dart';
 import 'package:zero_hunger/view/auth/login/view/signup_view.dart';
 import 'package:zero_hunger/view/auth/login/view/login_view.dart';
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
-class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthManager {
+class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthManagerMixin, FirebaseServiceException {
   AuthScaffold({
     super.key,
     required this.isLogin,
@@ -62,9 +63,9 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
       if (formGlobalKey.currentState!.validate()) {
         formGlobalKey.currentState!.save();
 
-        var userResult = await signUp(email: email!, password: password!);
+        var response = await tryCatchAuth(signUp(email: email!.trim(), password: password!.trim()));
 
-        if (userResult.user?.uid != null) {
+        if (response == ProjectTextUtility.textFirebaseSuccess) {
           formGlobalKey.currentState!.reset();
           await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.login.withParaph);
         }
@@ -77,9 +78,9 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
       if (formGlobalKey.currentState!.validate()) {
         formGlobalKey.currentState!.save();
 
-        var userResult = await signIn(email: email!, password: password!);
+        var response = await tryCatchAuth(signIn(email: email!.trim(), password: password!.trim()));
 
-        if (userResult.user?.uid != null) {
+        if (response == ProjectTextUtility.textFirebaseSuccess) {
           formGlobalKey.currentState!.reset();
           await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.home.withParaph);
         }
@@ -102,7 +103,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: ProjectAuthenticationPaddingUtility().normalHorizontalAndVerticalPadding,
+            padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,

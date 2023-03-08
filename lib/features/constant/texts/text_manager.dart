@@ -11,4 +11,17 @@ class ProjectTextUtility {
   static const String textSignIn = " Sign In";
   static const String textEmailValidate = "Enter a valid email address";
   static const String textPasswordValidate = "Length of password should taller than or equal 6";
+  static const String textFirebaseSuccess = "success";
+  static const String textFirebaseUserNotFound = "user-not-found";
+  static const String textFirebaseWrongPassword = "wrong-password";
+  static const String textFirebaseUserDisabled = "user-disabled";
+  static const String textFirebaseEmailAlreadyInUse = "email-already-in-use";
+  static const String textFirebaseInvalidEmail = "invalid-email";
+  static const String textFirebaseOperationNotAllowed = "operation-not-allowed";
+  static const String textFirebaseWeakPassword = "weak-password";
+  static const String textFirebaseAccountExistsWithDifferentCredential = "account-exists-with-different-credential";
+  static const String textFirebaseInvalidCredential = "invalid-credential";
+  static const String textFirebaseInvalidVerificationCode = "invalid-verification-code";
+  static const String textFirebaseInvalidVerificationId = "invalid-verification-id";
+  static const String textError = "Error";
 }

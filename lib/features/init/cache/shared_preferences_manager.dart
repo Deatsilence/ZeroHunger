@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zero_hunger/features/init/cache/shared_not_initialize.dart';
 
 enum SharedKeys { onboard, login }
 
@@ -11,15 +12,20 @@ class SharedManager {
     preferences = await SharedPreferences.getInstance();
   }
 
-  Future<void> saveIntOnboardInfo({required SharedKeys key}) async {
-    int isViewed = 0;
-    init();
-    if (preferences != null) {
-      await preferences!.setInt(key.name, isViewed);
+  void _checkPreferences() {
+    if (preferences == null) {
+      throw SharedNotInitializeException();
     }
   }
 
+  Future<void> saveIntOnboardInfo({required SharedKeys key}) async {
+    int isViewed = 0;
+    _checkPreferences();
+    await preferences!.setInt(key.name, isViewed);
+  }
+
   int? getIntOnboardInfo(SharedKeys key) {
+    _checkPreferences();
     return preferences?.getInt(key.name);
   }
 }

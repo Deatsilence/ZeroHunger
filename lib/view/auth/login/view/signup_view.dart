@@ -18,6 +18,15 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController _confirmPasswordTextController = TextEditingController();
 
   @override
+  void dispose() {
+    _usernameTextController.dispose();
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    _confirmPasswordTextController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AuthScaffold(
       isLogin: false,
