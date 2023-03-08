@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/widgets/button/custom_elevated_button.dart';
 import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 import 'package:zero_hunger/view/auth/login/view/login_and_signup_scaffold.dart';
+import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -14,6 +16,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
 
   @override
   void dispose() {
@@ -24,11 +27,13 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScaffold(
-      isLogin: true,
-      emailTextController: _emailTextController,
-      passwordTextController: _passwordTextController,
-    );
+    return Observer(builder: (_) {
+      return AuthScaffold(
+        isLogin: lsvm.isLogin,
+        emailTextController: _emailTextController,
+        passwordTextController: _passwordTextController,
+      );
+    });
   }
 }
 

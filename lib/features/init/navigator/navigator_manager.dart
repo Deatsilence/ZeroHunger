@@ -9,7 +9,7 @@ class NavigatorManager {
 
   GlobalKey<NavigatorState> get navigatorGlobalKey => _navigatorGlobalKey;
 
-  Future<void> pushToPageFromOnboard({required String route, Object? arguments}) async {
+  Future<void> pushToReplacementNamedPage({required String route, Object? arguments}) async {
     await _navigatorGlobalKey.currentState?.pushReplacementNamed(route, arguments: arguments);
   }
 
@@ -22,6 +22,6 @@ class NavigatorManager {
   }
 
   Future<void> pushNamedToPage({required String route, Object? arguments}) async {
-    await _navigatorGlobalKey.currentState?.pushNamed(route);
+    await _navigatorGlobalKey.currentState?.pushNamed(route, arguments: arguments);
   }
 }

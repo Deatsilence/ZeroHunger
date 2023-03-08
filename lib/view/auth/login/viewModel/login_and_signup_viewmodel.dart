@@ -10,6 +10,9 @@ abstract class _LoginAndSignUpViewModelBase with Store {
   @observable
   bool isLoading = false;
 
+  @observable
+  bool isLogin = true;
+
   @action
   void changeSecureIcon() {
     isSecure = !isSecure;
@@ -18,5 +21,10 @@ abstract class _LoginAndSignUpViewModelBase with Store {
   @action
   void changeLoading() {
     isLoading = !isLoading;
+  }
+
+  @action
+  void changeLogin() {
+    isLogin = !isLogin;
   }
 }

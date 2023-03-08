@@ -67,7 +67,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
 
         if (response == ProjectTextUtility.textFirebaseSuccess) {
           formGlobalKey.currentState!.reset();
-          await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.login.withParaph);
+          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
         }
       }
     }
@@ -82,7 +82,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
 
         if (response == ProjectTextUtility.textFirebaseSuccess) {
           formGlobalKey.currentState!.reset();
-          await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.home.withParaph);
+          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
         }
       }
     }
@@ -176,8 +176,10 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () =>
-                                    NavigatorManager.instance.pushToPage(context: context, view: const SignUpView()),
+                                onTap: () {
+                                  lsvm.changeLogin();
+                                  NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.signUp.withParaph);
+                                },
                                 child: Text(
                                   ProjectTextUtility.textSignUp,
                                   style: TextThemeUtility().textThemeLogin(

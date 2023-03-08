@@ -21,12 +21,16 @@ class _SplashViewState extends State<SplashView> {
 }
 
 Widget? splashBody(BuildContext context) => Center(
-      child: Padding(
-        padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: ProjectLottieUtility().lottieNetwork,
+      child: SafeArea(
+        child: Padding(
+          padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Center(
+              child: ProjectLottieUtility().lottieNetwork,
+            ),
+          ),
         ),
       ),
     );

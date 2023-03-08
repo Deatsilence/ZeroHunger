@@ -18,5 +18,5 @@ enum NavigateRoutes { onboard, splash, login, signUp, home, chat, camera, advert
 
 extension NavigateRoutesExtension on NavigateRoutes {
   String get justParaph => '/';
-  String get withParaph => name;
+  String get withParaph => "/$name";
 }

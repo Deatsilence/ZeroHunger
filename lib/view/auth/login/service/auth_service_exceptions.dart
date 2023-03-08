@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 
 mixin FirebaseServiceException {
-  Future<String?> tryCatchAuth(Future<UserCredential> func) async {
-    String? res;
+  Future<String> tryCatchAuth(Future<UserCredential> func) async {
+    String res = ProjectTextUtility.textFirebaseSuccess;
     try {
       await func;
-      res = ProjectTextUtility.textFirebaseSuccess;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case ProjectTextUtility.textFirebaseUserNotFound:
@@ -46,6 +45,6 @@ mixin FirebaseServiceException {
           return res;
       }
     }
-    return null;
+    return res;
   }
 }

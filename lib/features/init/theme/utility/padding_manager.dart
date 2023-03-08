@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 class ProjectPaddingUtility {
   final EdgeInsets normalHorizontalPadding = const EdgeInsets.symmetric(horizontal: 10);
   final EdgeInsets normalVerticalPadding = const EdgeInsets.symmetric(vertical: 10);
+  final EdgeInsets normalHorizontalAndVerticalPadding = const EdgeInsets.symmetric(horizontal: 20, vertical: 20);
 }
 
 class ProjectOnBoardPaddingUtility {
   final EdgeInsets nextButtonPadding = const EdgeInsets.symmetric(horizontal: 30, vertical: 10);
-}
-
-class ProjectAuthenticationPaddingUtility {
-  final EdgeInsets normalHorizontalAndVerticalPadding = const EdgeInsets.symmetric(horizontal: 20, vertical: 20);
 }

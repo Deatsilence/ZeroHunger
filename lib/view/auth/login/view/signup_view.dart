@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/widgets/button/custom_elevated_button.dart';
 import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 import 'package:zero_hunger/view/auth/login/view/login_and_signup_scaffold.dart';
+import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -17,6 +19,8 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _confirmPasswordTextController = TextEditingController();
 
+  LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+
   @override
   void dispose() {
     _usernameTextController.dispose();
@@ -28,13 +32,15 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScaffold(
-      isLogin: false,
-      usernameTextController: _usernameTextController,
-      emailTextController: _emailTextController,
-      passwordTextController: _passwordTextController,
-      confirmTextController: _confirmPasswordTextController,
-    );
+    return Observer(builder: (_) {
+      return AuthScaffold(
+        isLogin: lsvm.isLoading,
+        usernameTextController: _usernameTextController,
+        emailTextController: _emailTextController,
+        passwordTextController: _passwordTextController,
+        confirmTextController: _confirmPasswordTextController,
+      );
+    });
   }
 }
 
