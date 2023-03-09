@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/widgets/outline_input_border.dart';
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
@@ -71,8 +72,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           enableSuggestions: !widget.isPasswordType,
           autocorrect: !widget.isPasswordType,
           cursorColor: ProjectColorsUtility.eveningStar,
-          cursorWidth: 2,
-          cursorHeight: 20,
+          cursorWidth: ProjectFontSizeUtility.textFieldCursorWidth,
+          cursorHeight: ProjectFontSizeUtility.normal,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ProjectColorsUtility.eveningStar),
           keyboardType: widget.isPasswordType ? TextInputType.visiblePassword : TextInputType.emailAddress,
           textInputAction: TextInputAction.next,

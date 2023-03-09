@@ -12,8 +12,8 @@ class ProjectFontSizeUtility {
   static const double normal = 20.0;
   static const double big = 25.0;
   static const double veryBig = 30.0;
-}
-
-class ProjectButtonFontSizeUtility {
-  // static const double
+  static const double textFieldCursorHeight = 20.0;
+  static const double textFieldCursorWidth = 2;
+  static const double tabBarHeight = 60;
+  static const double tabBarIconSize = 25;
 }
