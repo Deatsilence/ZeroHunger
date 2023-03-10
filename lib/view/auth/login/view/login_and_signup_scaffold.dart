@@ -82,7 +82,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
 
         if (response == ProjectTextUtility.textFirebaseSuccess) {
           formGlobalKey.currentState!.reset();
-          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.dashboard.withParaph);
+          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
         }
       }
     }

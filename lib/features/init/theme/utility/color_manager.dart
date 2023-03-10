@@ -5,5 +5,6 @@ class ProjectColorsUtility {
   static const Color onboardWhite = Colors.white;
   static const Color eveningStar = Color(0xffedb8f61);
   static const Color peterPan = Color(0xff18a904);
+  static const Color grey = Colors.grey;
   static const Color onboardBlack = Colors.black87;
 }

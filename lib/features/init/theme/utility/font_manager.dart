@@ -16,4 +16,5 @@ class ProjectFontSizeUtility {
   static const double textFieldCursorWidth = 2;
   static const double tabBarHeight = 60;
   static const double tabBarIconSize = 25;
+  static const double appBarHeight = 60;
 }

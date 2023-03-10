@@ -12,7 +12,9 @@ class CustomTextFormField extends StatefulWidget {
     Key? key,
     required this.context,
     required this.text,
+    this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     required this.icon,
+    this.suffixIcon,
     required this.controller,
     this.isActiveSuffixIcon = false,
     this.isPasswordType = false,
@@ -23,7 +25,9 @@ class CustomTextFormField extends StatefulWidget {
 
   final BuildContext context;
   final String text;
+  final Color borderColor;
   final IconData icon;
+  final IconData? suffixIcon;
   final TextEditingController controller;
   final bool isActiveSuffixIcon;
   final bool isPasswordType;
@@ -78,20 +82,38 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           keyboardType: widget.isPasswordType ? TextInputType.visiblePassword : TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
             labelText: widget.text,
             labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ProjectColorsUtility.eveningStar),
             fillColor: ProjectColorsUtility.projectBackgroundWhite,
             filled: true,
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: CustomOutlineInputBorder().outlineInputBorder,
-            focusedBorder: CustomOutlineInputBorder().outlineInputBorder,
-            enabledBorder: CustomOutlineInputBorder().outlineInputBorder,
-            disabledBorder: CustomOutlineInputBorder().outlineInputBorder,
+            border: CustomOutlineInputBorder(
+              borderColor: widget.borderColor,
+              borderWidth: 2,
+            ).outlineInputBorder,
+            focusedBorder: CustomOutlineInputBorder(
+              borderColor: widget.borderColor,
+              borderWidth: 2,
+            ).outlineInputBorder,
+            enabledBorder: CustomOutlineInputBorder(
+              borderColor: widget.borderColor,
+              borderWidth: 2,
+            ).outlineInputBorder,
+            disabledBorder: CustomOutlineInputBorder(
+              borderColor: widget.borderColor,
+              borderWidth: 2,
+            ).outlineInputBorder,
             prefixIcon: Icon(
               widget.icon,
               color: ProjectColorsUtility.eveningStar,
             ),
-            suffixIcon: widget.isActiveSuffixIcon ? _onVisibilityIcon() : null,
+            suffixIcon: widget.isActiveSuffixIcon
+                ? _onVisibilityIcon()
+                : Icon(
+                    widget.suffixIcon,
+                    color: ProjectColorsUtility.eveningStar,
+                  ),
           ),
         );
       },

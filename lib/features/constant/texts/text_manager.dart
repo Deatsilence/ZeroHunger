@@ -24,4 +24,8 @@ class ProjectTextUtility {
   static const String textFirebaseInvalidVerificationCode = "invalid-verification-code";
   static const String textFirebaseInvalidVerificationId = "invalid-verification-id";
   static const String textError = "Error";
+  static const String textFoodDessertAndMore = "Food, dessert and more";
+  static const String textInbox = "Inbox";
+  static const String textMyAdverts = "My Adverts";
+  static const String textMyAccount = "My Account";
 }
