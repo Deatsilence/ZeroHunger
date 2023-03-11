@@ -8,6 +8,7 @@ import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/mixin/validator_mixin.dart';
+import 'package:zero_hunger/features/widgets/alertDialog/custom_alert_dialog.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service_exceptions.dart';
 import 'package:zero_hunger/view/auth/login/view/signup_view.dart';
@@ -58,38 +59,55 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
     }
   }
 
-  Future<void> _signUp() async {
-    if (formGlobalKey.currentState != null) {
-      if (formGlobalKey.currentState!.validate()) {
-        formGlobalKey.currentState!.save();
-
-        var response = await tryCatchAuth(signUp(email: email!.trim(), password: password!.trim()));
-
-        if (response == ProjectTextUtility.textFirebaseSuccess) {
-          formGlobalKey.currentState!.reset();
-          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
-        }
-      }
-    }
-  }
-
-  Future<void> _signIn() async {
-    if (formGlobalKey.currentState != null) {
-      if (formGlobalKey.currentState!.validate()) {
-        formGlobalKey.currentState!.save();
-
-        var response = await tryCatchAuth(signIn(email: email!.trim(), password: password!.trim()));
-
-        if (response == ProjectTextUtility.textFirebaseSuccess) {
-          formGlobalKey.currentState!.reset();
-          await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
-        }
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    Future<void> _signUp() async {
+      if (formGlobalKey.currentState != null) {
+        if (formGlobalKey.currentState!.validate()) {
+          formGlobalKey.currentState!.save();
+
+          var response = await tryCatchAuth(signUp(email: email!.trim(), password: password!.trim()));
+
+          if (response == ProjectTextUtility.textFirebaseSuccess) {
+            formGlobalKey.currentState!.reset();
+            await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
+          } else {
+            if (context.mounted) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text(ProjectTextUtility.textError),
+                  content: Text(response),
+                ),
+              );
+            }
+          }
+        }
+      }
+    }
+
+    Future<void> _signIn() async {
+      if (formGlobalKey.currentState != null) {
+        if (formGlobalKey.currentState!.validate()) {
+          formGlobalKey.currentState!.save();
+
+          var response = await tryCatchAuth(signIn(email: email!.trim(), password: password!.trim()));
+
+          if (response == ProjectTextUtility.textFirebaseSuccess) {
+            formGlobalKey.currentState!.reset();
+            await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
+          } else {
+            if (context.mounted) {
+              showDialog(
+                context: context,
+                builder: (context) => const CustomAlertDialog(),
+              );
+            }
+          }
+        }
+      }
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: isLogin ? false : true,
       appBar: isLogin

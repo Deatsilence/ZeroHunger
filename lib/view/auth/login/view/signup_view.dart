@@ -63,7 +63,6 @@ List<Widget> signUpPageFields(
   return [
     CustomTextFormField(
       text: ProjectTextUtility.textUsername,
-      textInputAction: TextInputAction.next,
       icon: Icons.person_outline_outlined,
       controller: usernameController,
       context: context,
@@ -72,7 +71,6 @@ List<Widget> signUpPageFields(
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textEmail,
-      textInputAction: TextInputAction.next,
       icon: Icons.mail_outlined,
       controller: emailController,
       context: context,
@@ -81,7 +79,6 @@ List<Widget> signUpPageFields(
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
-      textInputAction: TextInputAction.next,
       isActiveSuffixIcon: true,
       isPasswordType: true,
       icon: Icons.lock_outlined,

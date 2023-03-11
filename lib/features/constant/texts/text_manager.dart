@@ -28,4 +28,5 @@ class ProjectTextUtility {
   static const String textInbox = "Inbox";
   static const String textMyAdverts = "My Adverts";
   static const String textMyAccount = "My Account";
+  static const String textApp = "Shation";
 }
