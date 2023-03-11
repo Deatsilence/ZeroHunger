@@ -12,7 +12,7 @@ class CustomTextButton extends StatelessWidget {
 
   final VoidCallback? onPressed;
   final Text child;
-  MaterialStateProperty<Color>? foregroundColor = MaterialStateProperty.all(ProjectColorsUtility.eveningStar);
+  final MaterialStateProperty<Color>? foregroundColor = MaterialStateProperty.all(ProjectColorsUtility.eveningStar);
 
   @override
   Widget build(BuildContext context) {

@@ -74,10 +74,11 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
           } else {
             if (context.mounted) {
               showDialog(
+                barrierDismissible: false,
                 context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(ProjectTextUtility.textError),
-                  content: Text(response),
+                builder: (context) => CustomAlertDialog(
+                  title: ProjectTextUtility.textWarning,
+                  textError: response,
                 ),
               );
             }
@@ -99,8 +100,12 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
           } else {
             if (context.mounted) {
               showDialog(
+                barrierDismissible: false,
                 context: context,
-                builder: (context) => const CustomAlertDialog(),
+                builder: (context) => CustomAlertDialog(
+                  title: ProjectTextUtility.textWarning,
+                  textError: response,
+                ),
               );
             }
           }
