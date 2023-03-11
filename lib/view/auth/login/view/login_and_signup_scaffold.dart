@@ -61,7 +61,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _signUp() async {
+    Future<void> signUpControl() async {
       if (formGlobalKey.currentState != null) {
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
@@ -87,7 +87,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
       }
     }
 
-    Future<void> _signIn() async {
+    Future<void> signInControl() async {
       if (formGlobalKey.currentState != null) {
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
@@ -158,7 +158,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                                 passwordController: _passwordTextController,
                                 emailValidator: _emailValidator,
                                 passwordValidator: _passwordValidator,
-                                onpressed: _signIn,
+                                onpressed: signInControl,
                                 onSavedEmail: (value) {
                                   email = value;
                                 },
@@ -174,7 +174,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                                 confirmPasswordController: _confirmTextController ?? TextEditingController(),
                                 emailValidator: _emailValidator,
                                 passwordValidator: _passwordValidator,
-                                onpressed: _signUp,
+                                onpressed: signUpControl,
                                 onSavedEmail: (value) {
                                   email = value;
                                 },
