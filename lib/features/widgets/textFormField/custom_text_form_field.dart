@@ -13,6 +13,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.context,
     required this.text,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
+    this.focusedBorderColor = ProjectColorsUtility.eveningStar,
     required this.icon,
     this.suffixIcon,
     required this.controller,
@@ -26,6 +27,7 @@ class CustomTextFormField extends StatefulWidget {
   final BuildContext context;
   final String text;
   final Color borderColor;
+  final Color focusedBorderColor;
   final IconData icon;
   final IconData? suffixIcon;
   final TextEditingController controller;
@@ -93,7 +95,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderWidth: 2,
             ).outlineInputBorder,
             focusedBorder: CustomOutlineInputBorder(
-              borderColor: widget.borderColor,
+              borderColor: widget.focusedBorderColor,
               borderWidth: 2,
             ).outlineInputBorder,
             enabledBorder: CustomOutlineInputBorder(

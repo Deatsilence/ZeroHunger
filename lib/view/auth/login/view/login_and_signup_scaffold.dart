@@ -36,7 +36,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
 
   final formGlobalKey = GlobalKey<FormState>();
 
-  late LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+  final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
 
   late String? username;
   late String? email;
