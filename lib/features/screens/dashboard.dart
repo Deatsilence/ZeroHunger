@@ -4,6 +4,7 @@ import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/button/category_button.dart';
+import 'package:zero_hunger/features/widgets/card/item_card.dart';
 import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 
 class DashboardView extends StatefulWidget {
@@ -15,6 +16,10 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   final TextEditingController _textEditingController = TextEditingController();
+
+  final int _crossAxisCount = 2;
+  final double _childAspectRatio = 0.7;
+
   @override
   void dispose() {
     super.dispose();
@@ -42,7 +47,27 @@ class _DashboardViewState extends State<DashboardView> {
           width: widthOfDevice,
           height: heightOfDevice,
           child: Column(
-            children: [_categories(context), const Divider()],
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _categories(context),
+              const Divider(),
+              Expanded(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: _crossAxisCount,
+                  childAspectRatio: _childAspectRatio,
+                  children: List.generate(
+                    15,
+                    (index) => const ItemCard(
+                      title: "title",
+                      description: "desc",
+                      urlOfPhoto: "https://picsum.photos/200",
+                      location: "loc",
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
