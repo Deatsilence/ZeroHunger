@@ -31,4 +31,8 @@ class ProjectTextUtility {
   static const String textApp = "Shation";
   static const String textWarning = "Warning !";
   static const String textOkay = "Okay";
+  static const String textFood = "Food";
+  static const String textDrink = "Drink";
+  static const String textSweet = "Sweet";
+  static const String textSncak = "Snack";
 }

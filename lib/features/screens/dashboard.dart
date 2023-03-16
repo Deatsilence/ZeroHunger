@@ -3,6 +3,7 @@ import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
+import 'package:zero_hunger/features/widgets/button/category_button.dart';
 import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 
 class DashboardView extends StatefulWidget {
@@ -14,7 +15,6 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   final TextEditingController _textEditingController = TextEditingController();
-
   @override
   void dispose() {
     super.dispose();
@@ -23,6 +23,9 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
+    final double widthOfDevice = MediaQuery.of(context).size.width;
+    final double heightOfDevice = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: CustomAppBar(
         titleWidget: CustomTextFormField(
@@ -36,12 +39,50 @@ class _DashboardViewState extends State<DashboardView> {
       body: Padding(
         padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: widthOfDevice,
+          height: heightOfDevice,
           child: Column(
-            children: const [],
+            children: [_categories(context), const Divider()],
           ),
         ),
+      ),
+    );
+  }
+
+  SingleChildScrollView _categories(BuildContext context) {
+    final double widthOfDevice = MediaQuery.of(context).size.width;
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          CategoryButton(
+            onTab: () {},
+            text: ProjectTextUtility.textFood,
+            backgroundColor: ProjectColorsUtility.eveningStar,
+            icon: Icons.food_bank_outlined,
+          ),
+          SizedBox(width: widthOfDevice * 0.08),
+          CategoryButton(
+            onTab: () {},
+            text: ProjectTextUtility.textDrink,
+            backgroundColor: ProjectColorsUtility.peterPan,
+            icon: Icons.local_drink_outlined,
+          ),
+          SizedBox(width: widthOfDevice * 0.08),
+          CategoryButton(
+            onTab: () {},
+            text: ProjectTextUtility.textSweet,
+            backgroundColor: ProjectColorsUtility.grey,
+            icon: Icons.cake_outlined,
+          ),
+          SizedBox(width: widthOfDevice * 0.08),
+          CategoryButton(
+            onTab: () {},
+            text: ProjectTextUtility.textSncak,
+            backgroundColor: ProjectColorsUtility.denim,
+            icon: Icons.home,
+          ),
+        ],
       ),
     );
   }
