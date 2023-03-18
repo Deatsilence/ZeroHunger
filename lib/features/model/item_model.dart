@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'item_model.g.dart';
+
+@JsonSerializable()
 class Item {
   String? id;
   String? title;
@@ -22,75 +27,43 @@ class Item {
       this.createdAt,
       this.updatedAt});
 
-  Item.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    description = json['description'];
-    price = json['price'];
-    photoUrls = json['photoUrls'].cast<String>();
-    userId = json['userId'];
-    categoryId = json['categoryId'];
-    location = json['location'] != null ? Location.fromJson(json['location']) : null;
-    createdAt = json['createdAt'] != null ? CreatedAt.fromJson(json['createdAt']) : null;
-    updatedAt = json['updatedAt'] != null ? CreatedAt.fromJson(json['updatedAt']) : null;
+  factory Item.fromJson(Map<String, dynamic> json) {
+    return _$ItemFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['title'] = title;
-    data['description'] = description;
-    data['price'] = price;
-    data['photoUrls'] = photoUrls;
-    data['userId'] = userId;
-    data['categoryId'] = categoryId;
-    if (location != null) {
-      data['location'] = location!.toJson();
-    }
-    if (createdAt != null) {
-      data['createdAt'] = createdAt!.toJson();
-    }
-    if (updatedAt != null) {
-      data['updatedAt'] = updatedAt!.toJson();
-    }
-    return data;
+    return _$ItemToJson(this);
   }
 }
 
+@JsonSerializable()
 class Location {
   double? latitude;
   double? longitude;
 
   Location({this.latitude, this.longitude});
 
-  Location.fromJson(Map<String, dynamic> json) {
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return _$LocationFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['latitude'] = latitude;
-    data['longitude'] = longitude;
-    return data;
+    return _$LocationToJson(this);
   }
 }
 
+@JsonSerializable()
 class CreatedAt {
   int? iSeconds;
   int? iNanoseconds;
 
   CreatedAt({this.iSeconds, this.iNanoseconds});
 
-  CreatedAt.fromJson(Map<String, dynamic> json) {
-    iSeconds = json['_seconds'];
-    iNanoseconds = json['_nanoseconds'];
+  factory CreatedAt.fromJson(Map<String, dynamic> json) {
+    return _$CreatedAtFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_seconds'] = iSeconds;
-    data['_nanoseconds'] = iNanoseconds;
-    return data;
+    return _$CreatedAtToJson(this);
   }
 }

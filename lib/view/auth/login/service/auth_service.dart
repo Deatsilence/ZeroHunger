@@ -18,4 +18,10 @@ mixin FirebaseAuthManagerMixin {
     _lsvm.changeLoading();
     return userResult;
   }
+
+  Future<void> logout() async {
+    _lsvm.changeLoading();
+    await instance.signOut();
+    _lsvm.changeLoading();
+  }
 }

@@ -8,4 +8,5 @@ class ProjectColorsUtility {
   static const Color denim = Color(0xff1c42b5);
   static const Color grey = Colors.grey;
   static const Color onboardBlack = Colors.black87;
+  static const Color projectPink = Colors.pink;
 }

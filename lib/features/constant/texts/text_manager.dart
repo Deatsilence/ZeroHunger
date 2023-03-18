@@ -35,4 +35,9 @@ class ProjectTextUtility {
   static const String textDrink = "Drink";
   static const String textSweet = "Sweet";
   static const String textSncak = "Snack";
+  static const String textSettings = "Settings";
+  static const String textOrdersAndBilling = "Orders and Billing";
+  static const String textMyConnections = "My connections";
+  static const String textViewAndEditProfile = "View and edit profile";
+  static const String textLogout = "Log out";
 }

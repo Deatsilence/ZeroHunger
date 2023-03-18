@@ -6,10 +6,13 @@ import 'package:zero_hunger/features/constant/enums/tabs_enum.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/services/firebase_options.dart';
 import 'package:zero_hunger/features/widgets/tabBar/tab_bar_widgets.dart';
+import 'package:zero_hunger/view/auth/login/view/login_view.dart';
+import 'package:zero_hunger/view/auth/onboard/view/onboard_view.dart';
 
 int? isViewed;
 
@@ -49,9 +52,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: ProjectColorsUtility.eveningStar,
         ),
       ),
-      home: const HomeView(), // isViewed != 0 ? const OnBoardView() : const LoginView(),
-      // initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.login.withParaph,
-      // routes: NavigatorRoutes().items,
+      home: isViewed != 0 ? const OnBoardView() : const LoginView(),
+      initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.login.withParaph,
+      routes: NavigatorRoutes().items,
       navigatorKey: NavigatorManager.instance.navigatorGlobalKey,
     );
   }
