@@ -8,6 +8,9 @@ import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/mixin/validator_mixin.dart';
+import 'package:zero_hunger/features/model/user_model.dart' as userModel;
+import 'package:zero_hunger/features/services/firestore_service.dart';
+import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/alertDialog/custom_alert_dialog.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service_exceptions.dart';
@@ -15,7 +18,8 @@ import 'package:zero_hunger/view/auth/login/view/signup_view.dart';
 import 'package:zero_hunger/view/auth/login/view/login_view.dart';
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
-class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthManagerMixin, FirebaseServiceException {
+class AuthScaffold extends StatelessWidget
+    with ValidatorMixin, FirebaseAuthManagerMixin, FirebaseStoreManagerMixin, FirebaseServiceException {
   AuthScaffold({
     super.key,
     required this.isLogin,
@@ -37,13 +41,30 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
   final formGlobalKey = GlobalKey<FormState>();
 
   final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+  final UserViewModel uvm = UserViewModel();
 
-  late String? username;
-  late String? email;
-  late String? password;
-  late String? confirmPassword;
+  late String? _username;
+  late String? _email;
+  late String? _password;
+  late String? _confirmPassword;
 
-  String? _passwordValidator(password) {
+  String? _usernameValidator(String? username) {
+    if (isValidUsername(username ?? "")) {
+      return null;
+    } else {
+      return ProjectTextUtility.textUsernameValidate;
+    }
+  }
+
+  String? _emailValidator(String? email) {
+    if (isValidEmail(email ?? "")) {
+      return null;
+    } else {
+      return ProjectTextUtility.textEmailValidate;
+    }
+  }
+
+  String? _passwordValidator(String? password) {
     if (isValidPasswordLength(password ?? "")) {
       return null;
     } else {
@@ -51,11 +72,11 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
     }
   }
 
-  String? _emailValidator(email) {
-    if (isValidEmail(email ?? "")) {
+  String? _confirmPasswordValidator(String? confirmPassword) {
+    if (_username == confirmPassword) {
       return null;
     } else {
-      return ProjectTextUtility.textEmailValidate;
+      return ProjectTextUtility.textConfirmPasswordValidate;
     }
   }
 
@@ -66,10 +87,18 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
 
-          var response = await tryCatchAuth(signUp(email: email!.trim(), password: password!.trim()));
+          var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim()));
 
-          if (response == ProjectTextUtility.textFirebaseSuccess) {
+          if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
+            final user = userModel.User(
+              id: response[1],
+              name: _username,
+              email: _email,
+              password: _password,
+            );
+
+            await signUpFirestore(user);
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
           } else {
             if (context.mounted) {
@@ -78,7 +107,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                 context: context,
                 builder: (context) => CustomAlertDialog(
                   title: ProjectTextUtility.textWarning,
-                  textError: response,
+                  textError: response.first,
                 ),
               );
             }
@@ -92,11 +121,12 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
 
-          var response = await tryCatchAuth(signIn(email: email!.trim(), password: password!.trim()));
+          var response = await tryCatchAuth(signIn(email: _email!.trim(), password: _password!.trim()));
 
-          if (response == ProjectTextUtility.textFirebaseSuccess) {
+          if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
+            uvm.getUsername();
           } else {
             if (context.mounted) {
               showDialog(
@@ -104,7 +134,7 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                 context: context,
                 builder: (context) => CustomAlertDialog(
                   title: ProjectTextUtility.textWarning,
-                  textError: response,
+                  textError: response.first,
                 ),
               );
             }
@@ -160,10 +190,10 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                                 passwordValidator: _passwordValidator,
                                 onpressed: signInControl,
                                 onSavedEmail: (value) {
-                                  email = value;
+                                  _email = value;
                                 },
                                 onSavedPassword: (value) {
-                                  password = value;
+                                  _password = value;
                                 },
                               )
                             : signUpPageFields(
@@ -172,14 +202,22 @@ class AuthScaffold extends StatelessWidget with ValidatorMixin, FirebaseAuthMana
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
                                 confirmPasswordController: _confirmTextController ?? TextEditingController(),
+                                // usernameValidator: _usernameValidator,
                                 emailValidator: _emailValidator,
                                 passwordValidator: _passwordValidator,
+                                // confirmPasswordValidator: _confirmPasswordValidator,
                                 onpressed: signUpControl,
+                                onSavedUsername: (value) {
+                                  _username = value;
+                                },
                                 onSavedEmail: (value) {
-                                  email = value;
+                                  _email = value;
                                 },
                                 onSavedPassword: (value) {
-                                  password = value;
+                                  _password = value;
+                                },
+                                onSavedConfirmPassword: (value) {
+                                  _confirmPassword = value;
                                 },
                               ),
                       ),

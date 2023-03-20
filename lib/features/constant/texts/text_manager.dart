@@ -9,8 +9,10 @@ class ProjectTextUtility {
   static const String textDontHaveAccount = "Don't have account? ";
   static const String textSignUp = "Sign Up";
   static const String textSignIn = " Sign In";
+  static const String textUsernameValidate = "Invalid username";
   static const String textEmailValidate = "Enter a valid email address";
   static const String textPasswordValidate = "Length of password should taller than or equal 6";
+  static const String textConfirmPasswordValidate = "passwords aren't equal";
   static const String textFirebaseSuccess = "success";
   static const String textFirebaseUserNotFound = "user-not-found";
   static const String textFirebaseWrongPassword = "wrong-password";

@@ -27,4 +27,6 @@ abstract class _LoginAndSignUpViewModelBase with Store {
   void changeLogin() {
     isLogin = !isLogin;
   }
+
+  
 }

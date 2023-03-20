@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
@@ -6,6 +7,7 @@ import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.da
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/listTile/custom_list_tile.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
@@ -18,6 +20,8 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin {
+  final UserViewModel uvm = UserViewModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,14 +57,16 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                textAlign: TextAlign.center,
-                name,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: ProjectFontSizeUtility.normal,
-                    ),
-              ),
+              Observer(builder: (_) {
+                return Text(
+                  textAlign: TextAlign.center,
+                  uvm.username,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: ProjectFontSizeUtility.normal,
+                      ),
+                );
+              }),
               TextButton(
                 onPressed: () {},
                 child: Text(

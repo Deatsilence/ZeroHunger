@@ -2,49 +2,50 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 
 mixin FirebaseServiceException {
-  Future<String> tryCatchAuth(Future<UserCredential> func) async {
+  Future<List<dynamic>> tryCatchAuth(Future<UserCredential> func) async {
     String res = ProjectTextUtility.textFirebaseSuccess;
+    UserCredential? userResponse;
     try {
-      await func;
+      userResponse = await func;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case ProjectTextUtility.textFirebaseUserNotFound:
           res = "User not found";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseWrongPassword:
           res = "Wrong password";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseUserDisabled:
           res = "User disabled";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseEmailAlreadyInUse:
           res = "Email already in use";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseInvalidEmail:
           res = "Invalid email";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseOperationNotAllowed:
           res = "Operation invalid";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseWeakPassword:
           res = "Weak password";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseAccountExistsWithDifferentCredential:
           res = "Account exists with different credential";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseInvalidCredential:
           res = "Invalid credential";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseInvalidVerificationCode:
           res = "Invalid verification code";
-          return res;
+          return [res, userResponse?.user?.uid];
         case ProjectTextUtility.textFirebaseInvalidVerificationId:
           res = "Invalid verification id";
-          return res;
+          return [res, userResponse?.user?.uid];
         default:
-          return res;
+          return [res, userResponse?.user?.uid];
       }
     }
-    return res;
+    return [res, userResponse.user?.uid];
   }
 }
