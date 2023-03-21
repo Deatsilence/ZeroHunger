@@ -23,6 +23,12 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
   final UserViewModel uvm = UserViewModel();
 
   @override
+  void initState() {
+    super.initState();
+    uvm.getUsername();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(

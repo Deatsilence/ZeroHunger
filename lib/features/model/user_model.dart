@@ -9,8 +9,8 @@ class User {
   String? email;
   String? password;
   String? photoUrl;
-  CreatedAt? createdAt;
-  CreatedAt? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   User({this.id, this.name, this.email, this.password, this.photoUrl, this.createdAt, this.updatedAt});
 
@@ -20,21 +20,5 @@ class User {
 
   Map<String, dynamic> toJson() {
     return _$UserToJson(this);
-  }
-}
-
-@JsonSerializable()
-class CreatedAt {
-  int? iSeconds;
-  int? iNanoseconds;
-
-  CreatedAt({this.iSeconds, this.iNanoseconds});
-
-  factory CreatedAt.fromJson(Map<String, dynamic> json) {
-    return _$CreatedAtFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$CreatedAtToJson(this);
   }
 }

@@ -37,6 +37,7 @@ dependencies:
 
   # State
   flutter_mobx: ^2.0.6+5
+  mobx: ^2.1.4
 
   # Local Storage
   shared_preferences: ^2.0.18

@@ -8,7 +8,15 @@ class UserViewModel = _UserViewModelBase with _$UserViewModel;
 
 abstract class _UserViewModelBase with Store, FirebaseStoreManagerMixin, FirebaseAuthManagerMixin {
   @observable
+  bool isLoading = false;
+
+  @observable
   String username = "";
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
+  }
 
   @action
   Future<void> getUsername() async {

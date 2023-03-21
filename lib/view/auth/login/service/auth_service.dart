@@ -13,9 +13,7 @@ mixin FirebaseAuthManagerMixin {
   }
 
   Future<UserCredential> signIn({required String email, required String password}) async {
-    _lsvm.changeLoading();
     var userResult = await instance.signInWithEmailAndPassword(email: email, password: password);
-    _lsvm.changeLoading();
     return userResult;
   }
 

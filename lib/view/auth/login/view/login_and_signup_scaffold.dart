@@ -8,7 +8,7 @@ import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/mixin/validator_mixin.dart';
-import 'package:zero_hunger/features/model/user_model.dart' as userModel;
+import 'package:zero_hunger/features/model/user_model.dart' as user_model;
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/alertDialog/custom_alert_dialog.dart';
@@ -87,11 +87,22 @@ class AuthScaffold extends StatelessWidget
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
 
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+
           var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim()));
+
+          Navigator.of(context).pop();
 
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
-            final user = userModel.User(
+
+            final user = user_model.User(
               id: response[1],
               name: _username,
               email: _email,
@@ -121,12 +132,22 @@ class AuthScaffold extends StatelessWidget
         if (formGlobalKey.currentState!.validate()) {
           formGlobalKey.currentState!.save();
 
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+
           var response = await tryCatchAuth(signIn(email: _email!.trim(), password: _password!.trim()));
+
+          Navigator.of(context).pop();
 
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
+
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
-            uvm.getUsername();
           } else {
             if (context.mounted) {
               showDialog(

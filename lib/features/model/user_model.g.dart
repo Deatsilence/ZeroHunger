@@ -14,10 +14,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       photoUrl: json['photoUrl'] as String?,
       createdAt: json['createdAt'] == null
           ? null
-          : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
+          : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
-          : CreatedAt.fromJson(json['updatedAt'] as Map<String, dynamic>),
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -26,16 +26,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
       'photoUrl': instance.photoUrl,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
-    };
-
-CreatedAt _$CreatedAtFromJson(Map<String, dynamic> json) => CreatedAt(
-      iSeconds: json['iSeconds'] as int?,
-      iNanoseconds: json['iNanoseconds'] as int?,
-    );
-
-Map<String, dynamic> _$CreatedAtToJson(CreatedAt instance) => <String, dynamic>{
-      'iSeconds': instance.iSeconds,
-      'iNanoseconds': instance.iNanoseconds,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };
