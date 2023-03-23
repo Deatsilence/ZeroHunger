@@ -68,6 +68,8 @@ List<Widget> signUpPageFields(
       context: context,
       validator: usernameValidator,
       onSaved: onSavedUsername,
+      isPasswordType: false,
+      textinputType: TextInputType.text,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textEmail,
@@ -76,6 +78,8 @@ List<Widget> signUpPageFields(
       context: context,
       validator: emailValidator,
       onSaved: onSavedEmail,
+      isPasswordType: false,
+      textinputType: TextInputType.emailAddress,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
@@ -86,6 +90,7 @@ List<Widget> signUpPageFields(
       context: context,
       validator: passwordValidator,
       onSaved: onSavedPassword,
+      textinputType: TextInputType.visiblePassword,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textConfirmPassword,
@@ -97,6 +102,7 @@ List<Widget> signUpPageFields(
       context: context,
       validator: confirmPasswordValidator,
       onSaved: onSavedConfirmPassword,
+      textinputType: TextInputType.visiblePassword,
     ),
     customElevatedButton(
       context: context,

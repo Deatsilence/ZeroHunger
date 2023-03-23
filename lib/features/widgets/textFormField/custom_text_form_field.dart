@@ -12,16 +12,19 @@ class CustomTextFormField extends StatefulWidget {
     Key? key,
     required this.context,
     required this.text,
+    required this.icon,
+    required this.controller,
+    required this.textinputType,
+    required this.isPasswordType,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     this.focusedBorderColor = ProjectColorsUtility.eveningStar,
-    required this.icon,
     this.suffixIcon,
-    required this.controller,
     this.isActiveSuffixIcon = false,
-    this.isPasswordType = false,
     this.textInputAction = TextInputAction.next,
     this.validator,
     this.onSaved,
+    this.maxLine = 1,
+    this.minLine = 1,
   }) : super(key: key);
 
   final BuildContext context;
@@ -36,6 +39,9 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputAction textInputAction;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
+  final int? maxLine;
+  final int? minLine;
+  final TextInputType textinputType;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -71,6 +77,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Observer(
       builder: (_) {
         return TextFormField(
+          minLines: widget.minLine,
+          maxLines: widget.maxLine,
           onSaved: widget.onSaved,
           validator: widget.validator,
           controller: widget.controller,
@@ -81,8 +89,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           cursorWidth: ProjectFontSizeUtility.textFieldCursorWidth,
           cursorHeight: ProjectFontSizeUtility.normal,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ProjectColorsUtility.eveningStar),
-          keyboardType: widget.isPasswordType ? TextInputType.visiblePassword : TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
+          keyboardType: widget.isPasswordType ? TextInputType.visiblePassword : widget.textinputType,
+          textInputAction: widget.textInputAction,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             labelText: widget.text,

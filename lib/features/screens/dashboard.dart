@@ -39,6 +39,8 @@ class _DashboardViewState extends State<DashboardView> {
           context: context,
           icon: Icons.search_outlined,
           controller: _textEditingController,
+          isPasswordType: false,
+          textinputType: TextInputType.text,
         ),
       ),
       body: Padding(

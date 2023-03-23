@@ -42,4 +42,7 @@ class ProjectTextUtility {
   static const String textMyConnections = "My connections";
   static const String textViewAndEditProfile = "View and edit profile";
   static const String textLogout = "Log out";
+  static const String textCategory = "Category";
+  static const String textTitle = "Title";
+  static const String textDescription = "Description";
 }

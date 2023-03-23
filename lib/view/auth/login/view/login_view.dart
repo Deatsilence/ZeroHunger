@@ -55,6 +55,8 @@ List<Widget> loginPageFields(
       context: context,
       validator: emailValidator,
       onSaved: onSavedEmail,
+      isPasswordType: false,
+      textinputType: TextInputType.emailAddress,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,
@@ -66,6 +68,7 @@ List<Widget> loginPageFields(
       onSaved: onSavedPassword,
       isActiveSuffixIcon: true,
       isPasswordType: true,
+      textinputType: TextInputType.visiblePassword,
     ),
     customElevatedButton(
       context: context,
