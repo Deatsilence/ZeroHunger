@@ -61,7 +61,6 @@ dev_dependencies:
   mobx_codegen: ^2.1.1
   build_runner: ^2.3.3
 
-  
   flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
-import 'package:zero_hunger/features/init/theme/utility/margin_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 
@@ -25,7 +24,6 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: ProjectMarginUtility().normalAllMargin,
       shape: RoundedRectangleBorder(
         side: const BorderSide(
           width: 1,

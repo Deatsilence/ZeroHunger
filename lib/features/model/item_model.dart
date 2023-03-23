@@ -12,20 +12,21 @@ class Item {
   String? userId;
   String? categoryId;
   Location? location;
-  CreatedAt? createdAt;
-  CreatedAt? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-  Item(
-      {this.id,
-      this.title,
-      this.description,
-      this.price,
-      this.photoUrls,
-      this.userId,
-      this.categoryId,
-      this.location,
-      this.createdAt,
-      this.updatedAt});
+  Item({
+    this.id,
+    this.title,
+    this.description,
+    this.price,
+    this.photoUrls,
+    this.userId,
+    this.categoryId,
+    this.location,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return _$ItemFromJson(json);
@@ -49,21 +50,5 @@ class Location {
 
   Map<String, dynamic> toJson() {
     return _$LocationToJson(this);
-  }
-}
-
-@JsonSerializable()
-class CreatedAt {
-  int? iSeconds;
-  int? iNanoseconds;
-
-  CreatedAt({this.iSeconds, this.iNanoseconds});
-
-  factory CreatedAt.fromJson(Map<String, dynamic> json) {
-    return _$CreatedAtFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$CreatedAtToJson(this);
   }
 }

@@ -21,10 +21,10 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
           : Location.fromJson(json['location'] as Map<String, dynamic>),
       createdAt: json['createdAt'] == null
           ? null
-          : CreatedAt.fromJson(json['createdAt'] as Map<String, dynamic>),
+          : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
-          : CreatedAt.fromJson(json['updatedAt'] as Map<String, dynamic>),
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
@@ -36,8 +36,8 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'userId': instance.userId,
       'categoryId': instance.categoryId,
       'location': instance.location,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
@@ -48,14 +48,4 @@ Location _$LocationFromJson(Map<String, dynamic> json) => Location(
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
-    };
-
-CreatedAt _$CreatedAtFromJson(Map<String, dynamic> json) => CreatedAt(
-      iSeconds: json['iSeconds'] as int?,
-      iNanoseconds: json['iNanoseconds'] as int?,
-    );
-
-Map<String, dynamic> _$CreatedAtToJson(CreatedAt instance) => <String, dynamic>{
-      'iSeconds': instance.iSeconds,
-      'iNanoseconds': instance.iNanoseconds,
     };

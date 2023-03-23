@@ -1,3 +1,4 @@
+import 'package:zero_hunger/features/screens/add_advert.dart';
 import 'package:zero_hunger/features/screens/advert.dart';
 import 'package:zero_hunger/features/screens/chat.dart';
 import 'package:zero_hunger/features/screens/dashboard.dart';
@@ -19,10 +20,11 @@ class NavigatorRoutes {
     NavigateRoutes.chat.withParaph: (context) => const ChatView(),
     NavigateRoutes.advert.withParaph: (context) => const AdvertView(),
     NavigateRoutes.profile.withParaph: (context) => const ProfileView(),
+    NavigateRoutes.addAdvert.withParaph: (context) => const AddAdvert(),
   };
 }
 
-enum NavigateRoutes { onboard, splash, login, signUp, home, dashboard, chat, advert, profile }
+enum NavigateRoutes { onboard, splash, login, signUp, home, dashboard, chat, addAdvert, advert, profile }
 
 extension NavigateRoutesExtension on NavigateRoutes {
   String get justParaph => '/';
