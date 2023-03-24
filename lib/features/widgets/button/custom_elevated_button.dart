@@ -17,6 +17,10 @@ ElevatedButton customElevatedButton({
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: ProjectColorsUtility.eveningStar,
+          width: 2,
+        ),
         borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
       ),
     ),

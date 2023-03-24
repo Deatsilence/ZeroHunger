@@ -61,13 +61,13 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
       Atom(name: '_AdvertViewModelBase.images', context: context);
 
   @override
-  List<File> get images {
+  ObservableList<File> get images {
     _$imagesAtom.reportRead();
     return super.images;
   }
 
   @override
-  set images(List<File> value) {
+  set images(ObservableList<File> value) {
     _$imagesAtom.reportWrite(value, super.images, () {
       super.images = value;
     });

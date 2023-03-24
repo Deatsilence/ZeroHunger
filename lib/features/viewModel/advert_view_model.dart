@@ -24,7 +24,7 @@ abstract class _AdvertViewModelBase with Store {
   String? value;
 
   @observable
-  List<File> images = List.empty(growable: true);
+  ObservableList<File> images = ObservableList<File>();
 
   @observable
   ImagePicker picker = ImagePicker();
