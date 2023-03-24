@@ -45,4 +45,5 @@ class ProjectTextUtility {
   static const String textCategory = "Category";
   static const String textTitle = "Title";
   static const String textDescription = "Description";
+  static const String textAddNewAdvert = "Add New Advert";
 }
