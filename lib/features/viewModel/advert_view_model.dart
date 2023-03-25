@@ -4,11 +4,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/constant/enums/name_of_categories_enum.dart';
 import 'package:zero_hunger/features/extensions/string_extensions.dart';
+import 'package:zero_hunger/features/model/item_model.dart';
+import 'package:zero_hunger/features/services/firebase_storage_service.dart';
+import 'package:zero_hunger/features/services/firestore_service.dart';
+import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 part 'advert_view_model.g.dart';
 
 class AdvertViewModel = _AdvertViewModelBase with _$AdvertViewModel;
 
-abstract class _AdvertViewModelBase with Store {
+abstract class _AdvertViewModelBase
+    with Store, FirebaseAuthManagerMixin, FirebaseStorageManagerMixin, FirebaseStoreManagerMixin {
   @observable
   bool isStrechedDropwDown = false;
 
@@ -60,5 +65,13 @@ abstract class _AdvertViewModelBase with Store {
   @action
   void changeIsStrechedDropwDown() {
     isStrechedDropwDown = !isStrechedDropwDown;
+  }
+
+  Future<void> uploadAdvertToirebase(Item item, ObservableList<File> images) async {
+    if (instance.currentUser != null) {
+      item.userId = instance.currentUser!.uid;
+      item.photoUrls = await uploadFile(images);
+    }
+    uploadAdvert(item);
   }
 }

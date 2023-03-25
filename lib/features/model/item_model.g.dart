@@ -10,12 +10,11 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       id: json['id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
-      price: json['price'] as int?,
       photoUrls: (json['photoUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       userId: json['userId'] as String?,
-      categoryId: json['categoryId'] as String?,
+      categoryName: json['categoryName'] as String?,
       location: json['location'] == null
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
@@ -31,10 +30,9 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'price': instance.price,
       'photoUrls': instance.photoUrls,
       'userId': instance.userId,
-      'categoryId': instance.categoryId,
+      'categoryName': instance.categoryName,
       'location': instance.location,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

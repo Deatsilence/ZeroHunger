@@ -7,10 +7,9 @@ class Item {
   String? id;
   String? title;
   String? description;
-  int? price;
   List<String>? photoUrls;
   String? userId;
-  String? categoryId;
+  String? categoryName;
   Location? location;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -19,10 +18,9 @@ class Item {
     this.id,
     this.title,
     this.description,
-    this.price,
     this.photoUrls,
     this.userId,
-    this.categoryId,
+    this.categoryName,
     this.location,
     this.createdAt,
     this.updatedAt,

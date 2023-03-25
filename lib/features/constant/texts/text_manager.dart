@@ -13,6 +13,8 @@ class ProjectTextUtility {
   static const String textEmailValidate = "Enter a valid email address";
   static const String textPasswordValidate = "Length of password should taller than or equal 6";
   static const String textConfirmPasswordValidate = "passwords aren't equal";
+  static const String textTitleValidate = "Invalid title";
+  static const String textDescriptionValidate = "Length of description should be less than or equal 100";
   static const String textFirebaseSuccess = "success";
   static const String textFirebaseUserNotFound = "user-not-found";
   static const String textFirebaseWrongPassword = "wrong-password";
