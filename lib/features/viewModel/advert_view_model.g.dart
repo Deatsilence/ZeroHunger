@@ -41,22 +41,6 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
     });
   }
 
-  late final _$valueAtom =
-      Atom(name: '_AdvertViewModelBase.value', context: context);
-
-  @override
-  String? get value {
-    _$valueAtom.reportRead();
-    return super.value;
-  }
-
-  @override
-  set value(String? value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
-    });
-  }
-
   late final _$imagesAtom =
       Atom(name: '_AdvertViewModelBase.images', context: context);
 
@@ -109,17 +93,6 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
       ActionController(name: '_AdvertViewModelBase', context: context);
 
   @override
-  void setValue(String newValue) {
-    final _$actionInfo = _$_AdvertViewModelBaseActionController.startAction(
-        name: '_AdvertViewModelBase.setValue');
-    try {
-      return super.setValue(newValue);
-    } finally {
-      _$_AdvertViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void changeIsStrechedDropwDown() {
     final _$actionInfo = _$_AdvertViewModelBaseActionController.startAction(
         name: '_AdvertViewModelBase.changeIsStrechedDropwDown');
@@ -135,7 +108,6 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
     return '''
 isStrechedDropwDown: ${isStrechedDropwDown},
 items: ${items},
-value: ${value},
 images: ${images},
 picker: ${picker}
     ''';

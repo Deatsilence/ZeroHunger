@@ -73,7 +73,7 @@ class AuthScaffold extends StatelessWidget
   }
 
   String? _confirmPasswordValidator(String? confirmPassword) {
-    if (_username == confirmPassword) {
+    if (_password == confirmPassword) {
       return null;
     } else {
       return ProjectTextUtility.textConfirmPasswordValidate;

@@ -30,8 +30,9 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   final TextEditingController _descriptionController = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
 
-  late String? _title;
-  late String? _description;
+  String? _title;
+  String? _description;
+  String? _category;
 
   @override
   void dispose() {
@@ -65,7 +66,9 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
               key: formGlobalKey,
               child: Column(
                 children: [
-                  const CustomDropwdown(),
+                  CustomDropwdown(onChanged: (String value) {
+                    _category = value;
+                  }),
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     context: context,
@@ -118,10 +121,10 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   }
 
   String? _titleValidator(String? title) {
-    if (isValidUsername(title ?? "")) {
+    if (title != null && title.length <= 20) {
       return null;
     } else {
-      return ProjectTextUtility.textDescriptionValidate;
+      return ProjectTextUtility.textTitleValidate;
     }
   }
 
@@ -134,12 +137,19 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   }
 
   Future<void> _addAdvert() async {
-    final advert = Item(
-      title: _titleController.text,
-      description: _descriptionController.text,
-    );
-    await avm.uploadAdvertToirebase(advert, avm.images);
-    NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.advert.withParaph);
+    if (formGlobalKey.currentState != null) {
+      if (formGlobalKey.currentState!.validate()) {
+        formGlobalKey.currentState!.save();
+
+        final advert = Item(
+          categoryName: _category,
+          title: _title,
+          description: _description,
+        );
+        await avm.uploadAdvertToirebase(advert, avm.images);
+        NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.advert.withParaph);
+      }
+    }
   }
 
   Expanded _imagesOfAdvert() {

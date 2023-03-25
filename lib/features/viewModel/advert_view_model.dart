@@ -25,7 +25,6 @@ abstract class _AdvertViewModelBase
     Categories.snack.name.capitalize(),
   ];
 
-  @observable
   String? value;
 
   @observable
@@ -57,7 +56,6 @@ abstract class _AdvertViewModelBase
     }
   }
 
-  @action
   void setValue(String newValue) {
     value = newValue;
   }
