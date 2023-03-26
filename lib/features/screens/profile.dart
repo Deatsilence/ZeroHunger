@@ -23,6 +23,12 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
   final UserViewModel uvm = UserViewModel();
 
   @override
+  void initState() {
+    uvm.getUsername();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
@@ -58,14 +64,16 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Observer(builder: (_) {
-                return Text(
-                  textAlign: TextAlign.center,
-                  uvm.username,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: ProjectFontSizeUtility.normal,
-                      ),
-                );
+                return uvm.isLoading
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        textAlign: TextAlign.center,
+                        uvm.username,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: ProjectFontSizeUtility.normal,
+                            ),
+                      );
               }),
               TextButton(
                 onPressed: () {},

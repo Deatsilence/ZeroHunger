@@ -20,9 +20,11 @@ abstract class _UserViewModelBase with Store, FirebaseStoreManagerMixin, Firebas
 
   @action
   Future<void> getUsername() async {
+    changeLoading();
     if (instance.currentUser != null) {
       final user = userModel.User.fromJson(await getUserFirestore(instance.currentUser!.uid));
       username = user.name ?? "";
     }
+    changeLoading();
   }
 }

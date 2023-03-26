@@ -41,6 +41,22 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: '_AdvertViewModelBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$imagesAtom =
       Atom(name: '_AdvertViewModelBase.images', context: context);
 
@@ -93,6 +109,17 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
       ActionController(name: '_AdvertViewModelBase', context: context);
 
   @override
+  void changeLoading() {
+    final _$actionInfo = _$_AdvertViewModelBaseActionController.startAction(
+        name: '_AdvertViewModelBase.changeLoading');
+    try {
+      return super.changeLoading();
+    } finally {
+      _$_AdvertViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void changeIsStrechedDropwDown() {
     final _$actionInfo = _$_AdvertViewModelBaseActionController.startAction(
         name: '_AdvertViewModelBase.changeIsStrechedDropwDown');
@@ -108,6 +135,7 @@ mixin _$AdvertViewModel on _AdvertViewModelBase, Store {
     return '''
 isStrechedDropwDown: ${isStrechedDropwDown},
 items: ${items},
+isLoading: ${isLoading},
 images: ${images},
 picker: ${picker}
     ''';

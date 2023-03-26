@@ -28,7 +28,7 @@ Widget? splashBody(BuildContext context) => Center(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Center(
-              child: ProjectLottieUtility().lottieNetwork,
+              child: ProjectLottieUtility().lottieLoading,
             ),
           ),
         ),

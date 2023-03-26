@@ -34,6 +34,7 @@ dependencies:
   # Google
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
+ 
 
   # State
   flutter_mobx: ^2.0.6+5
@@ -83,6 +84,7 @@ flutter:
   assets:
     - assets/onboard/png/
     - assets/login/png/
+    - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

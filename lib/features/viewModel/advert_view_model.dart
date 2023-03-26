@@ -14,6 +14,8 @@ class AdvertViewModel = _AdvertViewModelBase with _$AdvertViewModel;
 
 abstract class _AdvertViewModelBase
     with Store, FirebaseAuthManagerMixin, FirebaseStorageManagerMixin, FirebaseStoreManagerMixin {
+  String? value;
+
   @observable
   bool isStrechedDropwDown = false;
 
@@ -25,7 +27,8 @@ abstract class _AdvertViewModelBase
     Categories.snack.name.capitalize(),
   ];
 
-  String? value;
+  @observable
+  bool isLoading = false;
 
   @observable
   ObservableList<File> images = ObservableList<File>();
@@ -56,13 +59,18 @@ abstract class _AdvertViewModelBase
     }
   }
 
-  void setValue(String newValue) {
-    value = newValue;
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
   }
 
   @action
   void changeIsStrechedDropwDown() {
     isStrechedDropwDown = !isStrechedDropwDown;
+  }
+
+  void setValue(String newValue) {
+    value = newValue;
   }
 
   Future<void> uploadAdvertToirebase(Item item, ObservableList<File> images) async {

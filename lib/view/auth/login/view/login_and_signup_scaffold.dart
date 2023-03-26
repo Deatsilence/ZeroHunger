@@ -4,6 +4,7 @@ import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/path_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
@@ -90,8 +91,8 @@ class AuthScaffold extends StatelessWidget
           showDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) => const Center(
-              child: CircularProgressIndicator(),
+            builder: (context) => Center(
+              child: ProjectLottieUtility().lottieLoading,
             ),
           );
 
@@ -135,14 +136,14 @@ class AuthScaffold extends StatelessWidget
           showDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) => const Center(
-              child: CircularProgressIndicator(),
+            builder: (context) => Center(
+              child: ProjectLottieUtility().lottieLoading,
             ),
           );
 
-          var response = await tryCatchAuth(signIn(email: _email!.trim(), password: _password!.trim()));
-
-          Navigator.of(context).pop();
+          var response = await tryCatchAuth(signIn(email: _email!.trim(), password: _password!.trim())).whenComplete(
+            () => Navigator.of(context).pop(),
+          );
 
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();

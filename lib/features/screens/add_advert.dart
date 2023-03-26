@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
-import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
-import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
@@ -121,7 +119,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   }
 
   String? _titleValidator(String? title) {
-    if (title != null && title.length <= 20) {
+    if (title != null && title.isNotEmpty && title.length <= 20) {
       return null;
     } else {
       return ProjectTextUtility.textTitleValidate;
@@ -129,7 +127,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   }
 
   String? _descriptionValidator(String? description) {
-    if (description != null && description.length <= 100) {
+    if (description != null && description.isNotEmpty && description.length <= 100) {
       return null;
     } else {
       return ProjectTextUtility.textDescriptionValidate;
@@ -146,8 +144,18 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
           title: _title,
           description: _description,
         );
-        await avm.uploadAdvertToirebase(advert, avm.images);
-        NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.advert.withParaph);
+
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ).whenComplete(() => Navigator.of(context).pop());
+
+        await avm.uploadAdvertToirebase(advert, avm.images).whenComplete(() {
+          Navigator.of(context).pop();
+        });
       }
     }
   }

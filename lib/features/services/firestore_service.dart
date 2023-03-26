@@ -32,4 +32,8 @@ mixin FirebaseStoreManagerMixin {
     final json = item.toJson();
     await docItem.set(json);
   }
+
+  void getStreamOfAdverts() {
+    // _firestoreInstance.collection(FireBaseCollections.Items.name)
+  }
 }
