@@ -9,7 +9,6 @@ import 'package:zero_hunger/features/viewModel/advert_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/card/advert_card.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AdvertView extends StatefulWidget {
   const AdvertView({super.key});
@@ -20,13 +19,6 @@ class AdvertView extends StatefulWidget {
 
 class _AdvertViewState extends State<AdvertView> with FirebaseStoreManagerMixin, FirebaseAuthManagerMixin {
   AdvertViewModel avm = AdvertViewModel();
-  auth.User? currentUser;
-
-  @override
-  void initState() {
-    currentUser = getCurrentUser();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +32,8 @@ class _AdvertViewState extends State<AdvertView> with FirebaseStoreManagerMixin,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: StreamBuilder(
-            stream: getMyItems(currentUser),
-            builder: (context, snapshot) {
+            stream: avm.streamOfItems(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
               return !snapshot.hasData
                   ? ProjectLottieUtility().lottieLoading
                   : ListView.separated(

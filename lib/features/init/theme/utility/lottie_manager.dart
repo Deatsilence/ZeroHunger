@@ -5,8 +5,8 @@ import 'package:zero_hunger/features/constant/lottie_url/lottie_urls.dart';
 class ProjectLottieUtility {
   Center get lottieLoading => Center(
         child: SizedBox(
-          width: 50,
-          height: 50,
+          width: 60,
+          height: 60,
           child: Lottie.asset(LottiePath.loadingAnimation),
         ),
       );

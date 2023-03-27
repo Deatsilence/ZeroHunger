@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/constant/enums/name_of_categories_enum.dart';
@@ -69,14 +70,14 @@ abstract class _AdvertViewModelBase
     isStrechedDropwDown = !isStrechedDropwDown;
   }
 
-  // Future<Query<Map<String, dynamic>>> streamOfItems() async {
-  //   final currentUser = instance.currentUser;
-  //   if (currentUser is user.User && currentUser != null) {
-  //     final myItems = await getMyItems(currentUser);
-
-  //     return myItems;
-  //   }
-  // }
+  Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
+    final currentUser = getCurrentUser();
+    if (currentUser != null) {
+      final myItems = getMyItems(currentUser);
+      return myItems;
+    }
+    return null;
+  }
 
   void setValue(String newValue) {
     value = newValue;

@@ -40,4 +40,9 @@ mixin FirebaseStoreManagerMixin {
         firestoreInstance.collection(FireBaseCollections.Items.name).where("userId", isEqualTo: user?.uid).snapshots();
     return querySnapshot;
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllItems() {
+    final querySnapshot = firestoreInstance.collection(FireBaseCollections.Items.name).snapshots();
+    return querySnapshot;
+  }
 }

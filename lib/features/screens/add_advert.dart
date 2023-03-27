@@ -4,6 +4,7 @@ import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/margin_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
@@ -148,8 +149,8 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
         showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(),
+          builder: (context) => Center(
+            child: ProjectLottieUtility().lottieLoading,
           ),
         ).whenComplete(() => Navigator.of(context).pop());
 

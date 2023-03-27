@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
@@ -65,11 +66,13 @@ class CustomAdvertCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
+            width: MediaQuery.of(context).size.width * 0.2,
             height: MediaQuery.of(context).size.height * 0.1,
             child: ClipRRect(
               borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
-              child: Image.network(
-                pathOfAdvertImage,
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: pathOfAdvertImage,
                 fit: BoxFit.cover,
               ),
             ),

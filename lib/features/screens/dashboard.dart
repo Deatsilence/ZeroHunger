@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/viewModel/dashboard_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/button/category_button.dart';
 import 'package:zero_hunger/features/widgets/card/item_card.dart';
@@ -19,6 +21,8 @@ class _DashboardViewState extends State<DashboardView> {
 
   final int _crossAxisCount = 2;
   final double _childAspectRatio = 0.7;
+
+  DashboardViewModel dbv = DashboardViewModel();
 
   @override
   void dispose() {
@@ -54,19 +58,30 @@ class _DashboardViewState extends State<DashboardView> {
               _categories(context),
               const Divider(),
               Expanded(
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: _crossAxisCount,
-                  childAspectRatio: _childAspectRatio,
-                  children: List.generate(
-                    15,
-                    (index) => const ItemCard(
-                      title: "title",
-                      description: "desc",
-                      urlOfPhoto: "https://picsum.photos/200",
-                      location: "loc",
-                    ),
-                  ),
+                child: StreamBuilder(
+                  stream: dbv.streamOfItems(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return !snapshot.hasData
+                        ? ProjectLottieUtility().lottieLoading
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.docs.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: _crossAxisCount,
+                              childAspectRatio: _childAspectRatio,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return (index >= 0 && index < snapshot.data!.docs.length)
+                                  ? ItemCard(
+                                      title: snapshot.data.docs[index].get("title"),
+                                      description: snapshot.data!.docs[index].get("description"),
+                                      urlOfPhoto: snapshot.data!.docs[index].get("photoUrls")[0],
+                                      location: "loc",
+                                    )
+                                  : const SizedBox.shrink();
+                            },
+                          );
+                  },
                 ),
               ),
             ],

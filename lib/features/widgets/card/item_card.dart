@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
@@ -42,29 +43,39 @@ class ItemCard extends StatelessWidget {
 
   List<Widget> _itemsOfCard(BuildContext context) {
     return [
-      ClipRRect(
-        borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
-        child: Image.network(
-          urlOfPhoto,
-          alignment: Alignment.topCenter,
+      Expanded(
+        flex: 6,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.45,
+          child: ClipRRect(
+            borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: urlOfPhoto,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
       ),
-      Padding(
-        padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextThemeUtility().textThemeLogin(
-                context: context,
-                fontSize: ProjectFontSizeUtility.small,
-                fontWeight: FontWeight.bold,
+      Expanded(
+        flex: 4,
+        child: Padding(
+          padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextThemeUtility().textThemeLogin(
+                  context: context,
+                  fontSize: ProjectFontSizeUtility.small,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(location),
-          ],
+              const SizedBox(height: 10),
+              Text(location),
+            ],
+          ),
         ),
       ),
     ];
