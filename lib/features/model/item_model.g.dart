@@ -18,12 +18,8 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       location: json['location'] == null
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
@@ -34,8 +30,8 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'userId': instance.userId,
       'categoryName': instance.categoryName,
       'location': instance.location,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(

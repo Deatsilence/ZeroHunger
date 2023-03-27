@@ -3,7 +3,6 @@ import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.da
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
-import 'package:intl/intl.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 
 class CustomAdvertCard extends StatelessWidget {
@@ -14,7 +13,7 @@ class CustomAdvertCard extends StatelessWidget {
     required this.description,
   }) : super(key: key);
 
-  final DateTime advertDate;
+  final String advertDate;
   final String pathOfAdvertImage;
   final String description;
 
@@ -49,7 +48,7 @@ class CustomAdvertCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat.yMMMd().format(advertDate),
+            advertDate,
             style: TextThemeUtility().textThemeLogin(
               context: context,
               fontSize: ProjectFontSizeUtility.small,

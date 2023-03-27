@@ -6,6 +6,7 @@ import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
@@ -65,7 +66,7 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
             children: [
               Observer(builder: (_) {
                 return uvm.isLoading
-                    ? const CircularProgressIndicator()
+                    ? ProjectLottieUtility().lottieLoading
                     : Text(
                         textAlign: TextAlign.center,
                         uvm.username,

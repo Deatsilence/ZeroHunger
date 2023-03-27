@@ -11,8 +11,8 @@ class Item {
   String? userId;
   String? categoryName;
   Location? location;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   Item({
     this.id,

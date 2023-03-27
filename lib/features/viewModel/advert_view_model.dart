@@ -69,13 +69,24 @@ abstract class _AdvertViewModelBase
     isStrechedDropwDown = !isStrechedDropwDown;
   }
 
+  // Future<Query<Map<String, dynamic>>> streamOfItems() async {
+  //   final currentUser = instance.currentUser;
+  //   if (currentUser is user.User && currentUser != null) {
+  //     final myItems = await getMyItems(currentUser);
+
+  //     return myItems;
+  //   }
+  // }
+
   void setValue(String newValue) {
     value = newValue;
   }
 
   Future<void> uploadAdvertToirebase(Item item, ObservableList<File> images) async {
-    if (instance.currentUser != null) {
-      item.userId = instance.currentUser!.uid;
+    final currentUser = getCurrentUser();
+
+    if (currentUser != null) {
+      item.userId = currentUser.uid;
       item.photoUrls = await uploadFile(images);
     }
     uploadAdvert(item);

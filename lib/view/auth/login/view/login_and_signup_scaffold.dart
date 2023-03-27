@@ -91,9 +91,7 @@ class AuthScaffold extends StatelessWidget
           showDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) => Center(
-              child: ProjectLottieUtility().lottieLoading,
-            ),
+            builder: (context) => ProjectLottieUtility().lottieLoading,
           );
 
           var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim()));
@@ -136,9 +134,7 @@ class AuthScaffold extends StatelessWidget
           showDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) => Center(
-              child: ProjectLottieUtility().lottieLoading,
-            ),
+            builder: (context) => ProjectLottieUtility().lottieLoading,
           );
 
           var response = await tryCatchAuth(signIn(email: _email!.trim(), password: _password!.trim())).whenComplete(
