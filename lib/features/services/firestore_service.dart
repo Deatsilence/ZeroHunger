@@ -3,6 +3,7 @@ import 'package:zero_hunger/features/constant/enums/firebase_collections_enum.da
 import 'package:zero_hunger/features/model/item_model.dart';
 import 'package:zero_hunger/features/model/user_model.dart';
 import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
+import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 mixin FirebaseStoreManagerMixin {
@@ -29,7 +30,7 @@ mixin FirebaseStoreManagerMixin {
   Future<void> uploadAdvert(Item item) async {
     final docItem = firestoreInstance.collection(FireBaseCollections.Items.name).doc(item.id);
     item.id = docItem.id;
-    item.createdAt = DateTime.now().toString();
+    item.createdAt = DateFormat.yMMMd().format(DateTime.now());
     final json = item.toJson();
     await docItem.set(json);
   }

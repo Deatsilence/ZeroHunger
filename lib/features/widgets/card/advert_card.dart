@@ -68,7 +68,10 @@ class CustomAdvertCard extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.1,
             child: ClipRRect(
               borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
-              child: Image.network(pathOfAdvertImage),
+              child: Image.network(
+                pathOfAdvertImage,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(width: 5),
