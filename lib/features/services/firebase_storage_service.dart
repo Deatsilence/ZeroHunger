@@ -22,4 +22,16 @@ mixin FirebaseStorageManagerMixin {
     }
     return pathOfImages;
   }
+
+  Future<String> uploadAvatarFile(File image) async {
+    String pathOfImage = "";
+    var ref = _firebaseStorage.child("images/${path.basename(image.path)}");
+
+    await ref.putFile(image).whenComplete(
+          () async => await ref.getDownloadURL().then(
+                (value) => pathOfImage = value,
+              ),
+        );
+    return pathOfImage;
+  }
 }

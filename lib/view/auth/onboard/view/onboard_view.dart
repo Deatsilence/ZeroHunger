@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
@@ -9,10 +10,11 @@ import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/view/auth/onboard/model/onboard_model.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
+import 'package:zero_hunger/view/auth/onboard/viewModel/onboard_view_model.dart';
 
 part 'part_of_onboard_widgets.dart';
 
-late final SharedManager _manager;
+final OnboardViewModel _ovm = OnboardViewModel();
 
 class OnBoardView extends StatefulWidget {
   const OnBoardView({super.key});
@@ -22,14 +24,11 @@ class OnBoardView extends StatefulWidget {
 }
 
 class _OnBoardViewState extends State<OnBoardView> {
-  int currentIndex = 0;
   late PageController _pageController;
 
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
-    _manager = SharedManager();
-    _initialize();
     super.initState();
   }
 
@@ -37,10 +36,6 @@ class _OnBoardViewState extends State<OnBoardView> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  Future<void> _initialize() async {
-    await _manager.init();
   }
 
   @override
@@ -60,28 +55,28 @@ class _OnBoardViewState extends State<OnBoardView> {
           child: PageView.builder(
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),
-            onPageChanged: (int index) => setState(() {
-              currentIndex = index;
-            }),
+            onPageChanged: (int index) => _ovm.increaseCurrentIndex(index),
             itemCount: screens.length,
             itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(screens[index].img),
-                  SizedBox(
-                    height: ProjectFontSizeUtility.verySmall,
-                    child: _OnboardPageListViewBuilder(currentIndex: currentIndex),
-                  ),
-                  _onboardTitleText(index, context),
-                  _onboardDescriptionText(index, context),
-                  _OnboardNextButton(
-                    pageController: _pageController,
-                    index: index,
-                  ),
-                ],
-              );
+              return Observer(builder: (_) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(screens[index].img),
+                    SizedBox(
+                      height: ProjectFontSizeUtility.verySmall,
+                      child: _OnboardPageListViewBuilder(currentIndex: _ovm.currentIndex),
+                    ),
+                    _onboardTitleText(index, context),
+                    _onboardDescriptionText(index, context),
+                    _OnboardNextButton(
+                      pageController: _pageController,
+                      index: index,
+                    ),
+                  ],
+                );
+              });
             },
           ),
         ),

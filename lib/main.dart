@@ -9,9 +9,9 @@ import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/screens/splash.dart';
 import 'package:zero_hunger/features/services/firebase_options.dart';
 import 'package:zero_hunger/features/widgets/tabBar/tab_bar_widgets.dart';
-import 'package:zero_hunger/view/auth/login/view/login_view.dart';
 import 'package:zero_hunger/view/auth/onboard/view/onboard_view.dart';
 
 int? isViewed;
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
           backgroundColor: ProjectColorsUtility.eveningStar,
         ),
       ),
-      home: isViewed != 0 ? const OnBoardView() : const LoginView(),
-      initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.login.withParaph,
+      home: isViewed != 0 ? const OnBoardView() : const SplashView(),
+      initialRoute: isViewed != 0 ? NavigateRoutes.onboard.withParaph : NavigateRoutes.splash.withParaph,
       routes: NavigatorRoutes().items,
       navigatorKey: NavigatorManager.instance.navigatorGlobalKey,
     );

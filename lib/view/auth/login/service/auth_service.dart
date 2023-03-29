@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
+import 'package:zero_hunger/features/model/user_model.dart' as user_model;
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
 mixin FirebaseAuthManagerMixin {
@@ -25,5 +27,23 @@ mixin FirebaseAuthManagerMixin {
 
   auth.User? getCurrentUser() {
     return _instance.currentUser;
+  }
+
+  Future<void> saveUserData(user_model.User? user) async {
+    SharedManager().saveUserData(user_model.User(
+      id: user?.id,
+      name: user?.name,
+      email: user?.email,
+      photoUrl: user?.photoUrl,
+    ));
+  }
+
+  Future<bool> checkUserAvailable() async {
+    final currentUser = getCurrentUser();
+
+    if (currentUser != null) {
+      return true;
+    }
+    return false;
   }
 }

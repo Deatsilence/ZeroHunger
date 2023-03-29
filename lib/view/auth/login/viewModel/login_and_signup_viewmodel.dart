@@ -1,9 +1,13 @@
 import 'package:mobx/mobx.dart';
+import 'package:zero_hunger/features/model/user_model.dart' as user_model;
+import 'package:zero_hunger/features/services/firestore_service.dart';
+import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
+
 part 'login_and_signup_viewmodel.g.dart';
 
 class LoginAndSignUpViewModel = _LoginAndSignUpViewModelBase with _$LoginAndSignUpViewModel;
 
-abstract class _LoginAndSignUpViewModelBase with Store {
+abstract class _LoginAndSignUpViewModelBase with Store, FirebaseAuthManagerMixin, FirebaseStoreManagerMixin {
   @observable
   bool isSecure = true;
 
@@ -28,5 +32,14 @@ abstract class _LoginAndSignUpViewModelBase with Store {
     isLogin = !isLogin;
   }
 
-  
+  Future<user_model.User> getUser() async {
+    changeLoading();
+    final currentUser = getCurrentUser();
+    late user_model.User user;
+    if (currentUser != null) {
+      user = user_model.User.fromJson(await getUserFirestore(currentUser.uid));
+    }
+    changeLoading();
+    return user;
+  }
 }

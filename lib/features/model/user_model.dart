@@ -9,8 +9,8 @@ class User {
   String? email;
   String? password;
   String? photoUrl;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   User({this.id, this.name, this.email, this.password, this.photoUrl, this.createdAt, this.updatedAt});
 

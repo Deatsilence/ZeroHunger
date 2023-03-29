@@ -20,22 +20,23 @@ class OnBoardModel {
 List<OnBoardModel> screens = <OnBoardModel>[
   OnBoardModel(
     img: OnBoardImagesPaths.onboard1.path,
-    text: "text",
-    desc: "desc",
+    text: "Do you have too much food or drink?",
+    desc: "",
     bg: Colors.white,
     button: Colors.blue,
   ),
   OnBoardModel(
     img: OnBoardImagesPaths.onboard2.path,
-    text: "text",
-    desc: "desc",
+    text: "Don't want to throw away your leftover meal?",
+    desc: "According to the United Nations 2021 Food Waste Index Report, global food waste is approaching 1.3 tons.",
     bg: Colors.white,
     button: Colors.blue,
   ),
   OnBoardModel(
     img: OnBoardImagesPaths.onboard3.path,
-    text: "text",
-    desc: "desc",
+    text: "Let's reach sharing saturation!",
+    desc:
+        "According to the international humanitarian organization Oxfam, one person dies of hunger every 11 minutes in the world.",
     bg: Colors.white,
     button: Colors.blue,
   ),

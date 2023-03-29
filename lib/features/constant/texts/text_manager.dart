@@ -11,7 +11,7 @@ class ProjectTextUtility {
   static const String textSignIn = " Sign In";
   static const String textUsernameValidate = "Invalid username";
   static const String textEmailValidate = "Enter a valid email address";
-  static const String textPasswordValidate = "Length of password should taller than or equal 6";
+  static const String textPasswordValidate = "Invalid Passowrd";
   static const String textConfirmPasswordValidate = "passwords aren't equal";
   static const String textTitleValidate = "Invalid title";
   static const String textDescriptionValidate = "Length of description should be less than or equal 100";

@@ -41,12 +41,68 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
     });
   }
 
+  late final _$photoUrlAtom =
+      Atom(name: '_UserViewModelBase.photoUrl', context: context);
+
+  @override
+  String get photoUrl {
+    _$photoUrlAtom.reportRead();
+    return super.photoUrl;
+  }
+
+  @override
+  set photoUrl(String value) {
+    _$photoUrlAtom.reportWrite(value, super.photoUrl, () {
+      super.photoUrl = value;
+    });
+  }
+
+  late final _$imageAtom =
+      Atom(name: '_UserViewModelBase.image', context: context);
+
+  @override
+  File? get image {
+    _$imageAtom.reportRead();
+    return super.image;
+  }
+
+  @override
+  set image(File? value) {
+    _$imageAtom.reportWrite(value, super.image, () {
+      super.image = value;
+    });
+  }
+
+  late final _$chooseImageAsyncAction =
+      AsyncAction('_UserViewModelBase.chooseImage', context: context);
+
+  @override
+  Future<void> chooseImage() {
+    return _$chooseImageAsyncAction.run(() => super.chooseImage());
+  }
+
+  late final _$retrieveLostDataAsyncAction =
+      AsyncAction('_UserViewModelBase.retrieveLostData', context: context);
+
+  @override
+  Future<void> retrieveLostData() {
+    return _$retrieveLostDataAsyncAction.run(() => super.retrieveLostData());
+  }
+
   late final _$getUsernameAsyncAction =
       AsyncAction('_UserViewModelBase.getUsername', context: context);
 
   @override
   Future<void> getUsername() {
     return _$getUsernameAsyncAction.run(() => super.getUsername());
+  }
+
+  late final _$getAvatarAsyncAction =
+      AsyncAction('_UserViewModelBase.getAvatar', context: context);
+
+  @override
+  Future<void> getAvatar() {
+    return _$getAvatarAsyncAction.run(() => super.getAvatar());
   }
 
   late final _$_UserViewModelBaseActionController =
@@ -67,7 +123,9 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
-username: ${username}
+username: ${username},
+photoUrl: ${photoUrl},
+image: ${image}
     ''';
   }
 }

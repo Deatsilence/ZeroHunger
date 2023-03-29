@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
@@ -51,6 +52,7 @@ class AuthScaffold extends StatelessWidget
 
   String? _usernameValidator(String? username) {
     if (isValidUsername(username ?? "")) {
+      _username = username;
       return null;
     } else {
       return ProjectTextUtility.textUsernameValidate;
@@ -59,6 +61,7 @@ class AuthScaffold extends StatelessWidget
 
   String? _emailValidator(String? email) {
     if (isValidEmail(email ?? "")) {
+      _email = email;
       return null;
     } else {
       return ProjectTextUtility.textEmailValidate;
@@ -66,7 +69,8 @@ class AuthScaffold extends StatelessWidget
   }
 
   String? _passwordValidator(String? password) {
-    if (isValidPasswordLength(password ?? "")) {
+    if (isValidPassword(password ?? "")) {
+      _password = password;
       return null;
     } else {
       return ProjectTextUtility.textPasswordValidate;
@@ -144,6 +148,17 @@ class AuthScaffold extends StatelessWidget
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
 
+            final user_model.User user = await lsvm.getUser();
+            await saveUserData(user);
+
+            SharedManager().getUserData().then((value) {
+              List<user_model.User> list = value;
+              debugPrint(list[0].id.toString());
+              debugPrint(list[0].email.toString());
+              debugPrint(list[0].name.toString());
+              debugPrint(list[0].photoUrl.toString());
+            });
+
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
           } else {
             if (context.mounted) {
@@ -205,7 +220,7 @@ class AuthScaffold extends StatelessWidget
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
                                 emailValidator: _emailValidator,
-                                passwordValidator: _passwordValidator,
+                                // passwordValidator: _passwordValidator,
                                 onpressed: signInControl,
                                 onSavedEmail: (value) {
                                   _email = value;
@@ -220,10 +235,10 @@ class AuthScaffold extends StatelessWidget
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
                                 confirmPasswordController: _confirmTextController ?? TextEditingController(),
-                                // usernameValidator: _usernameValidator,
+                                usernameValidator: _usernameValidator,
                                 emailValidator: _emailValidator,
                                 passwordValidator: _passwordValidator,
-                                // confirmPasswordValidator: _confirmPasswordValidator,
+                                confirmPasswordValidator: _confirmPasswordValidator,
                                 onpressed: signUpControl,
                                 onSavedUsername: (value) {
                                   _username = value;

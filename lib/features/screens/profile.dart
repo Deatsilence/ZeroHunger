@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
@@ -25,7 +26,7 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
 
   @override
   void initState() {
-    uvm.getUsername();
+    Future.microtask(() => uvm.getUsername());
     super.initState();
   }
 
@@ -41,68 +42,75 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: ListView(
-            children: _profileListView("Mert", "https://picsum.photos/200"),
+            children: _profileListView(),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> _profileListView(String name, String avatarUrl) {
+  List<Widget> _profileListView() {
     return [
       const Divider(thickness: 2),
-      Row(
-        children: [
-          CircleAvatar(
-            radius: 60,
-            child: ClipRRect(
-              borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
-              child: Image.network(avatarUrl),
-            ),
-          ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.1),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Observer(builder: (_) {
-                return uvm.isLoading
-                    ? ProjectLottieUtility().lottieLoading
-                    : Text(
-                        textAlign: TextAlign.center,
-                        uvm.username,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: ProjectFontSizeUtility.normal,
-                            ),
-                      );
-              }),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  ProjectTextUtility.textViewAndEditProfile,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: ProjectFontSizeUtility.small,
-                        color: ProjectColorsUtility.projectPink,
-                      ),
+      InkWell(
+        onTap: () async {},
+        child: Row(
+          children: [
+            Observer(builder: (_) {
+              return CircleAvatar(
+                radius: 60,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: ClipRRect(
+                    borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
+                    child: uvm.isLoading
+                        ? ProjectLottieUtility().lottieLoading
+                        : FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: uvm.photoUrl,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
-              )
-            ],
-          ),
-        ],
+              );
+            }),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.1),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Observer(builder: (_) {
+                  return uvm.isLoading
+                      ? ProjectLottieUtility().lottieLoading
+                      : Text(
+                          textAlign: TextAlign.center,
+                          uvm.username,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: ProjectFontSizeUtility.normal,
+                              ),
+                        );
+                }),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    ProjectTextUtility.textViewAndEditProfile,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: ProjectFontSizeUtility.small,
+                          color: ProjectColorsUtility.projectPink,
+                        ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
       const Divider(thickness: 2),
       CustomListTile(
         onTab: () {},
         title: const Text(ProjectTextUtility.textMyConnections),
         leading: const Icon(Icons.people_alt_rounded),
-        trailing: const Icon(Icons.chevron_right_outlined),
-      ),
-      const Divider(thickness: 2),
-      CustomListTile(
-        onTab: () {},
-        title: const Text(ProjectTextUtility.textOrdersAndBilling),
-        leading: const Icon(Icons.settings_outlined),
         trailing: const Icon(Icons.chevron_right_outlined),
       ),
       const Divider(thickness: 2),

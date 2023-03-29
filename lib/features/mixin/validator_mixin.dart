@@ -5,7 +5,11 @@ mixin ValidatorMixin {
     return RegExp(rule).hasMatch(username);
   }
 
-  bool isValidPasswordLength(String password) => password.length >= 6;
+  bool isValidPassword(String password) {
+    String rule = r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$";
+
+    return RegExp(rule).hasMatch(password);
+  }
 
   bool isValidEmail(String email) {
     String rule =

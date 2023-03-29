@@ -13,7 +13,7 @@ mixin FirebaseStoreManagerMixin {
   Future<void> signUpFirestore(User user) async {
     _uvm.changeLoading();
     final docUser = firestoreInstance.collection(FireBaseCollections.Users.name).doc(user.id);
-    user.createdAt = DateTime.now();
+    user.createdAt = DateFormat.yMMMd().format(DateTime.now());
     final json = user.toJson();
     await docUser.set(json);
     _uvm.changeLoading();
@@ -33,6 +33,16 @@ mixin FirebaseStoreManagerMixin {
     item.createdAt = DateFormat.yMMMd().format(DateTime.now());
     final json = item.toJson();
     await docItem.set(json);
+  }
+
+  Future<void> uploadAvatar(User user) async {
+    final docUser = firestoreInstance.collection(FireBaseCollections.Users.name).doc(user.id);
+
+    user.updatedAt = DateFormat.yMMMd().format(DateTime.now());
+    await docUser.update({
+      "photoUrl": user.photoUrl,
+      "updatedAt": user.updatedAt,
+    });
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMyItems(auth.User? user) {

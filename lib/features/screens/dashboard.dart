@@ -17,7 +17,7 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   final int _crossAxisCount = 2;
   final double _childAspectRatio = 0.7;
@@ -26,8 +26,8 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   void dispose() {
+    _searchController.dispose();
     super.dispose();
-    _textEditingController.dispose();
   }
 
   @override
@@ -42,7 +42,7 @@ class _DashboardViewState extends State<DashboardView> {
           text: ProjectTextUtility.textFoodDessertAndMore,
           context: context,
           icon: Icons.search_outlined,
-          controller: _textEditingController,
+          controller: _searchController,
           isPasswordType: false,
           textinputType: TextInputType.text,
         ),

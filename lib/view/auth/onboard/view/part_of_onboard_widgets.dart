@@ -7,7 +7,7 @@ class _OnboardSkipTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () async {
-        await _manager.saveIntOnboardInfo(key: SharedKeys.onboard);
+        await SharedManager().saveIntOnboardInfo(key: SharedKeys.onboard);
         await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
       },
       child: Text(
@@ -93,7 +93,7 @@ class _OnboardNextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await _manager.saveIntOnboardInfo(key: SharedKeys.onboard);
+        await SharedManager().saveIntOnboardInfo(key: SharedKeys.onboard);
         if (_index == screens.length - 1) {
           await NavigatorManager.instance.pushToReplacementNamedPage(
             route: NavigateRoutes.login.withParaph,
