@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/onboard/png/
     - assets/login/png/
+    - assets/profile/png/
     - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see

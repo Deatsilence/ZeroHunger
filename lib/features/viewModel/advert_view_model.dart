@@ -70,6 +70,10 @@ abstract class _AdvertViewModelBase
     isStrechedDropwDown = !isStrechedDropwDown;
   }
 
+  Future<void> deleteItem(String id) async {
+    await deleteItemFromFirestore(id);
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
     final currentUser = getCurrentUser();
     if (currentUser != null) {

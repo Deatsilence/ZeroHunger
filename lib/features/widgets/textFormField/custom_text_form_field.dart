@@ -14,8 +14,8 @@ class CustomTextFormField extends StatefulWidget {
     required this.text,
     required this.icon,
     required this.controller,
-    required this.textinputType,
     required this.isPasswordType,
+    required this.textinputType,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     this.focusedBorderColor = ProjectColorsUtility.eveningStar,
     this.suffixIcon,
@@ -77,6 +77,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Observer(
       builder: (_) {
         return TextFormField(
+          onChanged: (value) {
+            if (widget.isPasswordType == false) {
+              lsvm.changeColorOfSuffix(value);
+            }
+          },
           minLines: widget.minLine,
           maxLines: widget.maxLine,
           onSaved: widget.onSaved,
@@ -120,9 +125,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ),
             suffixIcon: widget.isActiveSuffixIcon
                 ? _onVisibilityIcon()
-                : Icon(
-                    widget.suffixIcon,
-                    color: ProjectColorsUtility.eveningStar,
+                : IconButton(
+                    onPressed: () {
+                      if (widget.controller.text.isNotEmpty) {
+                        widget.controller.clear();
+                        lsvm.changeColorOfSuffix(widget.controller.text);
+                      }
+                    },
+                    icon: Icon(widget.suffixIcon),
+                    color: lsvm.suffixColor,
                   ),
           ),
         );

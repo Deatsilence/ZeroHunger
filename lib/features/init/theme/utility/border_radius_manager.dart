@@ -5,3 +5,7 @@ class ProjectBorderRadiusUtility {
   final BorderRadius buttonBorderRadius = BorderRadius.circular(20);
   final BorderRadius categoryBorderRadius = BorderRadius.circular(60);
 }
+
+class ProjectRadiusUtility {
+  final Radius scrollBarRadius = const Radius.circular(20);
+}

@@ -65,9 +65,13 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
               key: formGlobalKey,
               child: Column(
                 children: [
-                  CustomDropwdown(onChanged: (String value) {
-                    _category = value;
-                  }),
+                  CustomDropwdown(
+                    onSaved: (value) {
+                      _category = value;
+                    },
+                    onChanged: (String value) => _category = value,
+                    validator: _categoryValidator,
+                  ),
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     context: context,
@@ -117,6 +121,14 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
         ),
       ),
     );
+  }
+
+  String? _categoryValidator(String? value) {
+    if (value != null && value.isNotEmpty) {
+      return null;
+    } else {
+      return ProjectTextUtility.textCategoryValidate;
+    }
   }
 
   String? _titleValidator(String? title) {

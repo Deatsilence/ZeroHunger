@@ -13,9 +13,13 @@ class CustomDropwdown extends StatefulWidget {
   const CustomDropwdown({
     Key? key,
     required this.onChanged,
+    this.validator,
+    this.onSaved,
   }) : super(key: key);
 
   final Function onChanged;
+  final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
 
   @override
   State<CustomDropwdown> createState() => _CustomDropwdownState();
@@ -37,6 +41,8 @@ class _CustomDropwdownState extends State<CustomDropwdown> {
             ),
           ),
           child: DropdownButtonFormField<String>(
+            onSaved: widget.onSaved,
+            validator: widget.validator,
             hint: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Text(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
-import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
@@ -98,9 +97,9 @@ class AuthScaffold extends StatelessWidget
             builder: (context) => ProjectLottieUtility().lottieLoading,
           );
 
-          var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim()));
-
-          Navigator.of(context).pop();
+          var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim())).whenComplete(
+            () => Navigator.of(context).pop(),
+          );
 
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();
@@ -150,14 +149,6 @@ class AuthScaffold extends StatelessWidget
 
             final user_model.User user = await lsvm.getUser();
             await saveUserData(user);
-
-            SharedManager().getUserData().then((value) {
-              List<user_model.User> list = value;
-              debugPrint(list[0].id.toString());
-              debugPrint(list[0].email.toString());
-              debugPrint(list[0].name.toString());
-              debugPrint(list[0].photoUrl.toString());
-            });
 
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
           } else {

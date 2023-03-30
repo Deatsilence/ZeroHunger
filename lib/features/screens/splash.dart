@@ -4,6 +4,7 @@ import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 
 class SplashView extends StatefulWidget {
@@ -14,6 +15,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> with FirebaseAuthManagerMixin {
+  final UserViewModel uvm = UserViewModel();
+
   @override
   void initState() {
     super.initState();

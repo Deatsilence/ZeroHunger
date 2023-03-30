@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
+
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
@@ -12,11 +14,13 @@ class CustomAdvertCard extends StatelessWidget {
     required this.advertDate,
     required this.pathOfAdvertImage,
     required this.description,
+    this.onpressed,
   }) : super(key: key);
 
   final String advertDate;
   final String pathOfAdvertImage;
   final String description;
+  final VoidCallback? onpressed;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class CustomAdvertCard extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: onpressed,
             icon: const Icon(Icons.menu_outlined),
           ),
         ],

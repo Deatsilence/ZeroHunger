@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/cache/shared_preferences_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
@@ -26,7 +27,9 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
 
   @override
   void initState() {
-    Future.microtask(() => uvm.getUsername());
+    SharedManager().getUserData().then((value) {
+      uvm.getUsernameFromStorage(value[0].name!);
+    });
     super.initState();
   }
 

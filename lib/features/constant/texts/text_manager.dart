@@ -15,6 +15,7 @@ class ProjectTextUtility {
   static const String textConfirmPasswordValidate = "passwords aren't equal";
   static const String textTitleValidate = "Invalid title";
   static const String textDescriptionValidate = "Length of description should be less than or equal 100";
+  static const String textCategoryValidate = "Cannot be left blank";
   static const String textFirebaseSuccess = "success";
   static const String textFirebaseUserNotFound = "user-not-found";
   static const String textFirebaseWrongPassword = "wrong-password";

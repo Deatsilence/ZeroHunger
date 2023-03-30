@@ -56,7 +56,7 @@ abstract class _UserViewModelBase
   }
 
   @action
-  Future<void> getUsername() async {
+  Future<void> getUsernameFromFirebase() async {
     changeLoading();
     final currentUser = getCurrentUser();
     if (currentUser != null) {
@@ -64,6 +64,11 @@ abstract class _UserViewModelBase
       username = user.name ?? "";
     }
     changeLoading();
+  }
+
+  @action
+  void getUsernameFromStorage(String name) {
+    username = name;
   }
 
   @action

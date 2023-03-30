@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/model/user_model.dart' as user_model;
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
@@ -16,6 +18,18 @@ abstract class _LoginAndSignUpViewModelBase with Store, FirebaseAuthManagerMixin
 
   @observable
   bool isLogin = true;
+
+  @observable
+  Color suffixColor = ProjectColorsUtility.grey;
+
+  @action
+  void changeColorOfSuffix(String value) {
+    if (value.isNotEmpty) {
+      suffixColor = ProjectColorsUtility.eveningStar;
+    } else {
+      suffixColor = ProjectColorsUtility.grey;
+    }
+  }
 
   @action
   void changeSecureIcon() {

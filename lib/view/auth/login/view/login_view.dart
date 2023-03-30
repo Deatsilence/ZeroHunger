@@ -18,14 +18,6 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _passwordTextController = TextEditingController();
 
   LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
-  // late final SharedManager _manager;
-
-  @override
-  void initState() {
-    // _manager = SharedManager();
-    // _initialize();
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -33,10 +25,6 @@ class _LoginViewState extends State<LoginView> {
     _passwordTextController.dispose();
     super.dispose();
   }
-
-  // Future<void> _initialize() async {
-  //   await _manager.init();
-  // }
 
   @override
   Widget build(BuildContext context) {

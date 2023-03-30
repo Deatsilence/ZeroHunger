@@ -89,12 +89,14 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
     return _$retrieveLostDataAsyncAction.run(() => super.retrieveLostData());
   }
 
-  late final _$getUsernameAsyncAction =
-      AsyncAction('_UserViewModelBase.getUsername', context: context);
+  late final _$getUsernameFromFirebaseAsyncAction = AsyncAction(
+      '_UserViewModelBase.getUsernameFromFirebase',
+      context: context);
 
   @override
-  Future<void> getUsername() {
-    return _$getUsernameAsyncAction.run(() => super.getUsername());
+  Future<void> getUsernameFromFirebase() {
+    return _$getUsernameFromFirebaseAsyncAction
+        .run(() => super.getUsernameFromFirebase());
   }
 
   late final _$getAvatarAsyncAction =
@@ -114,6 +116,17 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
         name: '_UserViewModelBase.changeLoading');
     try {
       return super.changeLoading();
+    } finally {
+      _$_UserViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getUsernameFromStorage(String name) {
+    final _$actionInfo = _$_UserViewModelBaseActionController.startAction(
+        name: '_UserViewModelBase.getUsernameFromStorage');
+    try {
+      return super.getUsernameFromStorage(name);
     } finally {
       _$_UserViewModelBaseActionController.endAction(_$actionInfo);
     }

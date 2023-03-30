@@ -57,8 +57,35 @@ mixin _$LoginAndSignUpViewModel on _LoginAndSignUpViewModelBase, Store {
     });
   }
 
+  late final _$suffixColorAtom =
+      Atom(name: '_LoginAndSignUpViewModelBase.suffixColor', context: context);
+
+  @override
+  Color get suffixColor {
+    _$suffixColorAtom.reportRead();
+    return super.suffixColor;
+  }
+
+  @override
+  set suffixColor(Color value) {
+    _$suffixColorAtom.reportWrite(value, super.suffixColor, () {
+      super.suffixColor = value;
+    });
+  }
+
   late final _$_LoginAndSignUpViewModelBaseActionController =
       ActionController(name: '_LoginAndSignUpViewModelBase', context: context);
+
+  @override
+  void changeColorOfSuffix(String value) {
+    final _$actionInfo = _$_LoginAndSignUpViewModelBaseActionController
+        .startAction(name: '_LoginAndSignUpViewModelBase.changeColorOfSuffix');
+    try {
+      return super.changeColorOfSuffix(value);
+    } finally {
+      _$_LoginAndSignUpViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void changeSecureIcon() {
@@ -98,7 +125,8 @@ mixin _$LoginAndSignUpViewModel on _LoginAndSignUpViewModelBase, Store {
     return '''
 isSecure: ${isSecure},
 isLoading: ${isLoading},
-isLogin: ${isLogin}
+isLogin: ${isLogin},
+suffixColor: ${suffixColor}
     ''';
   }
 }
