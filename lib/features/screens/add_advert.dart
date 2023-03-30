@@ -81,6 +81,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                     borderColor: ProjectColorsUtility.eveningStar,
                     isPasswordType: false,
                     textinputType: TextInputType.text,
+                    suffixIcon: Icons.clear_outlined,
                     validator: _titleValidator,
                     onSaved: (value) {
                       _title = value;
@@ -97,6 +98,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                     textinputType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
                     maxLine: null,
+                    suffixIcon: Icons.clear_outlined,
                     validator: _descriptionValidator,
                     onSaved: (value) {
                       _description = value;
@@ -149,7 +151,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
 
   Future<void> _addAdvert() async {
     if (formGlobalKey.currentState != null) {
-      if (formGlobalKey.currentState!.validate()) {
+      if (formGlobalKey.currentState!.validate() && avm.images.isNotEmpty) {
         formGlobalKey.currentState!.save();
 
         final advert = Item(

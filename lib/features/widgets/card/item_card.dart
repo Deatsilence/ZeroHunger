@@ -15,28 +15,33 @@ class ItemCard extends StatelessWidget {
     required this.description,
     required this.urlOfPhoto,
     required this.location,
+    this.onTab,
   }) : super(key: key);
 
   final String title;
   final String description;
   final String urlOfPhoto;
   final String location;
+  final VoidCallback? onTab;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          width: 1,
-          color: ProjectColorsUtility.grey,
+    return InkWell(
+      onTap: onTab,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+            width: 1,
+            color: ProjectColorsUtility.grey,
+          ),
+          borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
         ),
-        borderRadius: ProjectBorderRadiusUtility().buttonBorderRadius,
-      ),
-      color: ProjectColorsUtility.projectBackgroundWhite,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: _itemsOfCard(context),
+        color: ProjectColorsUtility.projectBackgroundWhite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: _itemsOfCard(context),
+        ),
       ),
     );
   }

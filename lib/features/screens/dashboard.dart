@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
@@ -57,7 +59,10 @@ class _DashboardViewState extends State<DashboardView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _categories(context),
+            Padding(
+              padding: ProjectPaddingUtility().categoryButtonsOnlyTopPadding,
+              child: _categories(context),
+            ),
             const Divider(),
             Expanded(
               child: StreamBuilder(
@@ -90,6 +95,10 @@ class _DashboardViewState extends State<DashboardView> {
                                           description: snapshot.data!.docs[index].get("description"),
                                           urlOfPhoto: snapshot.data!.docs[index].get("photoUrls")[0],
                                           location: "loc",
+                                          onTab: () async {
+                                            await NavigatorManager.instance
+                                                .pushNamedToPage(route: NavigateRoutes.advertDetail.withParaph);
+                                          },
                                         )
                                       : const SizedBox.shrink();
                                 },

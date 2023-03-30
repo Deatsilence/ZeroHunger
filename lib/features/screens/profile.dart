@@ -54,7 +54,6 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
 
   List<Widget> _profileListView() {
     return [
-      const Divider(thickness: 2),
       InkWell(
         onTap: () async {},
         child: Row(

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/widgets.dart';
+import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
@@ -19,26 +20,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: ProjectPaddingUtility().appBarHorizontalAndVerticalPadding,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: titleWidget == null
-                  ? Center(
-                      child: Text(
-                        title,
-                        style: TextThemeUtility().textThemeLogin(
-                          context: context,
-                          fontSize: ProjectFontSizeUtility.normal,
-                        ),
-                      ),
-                    )
-                  : Center(
-                      child: titleWidget,
-                    ),
+      child: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: ProjectColorsUtility.grey,
+              width: 2,
+              style: BorderStyle.solid,
             ),
-          ],
+          ),
+        ),
+        child: Padding(
+          padding: ProjectPaddingUtility().appBarHorizontalAndVerticalPadding,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: titleWidget == null
+                    ? Center(
+                        child: Text(
+                          title,
+                          style: TextThemeUtility().textThemeLogin(
+                            context: context,
+                            fontSize: ProjectFontSizeUtility.normal,
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: titleWidget,
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );

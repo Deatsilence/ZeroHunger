@@ -188,14 +188,11 @@ class AuthScaffold extends StatelessWidget
                 children: [
                   Expanded(
                     flex: isLogin ? 4 : 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          LoginImagesPaths.shation.path,
-                          fit: BoxFit.fill,
-                        ),
-                      ],
+                    child: SizedBox(
+                      child: Image.asset(
+                        LoginImagesPaths.shation.path,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Expanded(

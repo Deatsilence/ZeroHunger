@@ -9,4 +9,5 @@ class ProjectColorsUtility {
   static const Color grey = Colors.grey;
   static const Color onboardBlack = Colors.black87;
   static const Color projectPink = Colors.pink;
+  static const Color projectErrorColor = Colors.red;
 }

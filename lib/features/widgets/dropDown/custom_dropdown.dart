@@ -40,33 +40,37 @@ class _CustomDropwdownState extends State<CustomDropwdown> {
               width: 2,
             ),
           ),
-          child: DropdownButtonFormField<String>(
-            onSaved: widget.onSaved,
-            validator: widget.validator,
-            hint: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                ProjectTextUtility.textCategory,
-                style: TextThemeUtility().textThemeLogin(
-                    context: context, fontSize: ProjectFontSizeUtility.small, color: ProjectColorsUtility.eveningStar),
+          child: Center(
+            child: DropdownButtonFormField<String>(
+              onSaved: widget.onSaved,
+              validator: widget.validator,
+              hint: Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  ProjectTextUtility.textCategory,
+                  style: TextThemeUtility().textThemeLogin(
+                      context: context,
+                      fontSize: ProjectFontSizeUtility.small,
+                      color: ProjectColorsUtility.eveningStar),
+                ),
               ),
-            ),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-            ),
-            icon: const Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(
-                Icons.arrow_downward_outlined,
-                color: ProjectColorsUtility.onboardBlack,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
               ),
+              icon: const Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: Icon(
+                  Icons.arrow_downward_outlined,
+                  color: ProjectColorsUtility.onboardBlack,
+                ),
+              ),
+              isExpanded: true,
+              value: avm.value,
+              items: avm.items.map<DropdownMenuItem<String>>(buildMenuItem).toList(),
+              onChanged: (value) {
+                widget.onChanged(value);
+              },
             ),
-            isExpanded: true,
-            value: avm.value,
-            items: avm.items.map<DropdownMenuItem<String>>(buildMenuItem).toList(),
-            onChanged: (value) {
-              widget.onChanged(value);
-            },
           ),
         );
       },
