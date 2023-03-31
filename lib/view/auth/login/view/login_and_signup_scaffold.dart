@@ -208,7 +208,7 @@ class AuthScaffold extends StatelessWidget
                                 emailController: _emailTextController,
                                 passwordController: _passwordTextController,
                                 emailValidator: _emailValidator,
-                                // passwordValidator: _passwordValidator,
+                                passwordValidator: _passwordValidator,
                                 onpressed: signInControl,
                                 onSavedEmail: (value) {
                                   _email = value;
