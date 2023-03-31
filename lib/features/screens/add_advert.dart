@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
@@ -134,7 +136,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   }
 
   String? _titleValidator(String? title) {
-    if (title != null && title.isNotEmpty && title.length <= 20) {
+    if (title != null && title.isNotEmpty && title.length <= 30) {
       return null;
     } else {
       return ProjectTextUtility.textTitleValidate;
@@ -154,10 +156,16 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
       if (formGlobalKey.currentState!.validate() && avm.images.isNotEmpty) {
         formGlobalKey.currentState!.save();
 
+        // Made because google maps has not been added yet
+        final randomLocations = ["Turkey, Hatay, Belen", "Turkey, Kahramanmaras", "India, Mumbai"];
+
+        final randomIndex = Random();
+
         final advert = Item(
           categoryName: _category,
           title: _title,
           description: _description,
+          location: randomLocations[randomIndex.nextInt(3)],
         );
 
         showDialog(

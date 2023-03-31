@@ -10,7 +10,8 @@ class Item {
   List<String>? photoUrls;
   String? userId;
   String? categoryName;
-  Location? location;
+  // Location? location;
+  String? location;
   String? createdAt;
   String? updatedAt;
 

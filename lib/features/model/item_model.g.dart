@@ -15,9 +15,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
           .toList(),
       userId: json['userId'] as String?,
       categoryName: json['categoryName'] as String?,
-      location: json['location'] == null
-          ? null
-          : Location.fromJson(json['location'] as Map<String, dynamic>),
+      location: json['location'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
     );
