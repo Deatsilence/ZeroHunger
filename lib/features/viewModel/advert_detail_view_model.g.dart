@@ -41,6 +41,22 @@ mixin _$AdvertDetailViewModel on _AdvertDetailViewModelBase, Store {
     });
   }
 
+  late final _$currentIndexAtom =
+      Atom(name: '_AdvertDetailViewModelBase.currentIndex', context: context);
+
+  @override
+  int get currentIndex {
+    _$currentIndexAtom.reportRead();
+    return super.currentIndex;
+  }
+
+  @override
+  set currentIndex(int value) {
+    _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
+      super.currentIndex = value;
+    });
+  }
+
   late final _$_AdvertDetailViewModelBaseActionController =
       ActionController(name: '_AdvertDetailViewModelBase', context: context);
 
@@ -56,10 +72,22 @@ mixin _$AdvertDetailViewModel on _AdvertDetailViewModelBase, Store {
   }
 
   @override
+  void increaseCurrentIndex(int index) {
+    final _$actionInfo = _$_AdvertDetailViewModelBaseActionController
+        .startAction(name: '_AdvertDetailViewModelBase.increaseCurrentIndex');
+    try {
+      return super.increaseCurrentIndex(index);
+    } finally {
+      _$_AdvertDetailViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isloading: ${isloading},
-username: ${username}
+username: ${username},
+currentIndex: ${currentIndex}
     ''';
   }
 }

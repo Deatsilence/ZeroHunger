@@ -1,11 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
+
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/theme_manager.dart';
 import 'package:zero_hunger/features/viewModel/advert_detail_view_model.dart';
@@ -19,13 +22,26 @@ class AdvertDetail extends StatefulWidget {
 }
 
 class _AdvertDetailState extends State<AdvertDetail> {
-  final AdvertDetailViewModel advm = AdvertDetailViewModel();
+  final AdvertDetailViewModel _advm = AdvertDetailViewModel();
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    advm.getUsernameFromFirebase(arg[ProjectTextUtility.textUserIdOfItemStorage]);
+    _advm.getUsernameFromFirebase(arg[ProjectTextUtility.textUserIdOfItemStorage]);
 
     return SafeArea(
       child: Scaffold(
@@ -34,10 +50,40 @@ class _AdvertDetailState extends State<AdvertDetail> {
             SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.40,
-              child: FadeInImage.memoryNetwork(
-                fit: BoxFit.cover,
-                placeholder: kTransparentImage,
-                image: arg[ProjectTextUtility.textPhotoUrlsOfItemStorage][0],
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (value) => _advm.increaseCurrentIndex(value),
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                itemCount: arg[ProjectTextUtility.textPhotoUrlsOfItemStorage].length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        child: FadeInImage.memoryNetwork(
+                          fit: BoxFit.cover,
+                          placeholder: kTransparentImage,
+                          image: arg[ProjectTextUtility.textPhotoUrlsOfItemStorage][index],
+                        ),
+                      ),
+                      Observer(builder: (_) {
+                        return Padding(
+                          padding: ProjectPaddingUtility().advertDetailCurrentImagesPageIconsOnlyPadding,
+                          child: SizedBox(
+                            height: ProjectFontSizeUtility.verySmall,
+                            child: _AdvertDetailListViewBuilder(
+                              arg: arg,
+                              currentIndex: _advm.currentIndex,
+                            ),
+                          ),
+                        );
+                      }),
+                    ],
+                  );
+                },
               ),
             ),
             buttonArrow(context),
@@ -137,27 +183,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 25,
-                      backgroundImage: AssetImage("assets/profile/png/Blank-Avatar.png"),
-                    ),
-                    Padding(
-                      padding: ProjectPaddingUtility().advertDetailProfileNameOnlyPadding,
-                      child: Observer(builder: (_) {
-                        return Text(
-                          advm.username,
-                          style: TextThemeUtility().textThemeOnboard(
-                            context: context,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+                _avatarAndNameOfUser(context),
                 Padding(
                   padding: ProjectPaddingUtility().dividerVerticalPadding,
                   child: const Divider(
@@ -201,6 +227,78 @@ class _AdvertDetailState extends State<AdvertDetail> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Row _avatarAndNameOfUser(BuildContext context) {
+    return Row(
+      children: [
+        const CircleAvatar(
+          radius: 25,
+          backgroundImage: AssetImage("assets/profile/png/Blank-Avatar.png"),
+        ),
+        Padding(
+          padding: ProjectPaddingUtility().advertDetailProfileNameOnlyPadding,
+          child: Observer(builder: (_) {
+            return Text(
+              _advm.username,
+              style: TextThemeUtility().textThemeOnboard(
+                context: context,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          }),
+        ),
+      ],
+    );
+  }
+}
+
+class _AdvertDetailListViewBuilder extends StatelessWidget {
+  const _AdvertDetailListViewBuilder({
+    Key? key,
+    required this.currentIndex,
+    required this.arg,
+  }) : super(key: key);
+
+  final int currentIndex;
+  final Map<String, dynamic> arg;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: arg[ProjectTextUtility.textPhotoUrlsOfItemStorage].length,
+      itemBuilder: (_, int index) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              clipBehavior: Clip.hardEdge,
+              margin: ProjectPaddingUtility().advertDetailImagesPagesIconOnlyPadding,
+              width: currentIndex == index ? OnBoardFontSizeUtility.currentIndexFontSize : ProjectFontSizeUtility.small,
+              height: ProjectFontSizeUtility.verySmall,
+              decoration: BoxDecoration(
+                color: currentIndex == index ? Colors.black : Colors.black12,
+                borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 3,
+                  sigmaY: 3,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: ProjectBorderRadiusUtility().normalBorderRadius,
+                  ),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

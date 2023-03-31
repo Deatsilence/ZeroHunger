@@ -22,6 +22,7 @@ class _SplashViewState extends State<SplashView> with FirebaseAuthManagerMixin {
     super.initState();
     checkUserAvailable().then((avaliable) async {
       if (avaliable) {
+        await Future.delayed(const Duration(seconds: 3));
         await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.home.withParaph);
       } else {
         await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);

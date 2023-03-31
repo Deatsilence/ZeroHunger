@@ -10,4 +10,5 @@ class ProjectColorsUtility {
   static const Color onboardBlack = Colors.black87;
   static const Color projectPink = Colors.pink;
   static const Color projectErrorColor = Colors.red;
+  static const Color draggableScrollableSheetAdvertDetail = Colors.black12;
 }

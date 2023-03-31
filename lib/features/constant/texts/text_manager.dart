@@ -29,7 +29,7 @@ class ProjectTextUtility {
   static const String textFirebaseInvalidVerificationCode = "invalid-verification-code";
   static const String textFirebaseInvalidVerificationId = "invalid-verification-id";
   static const String textError = "Error";
-  static const String textFoodDessertAndMore = "Food, dessert and more";
+  static const String textFoodDessertAndMore = "Search food, dessert or location ";
   static const String textInbox = "Inbox";
   static const String textMyAdverts = "My Adverts";
   static const String textMyAccount = "My Account";
@@ -54,4 +54,6 @@ class ProjectTextUtility {
   static const String textPhotoUrlsOfItemStorage = "photoUrls";
   static const String textUserIdOfItemStorage = "userId";
   static const String textCreatedAtOfItemStorage = "createdAt";
+  static const String textLocationOfItemStorage = "location";
+  static const String textChat = "Chat";
 }

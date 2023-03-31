@@ -99,6 +99,9 @@ class _DashboardViewState extends State<DashboardView> {
                                   var createdAt =
                                       snapshot.data!.docs[index].get(ProjectTextUtility.textCreatedAtOfItemStorage);
 
+                                  var location =
+                                      snapshot.data!.docs[index].get(ProjectTextUtility.textLocationOfItemStorage);
+
                                   var argumentMap = <String, dynamic>{};
 
                                   addValueToMap(argumentMap, ProjectTextUtility.textTitleOfItemStorage, title);
@@ -108,13 +111,14 @@ class _DashboardViewState extends State<DashboardView> {
                                       argumentMap, ProjectTextUtility.textPhotoUrlsOfItemStorage, urlOfPhotos);
                                   addValueToMap(argumentMap, ProjectTextUtility.textUserIdOfItemStorage, userId);
                                   addValueToMap(argumentMap, ProjectTextUtility.textCreatedAtOfItemStorage, createdAt);
+                                  addValueToMap(argumentMap, ProjectTextUtility.textLocationOfItemStorage, location);
 
                                   return (index >= 0 && index < snapshot.data!.docs.length)
                                       ? ItemCard(
                                           title: title,
                                           description: description,
                                           urlOfPhoto: urlOfPhotos[0],
-                                          location: "loc",
+                                          location: location,
                                           onTab: () async {
                                             await NavigatorManager.instance.pushNamedToPage(
                                               route: NavigateRoutes.advertDetail.withParaph,

@@ -82,7 +82,10 @@ class CustomAdvertCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 5),
-          Text(description),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 220, maxHeight: 50),
+            child: Text(description),
+          ),
         ],
       ),
     ];

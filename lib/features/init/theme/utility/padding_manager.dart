@@ -12,6 +12,8 @@ class ProjectPaddingUtility {
   final EdgeInsets dividerVerticalPadding = const EdgeInsets.symmetric(vertical: 15.0);
   final EdgeInsets draggableScrollIconOnlyPadding = const EdgeInsets.only(top: 10, bottom: 25);
   final EdgeInsets advertDetailProfileNameOnlyPadding = const EdgeInsets.only(left: 8.0);
+  final EdgeInsets advertDetailImagesPagesIconOnlyPadding = const EdgeInsets.symmetric(horizontal: 3.0);
+  final EdgeInsets advertDetailCurrentImagesPageIconsOnlyPadding = const EdgeInsets.only(bottom: 20.0);
 }
 
 class ProjectOnBoardPaddingUtility {

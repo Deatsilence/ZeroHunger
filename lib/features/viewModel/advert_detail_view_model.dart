@@ -10,13 +10,21 @@ abstract class _AdvertDetailViewModelBase with Store, FirebaseStoreManagerMixin 
   @observable
   bool isloading = false;
 
+  @observable
+  String username = "";
+
+  @observable
+  int currentIndex = 0;
+
   @action
   void changeLoading() {
     isloading = !isloading;
   }
 
-  @observable
-  String username = "";
+  @action
+  void increaseCurrentIndex(int index) {
+    currentIndex = index;
+  }
 
   Future<void> getUsernameFromFirebase(String documentPath) async {
     changeLoading();
