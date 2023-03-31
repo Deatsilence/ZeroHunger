@@ -58,6 +58,7 @@ List<Widget> loginPageFields(
       onSaved: onSavedEmail,
       isPasswordType: false,
       textinputType: TextInputType.emailAddress,
+      suffixIcon: Icons.close_outlined,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,

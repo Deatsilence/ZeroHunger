@@ -49,4 +49,9 @@ class ProjectTextUtility {
   static const String textTitle = "Title";
   static const String textDescription = "Description";
   static const String textAddNewAdvert = "Add New Advert";
+  static const String textTitleOfItemStorage = "title";
+  static const String textDescriptionOfItemStorage = "description";
+  static const String textPhotoUrlsOfItemStorage = "photoUrls";
+  static const String textUserIdOfItemStorage = "userId";
+  static const String textCreatedAtOfItemStorage = "createdAt";
 }

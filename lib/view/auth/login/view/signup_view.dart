@@ -70,6 +70,7 @@ List<Widget> signUpPageFields(
       onSaved: onSavedUsername,
       isPasswordType: false,
       textinputType: TextInputType.text,
+      suffixIcon: Icons.close_outlined,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textEmail,
@@ -80,6 +81,7 @@ List<Widget> signUpPageFields(
       onSaved: onSavedEmail,
       isPasswordType: false,
       textinputType: TextInputType.emailAddress,
+      suffixIcon: Icons.close_outlined,
     ),
     CustomTextFormField(
       text: ProjectTextUtility.textPassword,

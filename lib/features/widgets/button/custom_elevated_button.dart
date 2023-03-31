@@ -35,6 +35,8 @@ ElevatedButton customElevatedButton({
 
 List<Widget> _textOrIcons(BuildContext context, String? text, IconData? icon) {
   return [
+    icon != null ? Icon(icon) : const SizedBox.shrink(),
+    const SizedBox(width: 5),
     text != null
         ? Text(
             text,
@@ -45,6 +47,5 @@ List<Widget> _textOrIcons(BuildContext context, String? text, IconData? icon) {
                 fontWeight: FontWeight.bold),
           )
         : const SizedBox.shrink(),
-    icon != null ? Icon(icon) : const SizedBox.shrink(),
   ];
 }

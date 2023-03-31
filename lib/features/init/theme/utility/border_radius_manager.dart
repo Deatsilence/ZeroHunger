@@ -7,5 +7,6 @@ class ProjectBorderRadiusUtility {
 }
 
 class ProjectRadiusUtility {
-  final Radius scrollBarRadius = const Radius.circular(20);
+  final Radius scrollBarRadiusCircular = const Radius.circular(20);
+  final Radius DraggableScrollableSheetRadiusCircular = const Radius.circular(20);
 }

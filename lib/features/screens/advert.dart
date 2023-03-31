@@ -45,7 +45,7 @@ class _AdvertViewState extends State<AdvertView> with FirebaseStoreManagerMixin,
                       controller: _scrollController,
                       thumbVisibility: true,
                       thumbColor: ProjectColorsUtility.eveningStar,
-                      radius: ProjectRadiusUtility().scrollBarRadius,
+                      radius: ProjectRadiusUtility().scrollBarRadiusCircular,
                       child: Padding(
                         padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
                         child: ListView.separated(

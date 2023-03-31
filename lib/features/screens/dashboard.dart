@@ -77,7 +77,7 @@ class _DashboardViewState extends State<DashboardView> {
                             controller: _scrollController,
                             thumbVisibility: true,
                             thumbColor: ProjectColorsUtility.eveningStar,
-                            radius: ProjectRadiusUtility().scrollBarRadius,
+                            radius: ProjectRadiusUtility().scrollBarRadiusCircular,
                             child: Padding(
                               padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
                               child: GridView.builder(
@@ -89,15 +89,37 @@ class _DashboardViewState extends State<DashboardView> {
                                   childAspectRatio: _childAspectRatio,
                                 ),
                                 itemBuilder: (BuildContext context, int index) {
+                                  var title = snapshot.data!.docs[index].get(ProjectTextUtility.textTitleOfItemStorage);
+                                  var description =
+                                      snapshot.data!.docs[index].get(ProjectTextUtility.textDescriptionOfItemStorage);
+                                  var urlOfPhotos =
+                                      snapshot.data!.docs[index].get(ProjectTextUtility.textPhotoUrlsOfItemStorage);
+                                  var userId =
+                                      snapshot.data!.docs[index].get(ProjectTextUtility.textUserIdOfItemStorage);
+                                  var createdAt =
+                                      snapshot.data!.docs[index].get(ProjectTextUtility.textCreatedAtOfItemStorage);
+
+                                  var argumentMap = <String, dynamic>{};
+
+                                  addValueToMap(argumentMap, ProjectTextUtility.textTitleOfItemStorage, title);
+                                  addValueToMap(
+                                      argumentMap, ProjectTextUtility.textDescriptionOfItemStorage, description);
+                                  addValueToMap(
+                                      argumentMap, ProjectTextUtility.textPhotoUrlsOfItemStorage, urlOfPhotos);
+                                  addValueToMap(argumentMap, ProjectTextUtility.textUserIdOfItemStorage, userId);
+                                  addValueToMap(argumentMap, ProjectTextUtility.textCreatedAtOfItemStorage, createdAt);
+
                                   return (index >= 0 && index < snapshot.data!.docs.length)
                                       ? ItemCard(
-                                          title: snapshot.data.docs[index].get("title"),
-                                          description: snapshot.data!.docs[index].get("description"),
-                                          urlOfPhoto: snapshot.data!.docs[index].get("photoUrls")[0],
+                                          title: title,
+                                          description: description,
+                                          urlOfPhoto: urlOfPhotos[0],
                                           location: "loc",
                                           onTab: () async {
-                                            await NavigatorManager.instance
-                                                .pushNamedToPage(route: NavigateRoutes.advertDetail.withParaph);
+                                            await NavigatorManager.instance.pushNamedToPage(
+                                              route: NavigateRoutes.advertDetail.withParaph,
+                                              arguments: argumentMap,
+                                            );
                                           },
                                         )
                                       : const SizedBox.shrink();
@@ -114,6 +136,12 @@ class _DashboardViewState extends State<DashboardView> {
       ),
     );
   }
+
+  void addValueToMap<K, V>(Map<K, V> map, K key, V value) => map.update(
+        key,
+        (value) => value,
+        ifAbsent: () => value,
+      );
 
   SingleChildScrollView _categories(BuildContext context) {
     final double widthOfDevice = MediaQuery.of(context).size.width;
