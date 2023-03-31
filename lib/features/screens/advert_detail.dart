@@ -114,7 +114,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
                       Container(
                         height: 5,
                         width: 40,
-                        color: Colors.black12,
+                        color: ProjectColorsUtility.draggableScrollableSheetAdvertDetail,
                       ),
                     ],
                   ),
@@ -166,7 +166,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
                   ),
                 ),
                 Text(
-                  "Description",
+                  ProjectTextUtility.textDescription,
                   style: TextThemeUtility().textThemeOnboard(
                     context: context,
                     fontSize: 25,
@@ -192,7 +192,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
                 SizedBox(
                   width: double.infinity,
                   child: customElevatedButton(
-                    text: "Chat",
+                    text: ProjectTextUtility.textChat,
                     context: context,
                     onPressed: () {},
                     icon: Icons.chat_outlined,
