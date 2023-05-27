@@ -91,11 +91,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             await NavigatorManager.instance.pushNamedToPage(route: NavigateRoutes.addAdvert.withParaph);
           },
         ),
-        bottomNavigationBar: SafeArea(
-          child: BottomAppBar(
-            notchMargin: _notchedValue,
-            child: shationTabView(tabController: _tabController),
-          ),
+        bottomNavigationBar: BottomAppBar(
+          notchMargin: _notchedValue,
+          child: shationTabView(tabController: _tabController),
         ),
         body: shationTabBarView(tabController: _tabController),
       ),
