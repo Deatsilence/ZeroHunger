@@ -43,9 +43,10 @@ class _AdvertDetailState extends State<AdvertDetail> {
 
     _advm.getUsernameFromFirebase(arg[ProjectTextUtility.textUserIdOfItemStorage]);
 
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        child: Stack(
           children: [
             SizedBox(
               width: double.infinity,
@@ -96,7 +97,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
 
   Padding buttonArrow(BuildContext context) {
     return Padding(
-      padding: ProjectPaddingUtility().normalAllPadding,
+      padding: ProjectPaddingUtility().advertDetailBackArrowButtonAllPadding,
       child: InkWell(
         onTap: () => Navigator.of(context).pop(),
         child: Container(

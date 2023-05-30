@@ -57,19 +57,35 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
     });
   }
 
-  late final _$imageAtom =
-      Atom(name: '_UserViewModelBase.image', context: context);
+  late final _$imagesAtom =
+      Atom(name: '_UserViewModelBase.images', context: context);
 
   @override
-  File? get image {
-    _$imageAtom.reportRead();
-    return super.image;
+  ObservableList<File> get images {
+    _$imagesAtom.reportRead();
+    return super.images;
   }
 
   @override
-  set image(File? value) {
-    _$imageAtom.reportWrite(value, super.image, () {
-      super.image = value;
+  set images(ObservableList<File> value) {
+    _$imagesAtom.reportWrite(value, super.images, () {
+      super.images = value;
+    });
+  }
+
+  late final _$pickerAtom =
+      Atom(name: '_UserViewModelBase.picker', context: context);
+
+  @override
+  ImagePicker get picker {
+    _$pickerAtom.reportRead();
+    return super.picker;
+  }
+
+  @override
+  set picker(ImagePicker value) {
+    _$pickerAtom.reportWrite(value, super.picker, () {
+      super.picker = value;
     });
   }
 
@@ -138,7 +154,8 @@ mixin _$UserViewModel on _UserViewModelBase, Store {
 isLoading: ${isLoading},
 username: ${username},
 photoUrl: ${photoUrl},
-image: ${image}
+images: ${images},
+picker: ${picker}
     ''';
   }
 }

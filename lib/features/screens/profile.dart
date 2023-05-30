@@ -10,6 +10,7 @@ import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/lottie_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/viewModel/advert_view_model.dart';
 import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/listTile/custom_list_tile.dart';
@@ -24,12 +25,14 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin {
   final UserViewModel uvm = UserViewModel();
+  final AdvertViewModel avm = AdvertViewModel();
 
   @override
   void initState() {
     SharedManager().getUserData().then((value) {
       uvm.getUsernameFromStorage(value[0].name!);
     });
+    uvm.getAvatar();
     super.initState();
   }
 
@@ -55,26 +58,30 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
   List<Widget> _profileListView() {
     return [
       InkWell(
-        onTap: () async {},
+        onTap: () async {
+          await uvm.chooseImage();
+          await uvm.uploadAvatarToFirebase(uvm.images[uvm.images.length - 1]);
+          await uvm.getAvatar();
+        },
         child: Row(
           children: [
             Observer(builder: (_) {
-              return CircleAvatar(
-                radius: 60,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: ClipRRect(
-                    borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
-                    child: uvm.isLoading
-                        ? ProjectLottieUtility().lottieLoading
-                        : FadeInImage.memoryNetwork(
+              return uvm.isLoading
+                  ? ProjectLottieUtility().lottieLoading
+                  : CircleAvatar(
+                      radius: 60,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: ClipRRect(
+                          borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
+                          child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
                             image: uvm.photoUrl,
                             fit: BoxFit.cover,
                           ),
-                  ),
-                ),
-              );
+                        ),
+                      ),
+                    );
             }),
             SizedBox(width: MediaQuery.of(context).size.width * 0.1),
             Column(

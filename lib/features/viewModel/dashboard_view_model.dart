@@ -7,6 +7,9 @@ part 'dashboard_view_model.g.dart';
 class DashboardViewModel = _DashboardViewModelBase with _$DashboardViewModel;
 
 abstract class _DashboardViewModelBase with Store, FirebaseAuthManagerMixin, FirebaseStoreManagerMixin {
+  @observable
+  bool isScrollVisible = true;
+
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
     final myItems = getAllItems();
     return myItems;

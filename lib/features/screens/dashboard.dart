@@ -68,70 +68,78 @@ class _DashboardViewState extends State<DashboardView> {
               child: StreamBuilder(
                 stream: dbv.streamOfItems(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return !snapshot.hasData
-                      ? ProjectLottieUtility().lottieLoading
-                      : Padding(
-                          padding: ProjectPaddingUtility().scrollBarOnlyRigthPadding,
-                          child: RawScrollbar(
-                            thickness: 3,
-                            controller: _scrollController,
-                            thumbVisibility: true,
-                            thumbColor: ProjectColorsUtility.eveningStar,
-                            radius: ProjectRadiusUtility().scrollBarRadiusCircular,
-                            child: Padding(
-                              padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                controller: _scrollController,
-                                itemCount: snapshot.data.docs.length,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: _crossAxisCount,
-                                  childAspectRatio: _childAspectRatio,
+                  return RefreshIndicator(
+                    color: ProjectColorsUtility.eveningStar,
+                    onRefresh: () async {
+                      dbv.streamOfItems();
+                    },
+                    child: !snapshot.hasData
+                        ? ProjectLottieUtility().lottieLoading
+                        : Padding(
+                            padding: ProjectPaddingUtility().scrollBarOnlyRigthPadding,
+                            child: RawScrollbar(
+                              thickness: 3,
+                              controller: _scrollController,
+                              thumbVisibility: true,
+                              thumbColor: ProjectColorsUtility.eveningStar,
+                              radius: ProjectRadiusUtility().scrollBarRadiusCircular,
+                              child: Padding(
+                                padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  controller: _scrollController,
+                                  itemCount: snapshot.data.docs.length,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: _crossAxisCount,
+                                    childAspectRatio: _childAspectRatio,
+                                  ),
+                                  itemBuilder: (BuildContext context, int index) {
+                                    var title =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textTitleOfItemStorage);
+                                    var description =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textDescriptionOfItemStorage);
+                                    var urlOfPhotos =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textPhotoUrlsOfItemStorage);
+                                    var userId =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textUserIdOfItemStorage);
+                                    var createdAt =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textCreatedAtOfItemStorage);
+
+                                    var location =
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textLocationOfItemStorage);
+
+                                    var argumentMap = <String, dynamic>{};
+
+                                    addValueToMap(argumentMap, ProjectTextUtility.textTitleOfItemStorage, title);
+                                    addValueToMap(
+                                        argumentMap, ProjectTextUtility.textDescriptionOfItemStorage, description);
+                                    addValueToMap(
+                                        argumentMap, ProjectTextUtility.textPhotoUrlsOfItemStorage, urlOfPhotos);
+                                    addValueToMap(argumentMap, ProjectTextUtility.textUserIdOfItemStorage, userId);
+                                    addValueToMap(
+                                        argumentMap, ProjectTextUtility.textCreatedAtOfItemStorage, createdAt);
+                                    addValueToMap(argumentMap, ProjectTextUtility.textLocationOfItemStorage, location);
+
+                                    return (index >= 0 && index < snapshot.data!.docs.length)
+                                        ? ItemCard(
+                                            title: title,
+                                            description: description,
+                                            urlOfPhoto: urlOfPhotos[0],
+                                            location: location,
+                                            onTab: () async {
+                                              await NavigatorManager.instance.pushNamedToPage(
+                                                route: NavigateRoutes.advertDetail.withParaph,
+                                                arguments: argumentMap,
+                                              );
+                                            },
+                                          )
+                                        : const SizedBox.shrink();
+                                  },
                                 ),
-                                itemBuilder: (BuildContext context, int index) {
-                                  var title = snapshot.data!.docs[index].get(ProjectTextUtility.textTitleOfItemStorage);
-                                  var description =
-                                      snapshot.data!.docs[index].get(ProjectTextUtility.textDescriptionOfItemStorage);
-                                  var urlOfPhotos =
-                                      snapshot.data!.docs[index].get(ProjectTextUtility.textPhotoUrlsOfItemStorage);
-                                  var userId =
-                                      snapshot.data!.docs[index].get(ProjectTextUtility.textUserIdOfItemStorage);
-                                  var createdAt =
-                                      snapshot.data!.docs[index].get(ProjectTextUtility.textCreatedAtOfItemStorage);
-
-                                  var location =
-                                      snapshot.data!.docs[index].get(ProjectTextUtility.textLocationOfItemStorage);
-
-                                  var argumentMap = <String, dynamic>{};
-
-                                  addValueToMap(argumentMap, ProjectTextUtility.textTitleOfItemStorage, title);
-                                  addValueToMap(
-                                      argumentMap, ProjectTextUtility.textDescriptionOfItemStorage, description);
-                                  addValueToMap(
-                                      argumentMap, ProjectTextUtility.textPhotoUrlsOfItemStorage, urlOfPhotos);
-                                  addValueToMap(argumentMap, ProjectTextUtility.textUserIdOfItemStorage, userId);
-                                  addValueToMap(argumentMap, ProjectTextUtility.textCreatedAtOfItemStorage, createdAt);
-                                  addValueToMap(argumentMap, ProjectTextUtility.textLocationOfItemStorage, location);
-
-                                  return (index >= 0 && index < snapshot.data!.docs.length)
-                                      ? ItemCard(
-                                          title: title,
-                                          description: description,
-                                          urlOfPhoto: urlOfPhotos[0],
-                                          location: location,
-                                          onTab: () async {
-                                            await NavigatorManager.instance.pushNamedToPage(
-                                              route: NavigateRoutes.advertDetail.withParaph,
-                                              arguments: argumentMap,
-                                            );
-                                          },
-                                        )
-                                      : const SizedBox.shrink();
-                                },
                               ),
                             ),
                           ),
-                        );
+                  );
                 },
               ),
             ),

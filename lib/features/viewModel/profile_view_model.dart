@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/model/user_model.dart' as user_model;
@@ -23,15 +22,16 @@ abstract class _UserViewModelBase
   String photoUrl = "https://picsum.photos/200";
 
   @observable
-  File? image;
+  ObservableList<File> images = ObservableList<File>();
 
+  @observable
   ImagePicker picker = ImagePicker();
 
   @action
   Future<void> chooseImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+      images.add(File(pickedFile.path));
     } else {
       retrieveLostData();
     }
@@ -44,9 +44,9 @@ abstract class _UserViewModelBase
       return;
     }
     if (response.file != null) {
-      image = File(response.file!.path);
+      images.add(File(response.file!.path));
     } else {
-      debugPrint(response.file.toString());
+      print(response.file);
     }
   }
 
@@ -93,7 +93,7 @@ abstract class _UserViewModelBase
     return user;
   }
 
-  Future<void> uploadAvatarToirebase(File image) async {
+  Future<void> uploadAvatarToFirebase(File image) async {
     final currentUser = getCurrentUser();
     final user = user_model.User();
     if (currentUser != null) {
