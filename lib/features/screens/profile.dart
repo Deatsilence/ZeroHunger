@@ -59,9 +59,9 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
     return [
       InkWell(
         onTap: () async {
-          await uvm.chooseImage();
-          await uvm.uploadAvatarToFirebase(uvm.images[uvm.images.length - 1]);
-          await uvm.getAvatar();
+          Future.microtask(() => uvm.chooseImage())
+              .then((value) => uvm.uploadAvatarToFirebase(uvm.images[uvm.images.length - 1]))
+              .then((value) => uvm.getAvatar());
         },
         child: Row(
           children: [
@@ -75,6 +75,7 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
                         child: ClipRRect(
                           borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
                           child: FadeInImage.memoryNetwork(
+                            key: UniqueKey(),
                             placeholder: kTransparentImage,
                             image: uvm.photoUrl,
                             fit: BoxFit.cover,

@@ -78,7 +78,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(location),
+              FittedBox(child: Text(location)),
             ],
           ),
         ),

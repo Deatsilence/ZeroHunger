@@ -27,10 +27,12 @@ class AddAdvert extends StatefulWidget {
 class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   AdvertViewModel avm = AdvertViewModel();
 
+  final TextEditingController _searchLocationController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
 
+  String? _location;
   String? _title;
   String? _description;
   String? _category;
@@ -40,6 +42,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
     super.dispose();
     _titleController.dispose();
     _descriptionController.dispose();
+    _searchLocationController.dispose();
   }
 
   @override
@@ -67,6 +70,21 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
               key: formGlobalKey,
               child: Column(
                 children: [
+                  CustomTextFormField(
+                    context: context,
+                    text: ProjectTextUtility.textLocation,
+                    icon: Icons.location_searching_outlined,
+                    controller: _searchLocationController,
+                    borderColor: ProjectColorsUtility.eveningStar,
+                    isPasswordType: false,
+                    textinputType: TextInputType.streetAddress,
+                    suffixIcon: Icons.clear_outlined,
+                    validator: _locationValidator,
+                    onSaved: (value) {
+                      _location = value;
+                    },
+                  ),
+                  const SizedBox(height: 20),
                   CustomDropwdown(
                     onSaved: (value) {
                       _category = value;
@@ -125,6 +143,14 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
         ),
       ),
     );
+  }
+
+  String? _locationValidator(String? location) {
+    if (location != null && location.isNotEmpty && location.length <= 100) {
+      return null;
+    } else {
+      return ProjectTextUtility.textTitleValidate;
+    }
   }
 
   String? _categoryValidator(String? value) {
