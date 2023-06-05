@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/constant/enums/name_of_categories_enum.dart';
@@ -8,14 +10,25 @@ import 'package:zero_hunger/features/extensions/string_extensions.dart';
 import 'package:zero_hunger/features/model/item_model.dart';
 import 'package:zero_hunger/features/services/firebase_storage_service.dart';
 import 'package:zero_hunger/features/services/firestore_service.dart';
+import 'package:zero_hunger/features/services/places_api_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
+import 'package:uuid/uuid.dart';
+
 part 'advert_view_model.g.dart';
 
 class AdvertViewModel = _AdvertViewModelBase with _$AdvertViewModel;
 
 abstract class _AdvertViewModelBase
-    with Store, FirebaseAuthManagerMixin, FirebaseStorageManagerMixin, FirebaseStoreManagerMixin {
+    with
+        Store,
+        FirebaseAuthManagerMixin,
+        FirebaseStorageManagerMixin,
+        FirebaseStoreManagerMixin,
+        PlacesApiServiceManager {
   String? value;
+
+  @observable
+  String? sessionToken = '';
 
   @observable
   bool isStrechedDropwDown = false;
@@ -32,6 +45,9 @@ abstract class _AdvertViewModelBase
   bool isLoading = false;
 
   @observable
+  ObservableList<dynamic> placesList = ObservableList<dynamic>();
+
+  @observable
   ObservableList<File> images = ObservableList<File>();
 
   @observable
@@ -45,6 +61,14 @@ abstract class _AdvertViewModelBase
     } else {
       retrieveLostData();
     }
+  }
+
+  @action
+  Future<void> onChange(String input) async {
+    var uuid = const Uuid();
+    sessionToken ??= uuid.v4();
+
+    await getSuggestionInput(input);
   }
 
   @action
@@ -95,5 +119,16 @@ abstract class _AdvertViewModelBase
       item.photoUrls = await uploadFile(images);
     }
     uploadAdvert(item);
+  }
+
+  @action
+  Future<void> getSuggestionInput(String input) async {
+    var response = await getSuggestion(input);
+    if ((response).statusCode == 200) {
+      debugPrint(response.body.toString());
+      placesList = ObservableList<dynamic>.of(jsonDecode(response.body.toString())['predictions']);
+    } else {
+      throw Exception("Failed  to load data");
+    }
   }
 }

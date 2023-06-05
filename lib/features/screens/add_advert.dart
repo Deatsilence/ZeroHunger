@@ -38,6 +38,14 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
   String? _category;
 
   @override
+  void initState() {
+    super.initState();
+    _searchLocationController.addListener(() {
+      avm.onChange(_searchLocationController.text);
+    });
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _titleController.dispose();
@@ -83,6 +91,18 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                     onSaved: (value) {
                       _location = value;
                     },
+                  ),
+                  Flexible(
+                    child: Observer(builder: (_) {
+                      return ListView.builder(
+                        itemCount: avm.placesList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            title: Text(avm.placesList[index]["description"].toString()),
+                          );
+                        },
+                      );
+                    }),
                   ),
                   const SizedBox(height: 20),
                   CustomDropwdown(
