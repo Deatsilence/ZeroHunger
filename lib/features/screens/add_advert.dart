@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
@@ -81,7 +79,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                   CustomTextFormField(
                     context: context,
                     text: ProjectTextUtility.textLocation,
-                    icon: Icons.location_searching_outlined,
+                    icon: Icons.location_on_outlined,
                     controller: _searchLocationController,
                     borderColor: ProjectColorsUtility.eveningStar,
                     isPasswordType: false,
@@ -98,7 +96,18 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                         itemCount: avm.placesList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            title: Text(avm.placesList[index]["description"].toString()),
+                            onTap: () {
+                              if (avm.placesList[index] != null) {
+                                _location =
+                                    avm.placesList[index][ProjectTextUtility.textDescription.toLowerCase()].toString();
+                                _searchLocationController.text = _location!;
+                                _searchLocationController.selection = TextSelection.fromPosition(
+                                    TextPosition(offset: _searchLocationController.text.length));
+                              }
+                            },
+                            title: Text(
+                                avm.placesList[index][ProjectTextUtility.textDescription.toLowerCase()].toString()),
+                            leading: const Icon(Icons.location_on_outlined),
                           );
                         },
                       );
@@ -202,16 +211,11 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
       if (formGlobalKey.currentState!.validate() && avm.images.isNotEmpty) {
         formGlobalKey.currentState!.save();
 
-        // Made because google maps has not been added yet
-        final randomLocations = ["Turkey, Hatay, Belen", "Turkey, Kahramanmaras", "India, Mumbai"];
-
-        final randomIndex = Random();
-
         final advert = Item(
           categoryName: _category,
           title: _title,
           description: _description,
-          location: randomLocations[randomIndex.nextInt(3)],
+          location: _location,
         );
 
         showDialog(

@@ -77,6 +77,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Observer(
       builder: (_) {
         return TextFormField(
+          onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
           onChanged: (value) {
             if (widget.isPasswordType == false) {
               lsvm.changeColorOfSuffix(value);
