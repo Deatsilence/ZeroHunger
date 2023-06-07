@@ -11,41 +11,41 @@ mixin FirebaseServiceException {
       switch (e.code) {
         case ProjectTextUtility.textFirebaseUserNotFound:
           res = "User not found";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseWrongPassword:
           res = "Wrong password";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseUserDisabled:
           res = "User disabled";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseEmailAlreadyInUse:
           res = "Email already in use";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseInvalidEmail:
           res = "Invalid email";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseOperationNotAllowed:
           res = "Operation invalid";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseWeakPassword:
           res = "Weak password";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseAccountExistsWithDifferentCredential:
           res = "Account exists with different credential";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseInvalidCredential:
           res = "Invalid credential";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseInvalidVerificationCode:
           res = "Invalid verification code";
-          return [res, userResponse?.user?.uid];
+          break;
         case ProjectTextUtility.textFirebaseInvalidVerificationId:
           res = "Invalid verification id";
-          return [res, userResponse?.user?.uid];
+          break;
         default:
           return [res, userResponse?.user?.uid];
       }
     }
-    return [res, userResponse.user?.uid];
+    return [res, userResponse?.user?.uid];
   }
 }

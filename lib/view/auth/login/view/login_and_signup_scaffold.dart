@@ -49,41 +49,6 @@ class AuthScaffold extends StatelessWidget
   late String? _password;
   late String? _confirmPassword;
 
-  String? _usernameValidator(String? username) {
-    if (isValidUsername(username ?? "")) {
-      _username = username;
-      return null;
-    } else {
-      return ProjectTextUtility.textUsernameValidate;
-    }
-  }
-
-  String? _emailValidator(String? email) {
-    if (isValidEmail(email ?? "")) {
-      _email = email;
-      return null;
-    } else {
-      return ProjectTextUtility.textEmailValidate;
-    }
-  }
-
-  String? _passwordValidator(String? password) {
-    if (isValidPassword(password ?? "")) {
-      _password = password;
-      return null;
-    } else {
-      return ProjectTextUtility.textPasswordValidate;
-    }
-  }
-
-  String? _confirmPasswordValidator(String? confirmPassword) {
-    if (_password == confirmPassword) {
-      return null;
-    } else {
-      return ProjectTextUtility.textConfirmPasswordValidate;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Future<void> signUpControl() async {
@@ -126,6 +91,41 @@ class AuthScaffold extends StatelessWidget
             }
           }
         }
+      }
+    }
+
+    String? _usernameValidator(String? username) {
+      if (isValidUsername(username ?? "")) {
+        _username = username;
+        return null;
+      } else {
+        return ProjectTextUtility.textUsernameValidate;
+      }
+    }
+
+    String? _emailValidator(String? email) {
+      if (isValidEmail(email ?? "")) {
+        _email = email;
+        return null;
+      } else {
+        return ProjectTextUtility.textEmailValidate;
+      }
+    }
+
+    String? _passwordValidator(String? password) {
+      if (isValidPassword(password ?? "")) {
+        _password = password;
+        return null;
+      } else {
+        return ProjectTextUtility.textPasswordValidate;
+      }
+    }
+
+    String? _confirmPasswordValidator(String? confirmPassword) {
+      if (_password == confirmPassword) {
+        return null;
+      } else {
+        return ProjectTextUtility.textConfirmPasswordValidate;
       }
     }
 

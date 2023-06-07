@@ -15,6 +15,7 @@ import 'package:zero_hunger/features/viewModel/profile_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 import 'package:zero_hunger/features/widgets/listTile/custom_list_tile.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
+import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -26,6 +27,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin {
   final UserViewModel uvm = UserViewModel();
   final AdvertViewModel avm = AdvertViewModel();
+  final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
 
   @override
   void initState() {
@@ -132,7 +134,7 @@ class _ProfileViewState extends State<ProfileView> with FirebaseAuthManagerMixin
       ),
       const Divider(thickness: 2),
       CustomListTile(
-        onTab: () async => await logout().then(
+        onTab: () async => await lsvm.logOutFromApp().then(
             (value) => NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph)),
         title: const Text(ProjectTextUtility.textLogout),
         leading: const Icon(Icons.logout_outlined),

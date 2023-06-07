@@ -4,12 +4,14 @@ import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/model/user_model.dart' as user_model;
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
+import 'package:zero_hunger/view/auth/login/service/auth_service_exceptions.dart';
 
 part 'login_and_signup_viewmodel.g.dart';
 
 class LoginAndSignUpViewModel = _LoginAndSignUpViewModelBase with _$LoginAndSignUpViewModel;
 
-abstract class _LoginAndSignUpViewModelBase with Store, FirebaseAuthManagerMixin, FirebaseStoreManagerMixin {
+abstract class _LoginAndSignUpViewModelBase
+    with Store, FirebaseAuthManagerMixin, FirebaseStoreManagerMixin, FirebaseServiceException {
   @observable
   bool isSecure = true;
 
@@ -44,6 +46,26 @@ abstract class _LoginAndSignUpViewModelBase with Store, FirebaseAuthManagerMixin
   @action
   void changeLogin() {
     isLogin = !isLogin;
+  }
+
+  Future<List> signUpToApp({required String email, required String password}) async {
+    changeLoading();
+    var response = await tryCatchAuth(signUp(email: email, password: password));
+    changeLoading();
+    return response;
+  }
+
+  Future<List> signUpToApp({required String email, required String password}) async {
+    changeLoading();
+    var response = await tryCatchAuth(signUp(email: email, password: password));
+    changeLoading();
+    return response;
+  }
+
+  Future<void> logOutFromApp() async {
+    changeLoading();
+    await logout();
+    changeLoading();
   }
 
   Future<user_model.User> getUser() async {
