@@ -20,10 +20,8 @@ mixin FirebaseStoreManagerMixin {
   }
 
   Future<Map<String, dynamic>> getUserFirestore(String documentPath) async {
-    _uvm.changeLoading();
     final docUser = _firestoreInstance.collection(FireBaseCollections.Users.name).doc(documentPath);
     final response = await docUser.get();
-    _uvm.changeLoading();
     return response.data() ?? <String, dynamic>{};
   }
 

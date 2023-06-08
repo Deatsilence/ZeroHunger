@@ -159,7 +159,7 @@ class _AddAdvertState extends State<AddAdvert> with ValidatorMixin {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: MediaQuery.of(context).size.height * 0.05,
-                    child: customElevatedButton(
+                    child: CustomElevatedButton(
                       context: context,
                       text: ProjectTextUtility.textApp,
                       onPressed: _addAdvert,

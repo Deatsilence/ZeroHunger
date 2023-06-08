@@ -62,9 +62,9 @@ class AuthScaffold extends StatelessWidget
             builder: (context) => ProjectLottieUtility().lottieLoading,
           );
 
-          var response = await tryCatchAuth(signUp(email: _email!.trim(), password: _password!.trim())).whenComplete(
-            () => Navigator.of(context).pop(),
-          );
+          var response = await lsvm.signUpToApp(email: _email!.trim(), password: _password!.trim()).whenComplete(
+                () => Navigator.of(context).pop(),
+              );
 
           if (response.first == ProjectTextUtility.textFirebaseSuccess) {
             formGlobalKey.currentState!.reset();

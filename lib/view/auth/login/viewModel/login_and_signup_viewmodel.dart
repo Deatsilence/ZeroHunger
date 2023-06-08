@@ -48,16 +48,19 @@ abstract class _LoginAndSignUpViewModelBase
     isLogin = !isLogin;
   }
 
-  Future<List> signUpToApp({required String email, required String password}) async {
+  Future<List> signUpToApp({
+    required String email,
+    required String password,
+  }) async {
     changeLoading();
     var response = await tryCatchAuth(signUp(email: email, password: password));
     changeLoading();
     return response;
   }
 
-  Future<List> signUpToApp({required String email, required String password}) async {
+  Future<List> signInToApp({required String email, required String password}) async {
     changeLoading();
-    var response = await tryCatchAuth(signUp(email: email, password: password));
+    var response = await tryCatchAuth(signIn(email: email, password: password));
     changeLoading();
     return response;
   }

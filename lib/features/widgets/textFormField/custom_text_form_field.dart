@@ -48,7 +48,8 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+  final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+  final FocusNode _focusNode = FocusNode();
 
   Widget _onVisibilityIcon() {
     return IconButton(

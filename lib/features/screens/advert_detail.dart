@@ -218,7 +218,7 @@ class _AdvertDetailState extends State<AdvertDetail> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: customElevatedButton(
+                  child: CustomElevatedButton(
                     text: ProjectTextUtility.textChat,
                     context: context,
                     onPressed: () {},

@@ -106,7 +106,7 @@ List<Widget> signUpPageFields(
       onSaved: onSavedConfirmPassword,
       textinputType: TextInputType.visiblePassword,
     ),
-    customElevatedButton(
+    CustomElevatedButton(
       context: context,
       text: ProjectTextUtility.textSignUp,
       onPressed: onpressed,

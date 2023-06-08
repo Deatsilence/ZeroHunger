@@ -72,7 +72,7 @@ List<Widget> loginPageFields(
       isPasswordType: true,
       textinputType: TextInputType.visiblePassword,
     ),
-    customElevatedButton(
+    CustomElevatedButton(
       context: context,
       text: ProjectTextUtility.textSignIn,
       onPressed: onpressed,
