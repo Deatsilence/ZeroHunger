@@ -10,6 +10,14 @@ abstract class _DashboardViewModelBase with Store, FirebaseAuthManagerMixin, Fir
   @observable
   bool isScrollVisible = true;
 
+  @observable
+  String titleOfAdvert = "";
+
+  @action
+  void searchTitle(String value) {
+    titleOfAdvert = value;
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
     final myItems = getAllItemsService();
     return myItems;

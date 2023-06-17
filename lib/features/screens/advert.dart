@@ -55,14 +55,18 @@ class _AdvertViewState extends State<AdvertView> with FirebaseStoreManagerMixin,
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (BuildContext context, int index) {
+                            String itemId = snapshot.data.docs[index].id.toString();
+
                             return (index >= 0 && index < snapshot.data!.docs.length)
                                 ? CustomAdvertCard(
-                                    advertDate: snapshot.data!.docs[index].get("createdAt").toString(),
-                                    pathOfAdvertImage: snapshot.data!.docs[index].get("photoUrls")[0],
-                                    description: snapshot.data!.docs[index].get("description"),
-                                    onpressed: () async {
-                                      await avm.deleteItem(snapshot.data.docs[index].id);
-                                    },
+                                    advertDate: snapshot.data!.docs[index]
+                                        .get(ProjectTextUtility.textCreatedAtOfItemStorage)
+                                        .toString(),
+                                    pathOfAdvertImage: snapshot.data!.docs[index]
+                                        .get(ProjectTextUtility.textPhotoUrlsOfItemStorage)[0],
+                                    description:
+                                        snapshot.data!.docs[index].get(ProjectTextUtility.textDescriptionOfItemStorage),
+                                    itemId: itemId,
                                   )
                                 : const SizedBox.shrink();
                           },

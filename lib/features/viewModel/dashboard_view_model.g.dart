@@ -25,10 +25,41 @@ mixin _$DashboardViewModel on _DashboardViewModelBase, Store {
     });
   }
 
+  late final _$titleOfAdvertAtom =
+      Atom(name: '_DashboardViewModelBase.titleOfAdvert', context: context);
+
+  @override
+  String get titleOfAdvert {
+    _$titleOfAdvertAtom.reportRead();
+    return super.titleOfAdvert;
+  }
+
+  @override
+  set titleOfAdvert(String value) {
+    _$titleOfAdvertAtom.reportWrite(value, super.titleOfAdvert, () {
+      super.titleOfAdvert = value;
+    });
+  }
+
+  late final _$_DashboardViewModelBaseActionController =
+      ActionController(name: '_DashboardViewModelBase', context: context);
+
+  @override
+  void searchTitle(String value) {
+    final _$actionInfo = _$_DashboardViewModelBaseActionController.startAction(
+        name: '_DashboardViewModelBase.searchTitle');
+    try {
+      return super.searchTitle(value);
+    } finally {
+      _$_DashboardViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-isScrollVisible: ${isScrollVisible}
+isScrollVisible: ${isScrollVisible},
+titleOfAdvert: ${titleOfAdvert}
     ''';
   }
 }

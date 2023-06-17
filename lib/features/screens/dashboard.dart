@@ -51,6 +51,9 @@ class _DashboardViewState extends State<DashboardView> {
           textinputType: TextInputType.text,
           suffixIcon: Icons.clear_outlined,
           textInputAction: TextInputAction.search,
+          // onChangedCustom: (value) {
+          //   dbv.searchTitle(value);
+          // },
         ),
       ),
       body: SizedBox(
@@ -114,18 +117,7 @@ class _DashboardViewState extends State<DashboardView> {
                                   addValueToMap(argumentMap, ProjectTextUtility.textLocationOfItemStorage, location);
 
                                   return (index >= 0 && index < snapshot.data!.docs.length)
-                                      ? ItemCard(
-                                          title: title,
-                                          description: description,
-                                          urlOfPhoto: urlOfPhotos[0],
-                                          location: location,
-                                          onTab: () async {
-                                            await NavigatorManager.instance.pushNamedToPage(
-                                              route: NavigateRoutes.advertDetail.withParaph,
-                                              arguments: argumentMap,
-                                            );
-                                          },
-                                        )
+                                      ? itemCard(title, description, urlOfPhotos, location, argumentMap)
                                       : const SizedBox.shrink();
                                 },
                               ),
@@ -138,6 +130,21 @@ class _DashboardViewState extends State<DashboardView> {
           ],
         ),
       ),
+    );
+  }
+
+  ItemCard itemCard(title, description, urlOfPhotos, location, Map<String, dynamic> argumentMap) {
+    return ItemCard(
+      title: title,
+      description: description,
+      urlOfPhoto: urlOfPhotos[0],
+      location: location,
+      onTab: () async {
+        await NavigatorManager.instance.pushNamedToPage(
+          route: NavigateRoutes.advertDetail.withParaph,
+          arguments: argumentMap,
+        );
+      },
     );
   }
 

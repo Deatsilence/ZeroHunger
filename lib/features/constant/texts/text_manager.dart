@@ -57,4 +57,6 @@ class ProjectTextUtility {
   static const String textLocationOfItemStorage = "location";
   static const String textChat = "Chat";
   static const String textLocation = "Location";
+  static const String textEdit = "Edit";
+  static const String textDelete = "Delete";
 }

@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/viewModel/dashboard_view_model.dart';
 import 'package:zero_hunger/features/widgets/outline_input_border.dart';
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
 
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.controller,
     required this.isPasswordType,
     required this.textinputType,
+    this.onChangedCustom,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     this.focusedBorderColor = ProjectColorsUtility.eveningStar,
     this.suffixIcon,
@@ -39,6 +41,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputAction textInputAction;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
+  final void Function(String)? onChangedCustom;
   final int? maxLine;
   final int? minLine;
   final TextInputType textinputType;
@@ -49,6 +52,7 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
+  final DashboardViewModel dbv = DashboardViewModel();
 
   Widget _onVisibilityIcon() {
     return IconButton(
@@ -90,7 +94,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           controller: widget.controller,
           obscureText: widget.isPasswordType ? lsvm.isSecure : false,
           enableSuggestions: !widget.isPasswordType,
-          autocorrect: true, // !widget.isPasswordType,
+          autocorrect: false, // !widget.isPasswordType,
           autofillHints: const [AutofillHints.email],
           cursorColor: ProjectColorsUtility.eveningStar,
           cursorWidth: ProjectFontSizeUtility.textFieldCursorWidth,
