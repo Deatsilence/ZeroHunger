@@ -60,7 +60,7 @@ abstract class _UserViewModelBase
     changeLoading();
     final currentUser = getCurrentUser();
     if (currentUser != null) {
-      final user = user_model.User.fromJson(await getUserFirestore(currentUser.uid));
+      final user = user_model.User.fromJson(await getUserFirestoreService(currentUser.uid));
       username = user.name ?? "";
     }
     changeLoading();
@@ -76,7 +76,7 @@ abstract class _UserViewModelBase
     changeLoading();
     final currentUser = getCurrentUser();
     if (currentUser != null) {
-      final user = user_model.User.fromJson(await getUserFirestore(currentUser.uid));
+      final user = user_model.User.fromJson(await getUserFirestoreService(currentUser.uid));
       photoUrl = user.photoUrl ?? "https://picsum.photos/200";
     }
     changeLoading();
@@ -87,7 +87,7 @@ abstract class _UserViewModelBase
     final currentUser = getCurrentUser();
     late user_model.User user;
     if (currentUser != null) {
-      user = user_model.User.fromJson(await getUserFirestore(currentUser.uid));
+      user = user_model.User.fromJson(await getUserFirestoreService(currentUser.uid));
     }
     changeLoading();
     return user;
@@ -100,6 +100,6 @@ abstract class _UserViewModelBase
       user.id = currentUser.uid;
       user.photoUrl = await uploadAvatarFile(image);
     }
-    uploadAvatar(user);
+    uploadAvatarService(user);
   }
 }

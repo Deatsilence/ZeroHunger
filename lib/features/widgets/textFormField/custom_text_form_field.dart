@@ -49,7 +49,6 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   final LoginAndSignUpViewModel lsvm = LoginAndSignUpViewModel();
-  final FocusNode _focusNode = FocusNode();
 
   Widget _onVisibilityIcon() {
     return IconButton(
@@ -91,7 +90,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           controller: widget.controller,
           obscureText: widget.isPasswordType ? lsvm.isSecure : false,
           enableSuggestions: !widget.isPasswordType,
-          autocorrect: !widget.isPasswordType,
+          autocorrect: true, // !widget.isPasswordType,
+          autofillHints: const [AutofillHints.email],
           cursorColor: ProjectColorsUtility.eveningStar,
           cursorWidth: ProjectFontSizeUtility.textFieldCursorWidth,
           cursorHeight: ProjectFontSizeUtility.normal,

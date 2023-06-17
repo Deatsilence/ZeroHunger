@@ -95,13 +95,13 @@ abstract class _AdvertViewModelBase
   }
 
   Future<void> deleteItem(String id) async {
-    await deleteItemFromFirestore(id);
+    await deleteItemFromFirestoreService(id);
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
     final currentUser = getCurrentUser();
     if (currentUser != null) {
-      final myItems = getMyItems(currentUser);
+      final myItems = getMyItemsService(currentUser);
       return myItems;
     }
     return null;
@@ -118,7 +118,7 @@ abstract class _AdvertViewModelBase
       item.userId = currentUser.uid;
       item.photoUrls = await uploadFile(images);
     }
-    uploadAdvert(item);
+    uploadAdvertService(item);
   }
 
   @action

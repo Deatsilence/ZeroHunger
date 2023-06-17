@@ -11,7 +11,7 @@ abstract class _DashboardViewModelBase with Store, FirebaseAuthManagerMixin, Fir
   bool isScrollVisible = true;
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
-    final myItems = getAllItems();
+    final myItems = getAllItemsService();
     return myItems;
   }
 }

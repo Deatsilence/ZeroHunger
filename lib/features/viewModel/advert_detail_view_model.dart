@@ -28,7 +28,7 @@ abstract class _AdvertDetailViewModelBase with Store, FirebaseStoreManagerMixin 
 
   Future<void> getUsernameFromFirebase(String documentPath) async {
     changeLoading();
-    final user = user_model.User.fromJson(await getUserFirestore(documentPath));
+    final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
     username = user.name ?? "";
     changeLoading();
   }

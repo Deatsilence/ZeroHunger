@@ -5,6 +5,7 @@ import 'package:zero_hunger/features/model/user_model.dart' as user_model;
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service.dart';
 import 'package:zero_hunger/view/auth/login/service/auth_service_exceptions.dart';
+import 'package:intl/intl.dart';
 
 part 'login_and_signup_viewmodel.g.dart';
 
@@ -76,9 +77,16 @@ abstract class _LoginAndSignUpViewModelBase
     final currentUser = getCurrentUser();
     late user_model.User user;
     if (currentUser != null) {
-      user = user_model.User.fromJson(await getUserFirestore(currentUser.uid));
+      user = user_model.User.fromJson(await getUserFirestoreService(currentUser.uid));
     }
     changeLoading();
     return user;
+  }
+
+  Future<void> signUpFirestore(user_model.User user) async {
+    changeLoading();
+    user.createdAt = DateFormat.yMMMd().format(DateTime.now());
+    await signUpFirestoreService(user);
+    changeLoading();
   }
 }

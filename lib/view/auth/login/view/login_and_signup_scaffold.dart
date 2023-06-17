@@ -76,7 +76,7 @@ class AuthScaffold extends StatelessWidget
               password: _password,
             );
 
-            await signUpFirestore(user);
+            await lsvm.signUpFirestore(user);
             await NavigatorManager.instance.pushToReplacementNamedPage(route: NavigateRoutes.login.withParaph);
           } else {
             if (context.mounted) {

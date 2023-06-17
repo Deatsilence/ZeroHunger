@@ -144,8 +144,8 @@ class _AdvertDetailState extends State<AdvertDetail> {
           decoration: BoxDecoration(
             color: ProjectColorsUtility.projectBackgroundWhite,
             borderRadius: BorderRadius.only(
-              topLeft: ProjectRadiusUtility().DraggableScrollableSheetRadiusCircular,
-              topRight: ProjectRadiusUtility().DraggableScrollableSheetRadiusCircular,
+              topLeft: ProjectRadiusUtility().draggableScrollableSheetRadiusCircular,
+              topRight: ProjectRadiusUtility().draggableScrollableSheetRadiusCircular,
             ),
           ),
           child: SingleChildScrollView(

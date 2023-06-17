@@ -18,6 +18,7 @@ TabBarView shationTabBarView({required TabController tabController}) => TabBarVi
     );
 
 TabBar shationTabView({required TabController tabController}) => TabBar(
+      physics: const NeverScrollableScrollPhysics(),
       onTap: (index) {},
       padding: EdgeInsets.zero,
       controller: tabController,
