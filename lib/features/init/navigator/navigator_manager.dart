@@ -13,6 +13,10 @@ class NavigatorManager {
     await _navigatorGlobalKey.currentState?.pushReplacementNamed(route, arguments: arguments);
   }
 
+  Future<void> pushToNamedAndRemoveUntil({required String route, Object? arguments}) async {
+    await _navigatorGlobalKey.currentState?.pushNamedAndRemoveUntil(route, (route) => false, arguments: arguments);
+  }
+
   Future<void> pushToPage({required BuildContext context, required StatefulWidget view}) async {
     await _navigatorGlobalKey.currentState?.push(
       MaterialPageRoute(
