@@ -38,8 +38,9 @@ dependencies:
   # Firebase
   firebase_auth: ^4.2.9
   firebase_core: ^2.7.0
-  cloud_firestore: ^4.4.4
   firebase_storage: ^11.0.16
+  flutterfire_ui: ^0.4.3+20
+  cloud_firestore: ^4.4.4
 
   # Image Picker
   image_picker: ^0.8.7+5

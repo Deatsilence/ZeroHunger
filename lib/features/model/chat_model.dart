@@ -12,14 +12,15 @@ class Chat {
   int? unreadCountUser2;
   Messages? messages;
 
-  Chat(
-      {this.user1Id,
-      this.user2Id,
-      this.lastMessage,
-      this.lastMessageTimestamp,
-      this.unreadCountUser1,
-      this.unreadCountUser2,
-      this.messages});
+  Chat({
+    this.user1Id,
+    this.user2Id,
+    this.lastMessage,
+    this.lastMessageTimestamp,
+    this.unreadCountUser1,
+    this.unreadCountUser2,
+    this.messages,
+  });
 
   factory Chat.fromJson(Map<String, dynamic> json) {
     return _$ChatFromJson(json);

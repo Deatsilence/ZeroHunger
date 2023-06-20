@@ -13,7 +13,7 @@ class NavigatorManager {
     await _navigatorGlobalKey.currentState?.pushReplacementNamed(route, arguments: arguments);
   }
 
-  Future<void> pushToNamedAndRemoveUntil({required String route, Object? arguments}) async {
+  Future<void> pushToNamedAndRemoveUntilPage({required String route, Object? arguments}) async {
     await _navigatorGlobalKey.currentState?.pushNamedAndRemoveUntil(route, (route) => false, arguments: arguments);
   }
 

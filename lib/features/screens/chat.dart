@@ -13,6 +13,9 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) {
+    final widthOfDevice = MediaQuery.of(context).size.width;
+    final heightOfDevice = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: ProjectTextUtility.textInbox,
@@ -20,8 +23,8 @@ class _ChatViewState extends State<ChatView> {
       body: Padding(
         padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: widthOfDevice,
+          height: heightOfDevice,
           child: const Column(),
         ),
       ),

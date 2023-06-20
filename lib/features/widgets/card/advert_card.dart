@@ -77,16 +77,6 @@ class CustomAdvertCard extends StatelessWidget {
                 PopupMenuItem(
                   value: 1,
                   child: Text(
-                    ProjectTextUtility.textEdit,
-                    style: TextThemeUtility().textThemeLogin(
-                      context: context,
-                      fontSize: ProjectFontSizeUtility.small,
-                    ),
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 2,
-                  child: Text(
                     ProjectTextUtility.textDelete,
                     style: TextThemeUtility().textThemeLogin(
                       context: context,
@@ -96,13 +86,7 @@ class CustomAdvertCard extends StatelessWidget {
                   ),
                 ),
               ],
-              onSelected: (value) {
-                if (value == 1) {
-                  // edit
-                } else if (value == 2) {
-                  avm.deleteItem(itemId);
-                }
-              },
+              onSelected: _onSelected,
             ),
           ),
         ],
@@ -130,5 +114,11 @@ class CustomAdvertCard extends StatelessWidget {
         ],
       ),
     ];
+  }
+
+  Future<void> _onSelected(value) async {
+    if (value == 1) {
+      await avm.deleteItem(itemId);
+    }
   }
 }

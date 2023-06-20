@@ -95,7 +95,9 @@ abstract class _AdvertViewModelBase
   }
 
   Future<void> deleteItem(String id) async {
+    changeLoading();
     await deleteItemFromFirestoreService(id);
+    changeLoading();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamOfItems() {
