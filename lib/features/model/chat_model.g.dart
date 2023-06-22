@@ -12,8 +12,7 @@ Chat _$ChatFromJson(Map<String, dynamic> json) => Chat(
       lastMessage: json['lastMessage'] as String?,
       lastMessageTimestamp: json['lastMessageTimestamp'] == null
           ? null
-          : LastMessageTimestamp.fromJson(
-              json['lastMessageTimestamp'] as Map<String, dynamic>),
+          : DateTime.parse(json['lastMessageTimestamp'] as String),
       unreadCountUser1: json['unreadCountUser1'] as int?,
       unreadCountUser2: json['unreadCountUser2'] as int?,
       messages: json['messages'] == null
@@ -25,24 +24,10 @@ Map<String, dynamic> _$ChatToJson(Chat instance) => <String, dynamic>{
       'user1Id': instance.user1Id,
       'user2Id': instance.user2Id,
       'lastMessage': instance.lastMessage,
-      'lastMessageTimestamp': instance.lastMessageTimestamp,
+      'lastMessageTimestamp': instance.lastMessageTimestamp?.toIso8601String(),
       'unreadCountUser1': instance.unreadCountUser1,
       'unreadCountUser2': instance.unreadCountUser2,
       'messages': instance.messages,
-    };
-
-LastMessageTimestamp _$LastMessageTimestampFromJson(
-        Map<String, dynamic> json) =>
-    LastMessageTimestamp(
-      iSeconds: json['iSeconds'] as int?,
-      iNanoseconds: json['iNanoseconds'] as int?,
-    );
-
-Map<String, dynamic> _$LastMessageTimestampToJson(
-        LastMessageTimestamp instance) =>
-    <String, dynamic>{
-      'iSeconds': instance.iSeconds,
-      'iNanoseconds': instance.iNanoseconds,
     };
 
 Messages _$MessagesFromJson(Map<String, dynamic> json) => Messages(
@@ -64,13 +49,12 @@ MessageId1 _$MessageId1FromJson(Map<String, dynamic> json) => MessageId1(
       text: json['text'] as String?,
       timestamp: json['timestamp'] == null
           ? null
-          : LastMessageTimestamp.fromJson(
-              json['timestamp'] as Map<String, dynamic>),
+          : DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$MessageId1ToJson(MessageId1 instance) =>
     <String, dynamic>{
       'senderId': instance.senderId,
       'text': instance.text,
-      'timestamp': instance.timestamp,
+      'timestamp': instance.timestamp?.toIso8601String(),
     };

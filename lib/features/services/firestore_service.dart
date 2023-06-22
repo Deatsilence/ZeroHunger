@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:zero_hunger/features/constant/enums/firebase_collections_enum.dart';
+import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/model/item_model.dart';
 import 'package:zero_hunger/features/model/user_model.dart';
 import 'package:intl/intl.dart';
@@ -44,8 +45,10 @@ mixin FirebaseStoreManagerMixin {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMyItemsService(auth.User? user) {
-    final querySnapshot =
-        _firestoreInstance.collection(FireBaseCollections.Items.name).where("userId", isEqualTo: user?.uid).snapshots();
+    final querySnapshot = _firestoreInstance
+        .collection(FireBaseCollections.Items.name)
+        .where(ProjectTextUtility.textUserIdOfItemStorage, isEqualTo: user?.uid)
+        .snapshots();
     return querySnapshot;
   }
 
@@ -56,43 +59,73 @@ mixin FirebaseStoreManagerMixin {
 
   //[START] Chat
 
-  // Future<void> sendMessage(String chatId, String senderId, String text) async {
-  //   // Create a new message document.
-  //   Map<String, dynamic> message = {
-  //     'senderId': senderId,
-  //     'text': text,
-  //     'timestamp': DateTime.now(),
-  //   };
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChats(String userId) {
+    return _firestoreInstance
+        .collection(ProjectTextUtility.textChats)
+        .where(ProjectTextUtility.textUser1Id, isEqualTo: userId)
+        .orderBy(ProjectTextUtility.textLastMessageTimestamp, descending: true)
+        .snapshots();
+  }
 
-  //   // Add the message to the chat document.
-  //   DatabaseReference chatRef = _database.ref('chats/$chatId');
-  //   await chatRef.update({
-  //     'messages': FieldValue.arrayUnion([message]),
-  //   });
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(String chatId) {
+    return _firestoreInstance
+        .collection(ProjectTextUtility.textChats)
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
 
-  //   // Update the unread count for the other user.
-  //   DatabaseReference otherUserRef = _database.ref('users/$senderId');
-  //   await otherUserRef.update({
-  //     'unreadCountUser2': FieldValue.increment(1),
-  //   });
-  // }
+  Future<void> createChat(String user1Id, String user2Id) async {
+    // Yeni bir sohbet dökümanı oluşturma
+    DocumentReference chatRef = await _firestoreInstance.collection(ProjectTextUtility.textChats).add({
+      ProjectTextUtility.textUser1Id: user1Id,
+      ProjectTextUtility.textUser2Id: user2Id,
+      ProjectTextUtility.textLastMessage: '',
+      ProjectTextUtility.textLastMessageTimestamp: Timestamp.now(),
+      ProjectTextUtility.textUnreadCountUser1: 0,
+      ProjectTextUtility.textUnreadCountUser2: 0,
+    });
 
-  // Future<List<Chat>> getChats() async {
-  //   // Get the chats collection.
-  //   QuerySnapshot snapshot = await _database.ref('chats').get();
+    // Her iki kullanıcının sohbet referansını güncelleme
+    String chatId = chatRef.id;
+    await _firestoreInstance.collection('users').doc(user1Id).update({
+      'chats': FieldValue.arrayUnion([chatId]),
+    });
+    await _firestoreInstance.collection('users').doc(user2Id).update({
+      'chats': FieldValue.arrayUnion([chatId]),
+    });
+  }
 
-  //   // Get the chats from the collection.
-  //   List<Chat> chats = snapshot.docs.map((doc) => Chat.fromJson(doc.data())).toList();
+  Future<void> sendMessage(String chatId, String user1Id, String user2Id, String text) async {
+    // Yeni bir mesaj dökümanı oluşturma
+    await _createNewChat(chatId, user1Id, text);
 
-  //   // Update the unread count for each chat.
-  //   for (Chat chat in chats) {
-  //     DatabaseReference chatRef = _database.ref('chats/$chat.chatId');
-  //     await chatRef.update({
-  //       'unreadCountUser1': FieldValue.increment(-1),
-  //       'unreadCountUser2': FieldValue.increment(-1),
-  //     });
-  //   }
+    // Son mesajı güncelleme ve okunmamış mesaj sayısını artırma
+    await _updateLastMessage(chatId, text);
 
-  //   return chats;
-  // }
+    await _incrementUnreadCountUsers(chatId, user1Id, user2Id);
+  }
+
+  Future<void> _createNewChat(String chatId, String user1Id, String text) async {
+    await _firestoreInstance.collection('chats').doc(chatId).collection('messages').add({
+      'senderId': user1Id,
+      'text': text,
+      'timestamp': Timestamp.now(),
+    });
+  }
+
+  Future<void> _incrementUnreadCountUsers(String chatId, String user1Id, String user2Id) async {
+    await _firestoreInstance.collection('chats').doc(chatId).update({
+      'unreadCountUser1': FieldValue.increment(user1Id == user1Id ? 0 : 1),
+      'unreadCountUser2': FieldValue.increment(user1Id == user2Id ? 0 : 1),
+    });
+  }
+
+  Future<void> _updateLastMessage(String chatId, String text) async {
+    await _firestoreInstance.collection('chats').doc(chatId).update({
+      'lastMessage': text,
+      'lastMessageTimestamp': Timestamp.now(),
+    });
+  }
 }

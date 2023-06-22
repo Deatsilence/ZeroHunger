@@ -59,4 +59,11 @@ class ProjectTextUtility {
   static const String textLocation = "Location";
   static const String textEdit = "Edit";
   static const String textDelete = "Delete";
+  static const String textChats = "chats";
+  static const String textUser1Id = "user1Id";
+  static const String textUser2Id = "user2Id";
+  static const String textLastMessageTimestamp = "lastMessageTimestamp";
+  static const String textLastMessage = "lastMessage";
+  static const String textUnreadCountUser1 = "unreadCountUser1";
+  static const String textUnreadCountUser2 = "unreadCountUser2";
 }
