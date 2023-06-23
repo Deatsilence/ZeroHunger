@@ -98,10 +98,8 @@ mixin FirebaseStoreManagerMixin {
   }
 
   Future<void> sendMessage(String chatId, String user1Id, String user2Id, String text) async {
-    // Yeni bir mesaj dökümanı oluşturma
     await _createNewChat(chatId, user1Id, text);
 
-    // Son mesajı güncelleme ve okunmamış mesaj sayısını artırma
     await _updateLastMessage(chatId, text);
 
     await _incrementUnreadCountUsers(chatId, user1Id, user2Id);
