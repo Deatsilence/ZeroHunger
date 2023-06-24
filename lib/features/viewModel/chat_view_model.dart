@@ -12,10 +12,37 @@ abstract class _ChatViewModelBase with Store, FirebaseStoreManagerMixin {
   @observable
   bool isLoading = false;
 
+  @observable
+  String username = "";
+
+  @observable
+  String photoUrl = "https://picsum.photos/200";
+
   @action
   void changeLoading() {
     isLoading = !isLoading;
   }
 
-  void createNewChatWithUserOfAdvert() {}
+  Future<void> getUsernameFromFirebase(String documentPath) async {
+    changeLoading();
+    final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
+    username = user.name ?? "";
+    changeLoading();
+  }
+
+  @action
+  Future<void> getAvatarFromFirebase(String documentPath) async {
+    changeLoading();
+
+    final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
+    photoUrl = user.photoUrl ?? "https://picsum.photos/200";
+
+    changeLoading();
+  }
+
+  Future<void> createNewChatWithUserOfAdvert(String userId1, String userId2) async {
+    changeLoading();
+    await createChat(userId1, userId2);
+    changeLoading();
+  }
 }

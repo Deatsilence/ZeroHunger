@@ -271,7 +271,7 @@ class AuthScaffold extends StatelessWidget
                                     color: ProjectColorsUtility.projectBackgroundWhite,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         )

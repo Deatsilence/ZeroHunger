@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-@immutable
 class ProjectColorsUtility {
   static const Color projectBackgroundWhite = Color(0xffF8F8F8);
   static const Color onboardWhite = Colors.white;

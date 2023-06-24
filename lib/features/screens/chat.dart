@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
+import 'package:zero_hunger/features/model/chat_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
 
 class ChatView extends StatefulWidget {
@@ -11,6 +12,8 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
+  final List<Chat> chatsOfUser = [];
+
   @override
   Widget build(BuildContext context) {
     final widthOfDevice = MediaQuery.of(context).size.width;
@@ -25,7 +28,9 @@ class _ChatViewState extends State<ChatView> {
         child: SizedBox(
           width: widthOfDevice,
           height: heightOfDevice,
-          child: const Column(),
+          child: Column(
+            children: [],
+          ),
         ),
       ),
     );

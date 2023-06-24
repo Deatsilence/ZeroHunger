@@ -6,6 +6,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
+import 'package:zero_hunger/features/init/navigator/navigator_routes.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
@@ -221,10 +223,13 @@ class _AdvertDetailState extends State<AdvertDetail> {
                   child: CustomElevatedButton(
                     text: ProjectTextUtility.textChat,
                     context: context,
-                    onPressed: () {},
+                    onPressed: () {
+                      NavigatorManager.instance
+                          .pushNamedToPage(route: NavigateRoutes.chatting.withParaph, arguments: arg);
+                    },
                     icon: Icons.chat_outlined,
                   ),
-                )
+                ),
               ],
             ),
           ),

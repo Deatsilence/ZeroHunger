@@ -34,6 +34,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: ProjectPaddingUtility().appBarHorizontalAndVerticalPadding,
           child: Stack(
             children: [
+              if (leading != null)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: leading ?? const SizedBox.shrink(),
+                ),
               Positioned.fill(
                 child: titleWidget == null
                     ? Center(

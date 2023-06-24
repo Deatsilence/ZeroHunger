@@ -41,6 +41,47 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
     });
   }
 
+  late final _$usernameAtom =
+      Atom(name: '_ChatViewModelBase.username', context: context);
+
+  @override
+  String get username {
+    _$usernameAtom.reportRead();
+    return super.username;
+  }
+
+  @override
+  set username(String value) {
+    _$usernameAtom.reportWrite(value, super.username, () {
+      super.username = value;
+    });
+  }
+
+  late final _$photoUrlAtom =
+      Atom(name: '_ChatViewModelBase.photoUrl', context: context);
+
+  @override
+  String get photoUrl {
+    _$photoUrlAtom.reportRead();
+    return super.photoUrl;
+  }
+
+  @override
+  set photoUrl(String value) {
+    _$photoUrlAtom.reportWrite(value, super.photoUrl, () {
+      super.photoUrl = value;
+    });
+  }
+
+  late final _$getAvatarFromFirebaseAsyncAction =
+      AsyncAction('_ChatViewModelBase.getAvatarFromFirebase', context: context);
+
+  @override
+  Future<void> getAvatarFromFirebase(String documentPath) {
+    return _$getAvatarFromFirebaseAsyncAction
+        .run(() => super.getAvatarFromFirebase(documentPath));
+  }
+
   late final _$_ChatViewModelBaseActionController =
       ActionController(name: '_ChatViewModelBase', context: context);
 
@@ -59,7 +100,9 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
   String toString() {
     return '''
 users: ${users},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+username: ${username},
+photoUrl: ${photoUrl}
     ''';
   }
 }
