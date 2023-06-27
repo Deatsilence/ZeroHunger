@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
-import 'package:zero_hunger/features/model/chat_model.dart';
 import 'package:zero_hunger/features/viewModel/chat_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
+import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 
 class ChattingView extends StatefulWidget {
   const ChattingView({super.key});
@@ -14,15 +17,28 @@ class ChattingView extends StatefulWidget {
 }
 
 class _ChattingViewState extends State<ChattingView> {
-  final List<Chat> chatsOfUser = [];
+  final TextEditingController _messageTextController = TextEditingController();
+
+  @override
+  void setState(VoidCallback fn) {
+    _messageTextController.selection = TextSelection.collapsed(offset: _messageTextController.text.length);
+    super.setState(fn);
+  }
+
+  @override
+  void dispose() {
+    _messageTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final ChatViewModel cvm = ChatViewModel();
 
     final arg = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-    cvm.getUsernameFromFirebase(arg[ProjectTextUtility.textUserIdOfItemStorage]);
+    var userId = arg[ProjectTextUtility.textUserIdOfItemStorage];
+    cvm.getUsernameFromFirebase(userId);
+    cvm.getAvatarOfAdvertOwnerFromFirebase(userId);
 
     final widthOfDevice = MediaQuery.of(context).size.width;
     final heightOfDevice = MediaQuery.of(context).size.height;
@@ -30,6 +46,11 @@ class _ChattingViewState extends State<ChattingView> {
     return Observer(builder: (_) {
       return Scaffold(
         appBar: CustomAppBar(
+          rightWidget: SizedBox(
+            height: heightOfDevice * 0.04,
+            width: widthOfDevice * 0.1,
+            child: _avatarOfTheUser(cvm),
+          ),
           title: cvm.username,
           leading: BackButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -40,12 +61,38 @@ class _ChattingViewState extends State<ChattingView> {
           child: SizedBox(
             width: widthOfDevice,
             height: heightOfDevice,
-            child: const Column(
-              children: [],
+            child: Column(
+              children: [
+                CustomTextFormField(
+                  focusedBorderColor: ProjectColorsUtility.eveningStar,
+                  borderColor: ProjectColorsUtility.grey,
+                  context: context,
+                  text: "",
+                  suffixIcon: Icons.send_outlined,
+                  controller: _messageTextController,
+                  isPasswordType: false,
+                  textinputType: TextInputType.text,
+                ),
+              ],
             ),
           ),
         ),
       );
     });
+  }
+
+  CircleAvatar _avatarOfTheUser(ChatViewModel cvm) {
+    return CircleAvatar(
+      radius: 60,
+      child: ClipRRect(
+        borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
+        child: FadeInImage.memoryNetwork(
+          key: UniqueKey(),
+          placeholder: kTransparentImage,
+          image: cvm.photoUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/widgets.dart';
+
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
@@ -11,11 +12,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title = "",
     this.leading,
     this.titleWidget,
+    this.rightWidget,
   }) : super(key: key);
 
   final String title;
   final Widget? leading;
   final Widget? titleWidget;
+  final Widget? rightWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Positioned(
                   top: 0,
                   left: 0,
-                  child: leading ?? const SizedBox.shrink(),
+                  child: leading!,
                 ),
               Positioned.fill(
                 child: titleWidget == null
@@ -54,6 +57,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     : Center(
                         child: titleWidget,
                       ),
+              ),
+              Positioned(
+                right: 0,
+                child: rightWidget ?? const SizedBox.shrink(),
               ),
             ],
           ),

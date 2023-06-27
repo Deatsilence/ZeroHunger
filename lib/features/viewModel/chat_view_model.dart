@@ -30,13 +30,10 @@ abstract class _ChatViewModelBase with Store, FirebaseStoreManagerMixin {
     changeLoading();
   }
 
-  @action
-  Future<void> getAvatarFromFirebase(String documentPath) async {
+  Future<void> getAvatarOfAdvertOwnerFromFirebase(String documentPath) async {
     changeLoading();
-
     final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
     photoUrl = user.photoUrl ?? "https://picsum.photos/200";
-
     changeLoading();
   }
 

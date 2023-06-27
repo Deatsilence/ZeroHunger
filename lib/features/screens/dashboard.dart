@@ -31,6 +31,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 

@@ -13,10 +13,10 @@ class CustomTextFormField extends StatefulWidget {
     Key? key,
     required this.context,
     required this.text,
-    required this.icon,
     required this.controller,
     required this.isPasswordType,
     required this.textinputType,
+    this.icon,
     this.onChangedCustom,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     this.focusedBorderColor = ProjectColorsUtility.eveningStar,
@@ -33,7 +33,7 @@ class CustomTextFormField extends StatefulWidget {
   final String text;
   final Color borderColor;
   final Color focusedBorderColor;
-  final IconData icon;
+  final IconData? icon;
   final IconData? suffixIcon;
   final TextEditingController controller;
   final bool isActiveSuffixIcon;
@@ -125,10 +125,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderColor: widget.borderColor,
               borderWidth: 2,
             ).outlineInputBorder,
-            prefixIcon: Icon(
-              widget.icon,
-              color: ProjectColorsUtility.eveningStar,
-            ),
+            prefixIcon: widget.icon != null
+                ? Icon(
+                    widget.icon,
+                    color: ProjectColorsUtility.eveningStar,
+                  )
+                : null,
             suffixIcon: widget.isActiveSuffixIcon
                 ? _onVisibilityIcon()
                 : IconButton(

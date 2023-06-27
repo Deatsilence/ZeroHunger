@@ -73,15 +73,6 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
     });
   }
 
-  late final _$getAvatarFromFirebaseAsyncAction =
-      AsyncAction('_ChatViewModelBase.getAvatarFromFirebase', context: context);
-
-  @override
-  Future<void> getAvatarFromFirebase(String documentPath) {
-    return _$getAvatarFromFirebaseAsyncAction
-        .run(() => super.getAvatarFromFirebase(documentPath));
-  }
-
   late final _$_ChatViewModelBaseActionController =
       ActionController(name: '_ChatViewModelBase', context: context);
 
