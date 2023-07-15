@@ -15,6 +15,7 @@ class ProjectPaddingUtility {
   final EdgeInsets advertDetailImagesPagesIconOnlyPadding = const EdgeInsets.symmetric(horizontal: 3.0);
   final EdgeInsets advertDetailCurrentImagesPageIconsOnlyPadding = const EdgeInsets.only(bottom: 20.0);
   final EdgeInsets advertDetailBackArrowButtonAllPadding = const EdgeInsets.fromLTRB(20, 50, 20, 0);
+  final EdgeInsets chattingContainerSymmetricPadding = const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0);
 }
 
 class ProjectOnBoardPaddingUtility {

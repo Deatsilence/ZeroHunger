@@ -41,6 +41,22 @@ mixin _$AdvertDetailViewModel on _AdvertDetailViewModelBase, Store {
     });
   }
 
+  late final _$photoUrlAtom =
+      Atom(name: '_AdvertDetailViewModelBase.photoUrl', context: context);
+
+  @override
+  String get photoUrl {
+    _$photoUrlAtom.reportRead();
+    return super.photoUrl;
+  }
+
+  @override
+  set photoUrl(String value) {
+    _$photoUrlAtom.reportWrite(value, super.photoUrl, () {
+      super.photoUrl = value;
+    });
+  }
+
   late final _$currentIndexAtom =
       Atom(name: '_AdvertDetailViewModelBase.currentIndex', context: context);
 
@@ -87,6 +103,7 @@ mixin _$AdvertDetailViewModel on _AdvertDetailViewModelBase, Store {
     return '''
 isloading: ${isloading},
 username: ${username},
+photoUrl: ${photoUrl},
 currentIndex: ${currentIndex}
     ''';
   }

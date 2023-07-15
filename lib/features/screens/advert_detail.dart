@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:zero_hunger/features/constant/paths_assets/path_of_blank_avatar.dart';
 
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/navigator/navigator_manager.dart';
@@ -43,7 +44,14 @@ class _AdvertDetailState extends State<AdvertDetail> {
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    _advm.getUsernameFromFirebase(arg[ProjectTextUtility.textUserIdOfItemStorage]);
+    var userId = arg[ProjectTextUtility.textUserIdOfItemStorage];
+
+    Future.wait(
+      [
+        _advm.getUsernameFromFirebase(userId),
+        _advm.getAvatarOfAdvertOwnerFromFirebase(userId),
+      ],
+    );
 
     return Scaffold(
       body: Container(
@@ -241,24 +249,50 @@ class _AdvertDetailState extends State<AdvertDetail> {
   Row _avatarAndNameOfUser(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
-          radius: 25,
-          backgroundImage: AssetImage("assets/profile/png/Blank-Avatar.png"),
-        ),
+        _avatarOfUserWhoHasAdvert(),
         Padding(
           padding: ProjectPaddingUtility().advertDetailProfileNameOnlyPadding,
-          child: Observer(builder: (_) {
-            return Text(
-              _advm.username,
-              style: TextThemeUtility().textThemeOnboard(
-                context: context,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          }),
+          child: Text(
+            _advm.username,
+            style: TextThemeUtility().textThemeOnboard(
+              context: context,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
+    );
+  }
+
+  SizedBox _avatarOfUserWhoHasAdvert() {
+    final widthOfDevice = MediaQuery.of(context).size.width;
+    final heightOfDevice = MediaQuery.of(context).size.height;
+
+    return SizedBox(
+      height: heightOfDevice * 0.04,
+      width: widthOfDevice * 0.1,
+      child: CircleAvatar(
+        radius: 60,
+        child: ClipRRect(
+          borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
+          child: Observer(
+            builder: (_) {
+              return _advm.photoUrl != ""
+                  ? FadeInImage.memoryNetwork(
+                      key: UniqueKey(),
+                      placeholder: kTransparentImage,
+                      image: _advm.photoUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      PathOfBlankAvatar().path,
+                      fit: BoxFit.cover,
+                    );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

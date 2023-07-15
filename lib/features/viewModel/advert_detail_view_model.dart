@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/features/model/user_model.dart' as user_model;
@@ -12,6 +13,9 @@ abstract class _AdvertDetailViewModelBase with Store, FirebaseStoreManagerMixin 
 
   @observable
   String username = "";
+
+  @observable
+  String photoUrl = "";
 
   @observable
   int currentIndex = 0;
@@ -30,6 +34,13 @@ abstract class _AdvertDetailViewModelBase with Store, FirebaseStoreManagerMixin 
     changeLoading();
     final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
     username = user.name ?? "";
+    changeLoading();
+  }
+
+  Future<void> getAvatarOfAdvertOwnerFromFirebase(String documentPath) async {
+    changeLoading();
+    final user = await compute(user_model.User.fromJson, await getUserFirestoreService(documentPath));
+    photoUrl = user.photoUrl ?? "";
     changeLoading();
   }
 }

@@ -6,4 +6,5 @@ class ProjectMarginUtility {
   final EdgeInsets normalHorizontalAndVerticalMargin = const EdgeInsets.symmetric(horizontal: 16, vertical: 16);
   final EdgeInsets normalAllMargin = const EdgeInsets.all(10);
   final EdgeInsets advertImagesAllMargin = const EdgeInsets.all(3);
+  final EdgeInsets normalOnlyTopMargin = const EdgeInsets.only(top: 10);
 }

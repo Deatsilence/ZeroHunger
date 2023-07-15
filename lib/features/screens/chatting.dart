@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:zero_hunger/features/constant/paths_assets/path_of_blank_avatar.dart';
 import 'package:zero_hunger/features/constant/texts/text_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/border_radius_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
-import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/viewModel/chat_view_model.dart';
 import 'package:zero_hunger/features/widgets/appBar/view/custom_app_bar.dart';
+import 'package:zero_hunger/features/widgets/customContainer/custom_container.dart';
 import 'package:zero_hunger/features/widgets/textFormField/custom_text_form_field.dart';
 
 class ChattingView extends StatefulWidget {
@@ -18,6 +19,7 @@ class ChattingView extends StatefulWidget {
 
 class _ChattingViewState extends State<ChattingView> {
   final TextEditingController _messageTextController = TextEditingController();
+  final ChatViewModel cvm = ChatViewModel();
 
   @override
   void setState(VoidCallback fn) {
@@ -33,10 +35,9 @@ class _ChattingViewState extends State<ChattingView> {
 
   @override
   Widget build(BuildContext context) {
-    final ChatViewModel cvm = ChatViewModel();
-
     final arg = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     var userId = arg[ProjectTextUtility.textUserIdOfItemStorage];
+
     cvm.getUsernameFromFirebase(userId);
     cvm.getAvatarOfAdvertOwnerFromFirebase(userId);
 
@@ -56,11 +57,11 @@ class _ChattingViewState extends State<ChattingView> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Padding(
-          padding: ProjectPaddingUtility().normalHorizontalAndVerticalPadding,
-          child: SizedBox(
-            width: widthOfDevice,
-            height: heightOfDevice,
+        body: SizedBox(
+          width: widthOfDevice,
+          height: heightOfDevice,
+          child: CustomContainer(
+            height: heightOfDevice * 0.8,
             child: Column(
               children: [
                 CustomTextFormField(
@@ -86,12 +87,17 @@ class _ChattingViewState extends State<ChattingView> {
       radius: 60,
       child: ClipRRect(
         borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
-        child: FadeInImage.memoryNetwork(
-          key: UniqueKey(),
-          placeholder: kTransparentImage,
-          image: cvm.photoUrl,
-          fit: BoxFit.cover,
-        ),
+        child: cvm.photoUrl != ""
+            ? FadeInImage.memoryNetwork(
+                key: UniqueKey(),
+                placeholder: kTransparentImage,
+                image: cvm.photoUrl,
+                fit: BoxFit.cover,
+              )
+            : Image.asset(
+                PathOfBlankAvatar().path,
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

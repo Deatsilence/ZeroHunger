@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:zero_hunger/features/services/firestore_service.dart';
 import 'package:zero_hunger/features/model/user_model.dart' as user_model;
@@ -16,7 +17,7 @@ abstract class _ChatViewModelBase with Store, FirebaseStoreManagerMixin {
   String username = "";
 
   @observable
-  String photoUrl = "https://picsum.photos/200";
+  String photoUrl = "";
 
   @action
   void changeLoading() {
@@ -25,15 +26,15 @@ abstract class _ChatViewModelBase with Store, FirebaseStoreManagerMixin {
 
   Future<void> getUsernameFromFirebase(String documentPath) async {
     changeLoading();
-    final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
+    final user = await compute(user_model.User.fromJson, await getUserFirestoreService(documentPath));
     username = user.name ?? "";
     changeLoading();
   }
 
   Future<void> getAvatarOfAdvertOwnerFromFirebase(String documentPath) async {
     changeLoading();
-    final user = user_model.User.fromJson(await getUserFirestoreService(documentPath));
-    photoUrl = user.photoUrl ?? "https://picsum.photos/200";
+    final user = await compute(user_model.User.fromJson, await getUserFirestoreService(documentPath));
+    photoUrl = user.photoUrl ?? "";
     changeLoading();
   }
 
