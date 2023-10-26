@@ -73,8 +73,35 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
     });
   }
 
+  late final _$textAtom =
+      Atom(name: '_ChatViewModelBase.text', context: context);
+
+  @override
+  String get text {
+    _$textAtom.reportRead();
+    return super.text;
+  }
+
+  @override
+  set text(String value) {
+    _$textAtom.reportWrite(value, super.text, () {
+      super.text = value;
+    });
+  }
+
   late final _$_ChatViewModelBaseActionController =
       ActionController(name: '_ChatViewModelBase', context: context);
+
+  @override
+  void setText(String? value) {
+    final _$actionInfo = _$_ChatViewModelBaseActionController.startAction(
+        name: '_ChatViewModelBase.setText');
+    try {
+      return super.setText(value);
+    } finally {
+      _$_ChatViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void changeLoading() {
@@ -93,7 +120,8 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
 users: ${users},
 isLoading: ${isLoading},
 username: ${username},
-photoUrl: ${photoUrl}
+photoUrl: ${photoUrl},
+text: ${text}
     ''';
   }
 }

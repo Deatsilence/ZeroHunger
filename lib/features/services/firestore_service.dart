@@ -76,7 +76,7 @@ mixin FirebaseStoreManagerMixin {
         .snapshots();
   }
 
-  Future<void> createChat(String user1Id, String user2Id) async {
+  Future<String> createChat(String user1Id, String user2Id) async {
     // Yeni bir sohbet dökümanı oluşturma
     DocumentReference chatRef = await _firestoreInstance.collection(ProjectTextUtility.textChats).add({
       ProjectTextUtility.textUser1Id: user1Id,
@@ -95,6 +95,8 @@ mixin FirebaseStoreManagerMixin {
     await _firestoreInstance.collection('users').doc(user2Id).update({
       'chats': FieldValue.arrayUnion([chatId]),
     });
+
+    return chatId;
   }
 
   Future<void> sendMessage(String chatId, String user1Id, String user2Id, String text) async {

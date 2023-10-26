@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:zero_hunger/features/init/theme/utility/color_manager.dart';
 import 'package:zero_hunger/features/init/theme/utility/font_manager.dart';
+import 'package:zero_hunger/features/init/theme/utility/padding_manager.dart';
 import 'package:zero_hunger/features/viewModel/dashboard_view_model.dart';
 import 'package:zero_hunger/features/widgets/outline_input_border.dart';
 import 'package:zero_hunger/view/auth/login/viewModel/login_and_signup_viewmodel.dart';
@@ -13,20 +14,21 @@ class CustomTextFormField extends StatefulWidget {
     Key? key,
     required this.context,
     required this.text,
-    required this.controller,
-    required this.isPasswordType,
-    required this.textinputType,
-    this.icon,
-    this.onChangedCustom,
     this.borderColor = ProjectColorsUtility.projectBackgroundWhite,
     this.focusedBorderColor = ProjectColorsUtility.eveningStar,
+    this.icon,
     this.suffixIcon,
+    required this.controller,
     this.isActiveSuffixIcon = false,
+    required this.isPasswordType,
     this.textInputAction = TextInputAction.next,
     this.validator,
     this.onSaved,
+    this.onChangedCustom,
+    this.anyFunction,
     this.maxLine = 1,
     this.minLine = 1,
+    required this.textinputType,
   }) : super(key: key);
 
   final BuildContext context;
@@ -42,6 +44,7 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
   final void Function(String)? onChangedCustom;
+  final void Function()? anyFunction;
   final int? maxLine;
   final int? minLine;
   final TextInputType textinputType;
@@ -86,6 +89,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             if (widget.isPasswordType == false) {
               lsvm.changeColorOfSuffix(value);
             }
+            if (widget.onChangedCustom != null) {
+              widget.onChangedCustom!(value);
+            }
           },
           minLines: widget.minLine,
           maxLines: widget.maxLine,
@@ -103,7 +109,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           keyboardType: widget.isPasswordType ? TextInputType.visiblePassword : widget.textinputType,
           textInputAction: widget.textInputAction,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
+            contentPadding: ProjectPaddingUtility().contentPaddingOfCustomTextFormField,
             labelText: widget.text,
             labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ProjectColorsUtility.eveningStar),
             fillColor: ProjectColorsUtility.projectBackgroundWhite,
@@ -135,8 +141,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ? _onVisibilityIcon()
                 : IconButton(
                     onPressed: () {
-                      if (widget.controller.text.isNotEmpty) {
+                      if (widget.controller.text.isNotEmpty && widget.suffixIcon == Icons.clear_outlined) {
                         widget.controller.clear();
+                        lsvm.changeColorOfSuffix(widget.controller.text);
+                      } else if (widget.controller.text.isNotEmpty && widget.suffixIcon == Icons.send_outlined) {
+                        widget.anyFunction!();
                         lsvm.changeColorOfSuffix(widget.controller.text);
                       }
                     },

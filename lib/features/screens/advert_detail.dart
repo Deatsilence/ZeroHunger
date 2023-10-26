@@ -141,9 +141,9 @@ class _AdvertDetailState extends State<AdvertDetail> {
   }
 
   DraggableScrollableSheet scroll(BuildContext context, Map<dynamic, dynamic> arg) {
-    var initialChildSize = 0.6;
+    var initialChildSize = 0.61;
     var maxChildSize = 1.0;
-    var minChildSize = 0.6;
+    var minChildSize = 0.61;
     return DraggableScrollableSheet(
       initialChildSize: initialChildSize,
       maxChildSize: maxChildSize,
@@ -246,23 +246,25 @@ class _AdvertDetailState extends State<AdvertDetail> {
     );
   }
 
-  Row _avatarAndNameOfUser(BuildContext context) {
-    return Row(
-      children: [
-        _avatarOfUserWhoHasAdvert(),
-        Padding(
-          padding: ProjectPaddingUtility().advertDetailProfileNameOnlyPadding,
-          child: Text(
-            _advm.username,
-            style: TextThemeUtility().textThemeOnboard(
-              context: context,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+  Observer _avatarAndNameOfUser(BuildContext context) {
+    return Observer(builder: (_) {
+      return Row(
+        children: [
+          _avatarOfUserWhoHasAdvert(),
+          Padding(
+            padding: ProjectPaddingUtility().advertDetailProfileNameOnlyPadding,
+            child: Text(
+              _advm.username,
+              style: TextThemeUtility().textThemeOnboard(
+                context: context,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   SizedBox _avatarOfUserWhoHasAdvert() {
@@ -276,21 +278,17 @@ class _AdvertDetailState extends State<AdvertDetail> {
         radius: 60,
         child: ClipRRect(
           borderRadius: ProjectBorderRadiusUtility().categoryBorderRadius,
-          child: Observer(
-            builder: (_) {
-              return _advm.photoUrl != ""
-                  ? FadeInImage.memoryNetwork(
-                      key: UniqueKey(),
-                      placeholder: kTransparentImage,
-                      image: _advm.photoUrl,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      PathOfBlankAvatar().path,
-                      fit: BoxFit.cover,
-                    );
-            },
-          ),
+          child: _advm.photoUrl != ""
+              ? FadeInImage.memoryNetwork(
+                  key: UniqueKey(),
+                  placeholder: kTransparentImage,
+                  image: _advm.photoUrl,
+                  fit: BoxFit.cover,
+                )
+              : Image.asset(
+                  PathOfBlankAvatar().path,
+                  fit: BoxFit.cover,
+                ),
         ),
       ),
     );
